@@ -1,0 +1,1 @@
+# static_node_app
