@@ -40,3 +40,19 @@
 .read-the-docs {
   color: #888;
 }
+.buttonRound {
+  border: none;
+  margin: 20px;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #7ec384;
+  color: #45625d;
+  transition: background-color 0.3s ease;
+}
+
+.buttonRound:hover {
+  color: #7ec384;
+  background-color: #45625d;
+}
