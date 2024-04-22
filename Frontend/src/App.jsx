@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import { IoIosAddCircle } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
+import PigRun from "./Component/PigRun.jsx";
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -36,6 +38,7 @@ function App() {
             </div>
         )}
       <p>{count}</p>
+        <div><PigRun/></div>
     </div>
   );
 }

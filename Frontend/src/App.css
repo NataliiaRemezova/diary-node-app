@@ -49,23 +49,23 @@
   cursor: pointer;
   font-size: 27px;
   border-radius: 50%;
-  background-color: #7ec384;
-  color: #45625d;
+  background-color: #d5d4f3;
+  color: #7691e2;
   transition: background-color 0.3s ease;
 }
 .buttonRound svg{
  height: 100%;
 }
 .buttonRound:hover {
-  color: #7ec384;
-  background-color: #45625d;
-  border-color: #45625d;
+  color: #d5d4f3;
+  background-color: #7691e2;
+  border-color: #7691e2;
 }
 .yesNoButton{
   margin: 10px;
 }
 .yesNoButton:hover{
-  color: #7ec384;
-  background-color: #45625d;
-  border-color: #45625d;
+  color: #d5d4f3;
+  background-color: #7691e2;
+  border-color: #7691e2;
 }
