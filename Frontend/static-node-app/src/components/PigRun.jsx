@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../Style/PigRun.css';
+import '../styles/PigRun.css';
 function PigRun() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [images, setImages] = useState([]);

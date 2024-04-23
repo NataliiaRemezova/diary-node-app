@@ -5,7 +5,7 @@
 
 .pigdiv {
     width: 100%;
-    animation: slideRight 8s infinite linear;
+    animation: slideRight 30s infinite linear;
 }
 
 @keyframes slideRight {

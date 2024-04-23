@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import { MdOutlineSaveAlt } from "react-icons/md";
+//import { IoIosAddCircle } from "react-icons/io";
+import "../styles/Entry.css";
 function Entry({ addEntry }) {
   const [newEntryText, setNewEntryText] = useState('');
 
@@ -21,13 +23,16 @@ function Entry({ addEntry }) {
   return (
     <div>
       <p>Today's Date: {todayDate()}</p>
-      <input
-        type="text"
-        value={newEntryText}
-        onChange={(e) => setNewEntryText(e.target.value)}
-        placeholder="Enter new entry"
-      />
-      <button onClick={handleAddEntry}>Add Entry</button>
+        <div>
+            <textarea
+                type="text"
+                value={newEntryText}
+                onChange={(e) => setNewEntryText(e.target.value)}
+                placeholder="Enter new entry"
+                className="entryField"
+            />
+        </div>
+      <button onClick={handleAddEntry} className="buttonRound" ><MdOutlineSaveAlt /></button>
     </div>
   );
 }
