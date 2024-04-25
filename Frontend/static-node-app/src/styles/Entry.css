@@ -1,0 +1,9 @@
+.entryField{
+    overflow: auto;
+    background-color: white;
+    color: #1a1a1a;
+    border-radius: 15px;
+    padding: 15px;
+    width: 50vw;
+    height: 20vh;
+}
