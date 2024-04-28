@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Entry from './components/Entry';
 import ListOfEntries from './components/ListOfEntries';
 import './App.css'
@@ -9,6 +9,14 @@ function App() {
   const [entryTextfield, setEntryTextfield] = useState('');
   const [entryToEdit, setEntryToEdit] = useState(null);
   const [entryToDelete, setEntryToDelete] = useState(null);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/entry/get-entries')
+      .then(response => response.json())
+      .then(data => setEntries(data))
+      .catch(error => console.error('Error fetching entries:', error));
+  }, []);
+
   const addEntry = (newEntryText) => {
     fetch('http://localhost:5000/api/entry/create-entry', {
       method: 'POST',
@@ -61,13 +69,20 @@ function App() {
   };
 
   const confirmDelete = () => {
-    setEntries(entries.filter(entry => entry._id !== entryToDelete));
-    setEntryToDelete(null);
+    fetch(`http://localhost:5000/api/entry/delete-entry/${entryToDelete}`, {
+      method: 'DELETE'
+    })
+    .then(() => {
+      setEntries(entries.filter(entry => entry._id !== entryToDelete));
+      setEntryToDelete(null);
+    })
+    .catch(error => console.error('Error deleting entry:', error));
   };
 
   const cancelDelete = () => {
     setEntryToDelete(null);
   };
+
   return (
     <div>
       <h1>Diary app</h1>
