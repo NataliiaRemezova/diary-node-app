@@ -15,8 +15,6 @@ app.use(bodyParser.json());
 // Connect to MongoDB
 connectToDb();
 
-// const apiRoutes = require('./routes/entryRoutes');
-
 app.use(express.static('../Frontend/build')); // For the future Vite build
 
 app.use('/api', router); 
