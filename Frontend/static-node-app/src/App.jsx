@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import  { useState } from 'react';
 import Entry from './components/Entry';
 import ListOfEntries from './components/ListOfEntries';
 import './App.css'
@@ -37,9 +37,7 @@ function App() {
         </div>
         <div><PigRun/></div>
       </div>
-      <div className="container_footer">
         <Footer/>
-      </div>
     </div>
   );
 }

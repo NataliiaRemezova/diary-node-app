@@ -6,10 +6,12 @@ function ListOfEntries({ entries, deleteEntry, confirmDelete, cancelDelete, entr
     return (
         <div>
             <h2>List of Entries</h2>
-            <ul>
+            <div className="divList">
                 {entries.map(entry => (
                     <div key={entry._id} className="entryList">
-                        {entry.text}
+                        <div className="singleEntryList">
+                            {entry.text}
+                        </div>
                         <div>
                             <button onClick={() => deleteEntry(entry._id)} className="buttonRound" ><MdDeleteForever /></button>
                         </div>
@@ -22,7 +24,7 @@ function ListOfEntries({ entries, deleteEntry, confirmDelete, cancelDelete, entr
                         )}
                     </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }
