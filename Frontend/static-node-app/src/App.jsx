@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Entry from './components/Entry';
 import ListOfEntries from './components/ListOfEntries';
 import './App.css'
 import PigRun from "./components/PigRun.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   const [entries, setEntries] = useState([]);
@@ -28,12 +29,17 @@ function App() {
   };
   return (
     <div>
-      <h1>Diary app</h1>
       <div>
-        <Entry addEntry={addEntry} />
-        <ListOfEntries entries={entries} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
+        <h1>Diary app</h1>
+        <div>
+          <Entry addEntry={addEntry} />
+          <ListOfEntries entries={entries} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
+        </div>
+        <div><PigRun/></div>
       </div>
-      <div><PigRun/></div>
+      <div className="container_footer">
+        <Footer/>
+      </div>
     </div>
   );
 }

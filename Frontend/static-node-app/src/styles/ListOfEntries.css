@@ -3,3 +3,13 @@
     max-width: 100vw;
     margin-bottom: 30px;
 }
+
+
+.yesNoButton{
+    margin: 10px;
+}
+.yesNoButton:hover{
+    color: #d5d4f3;
+    background-color: #7691e2;
+    border-color: #7691e2;
+}
