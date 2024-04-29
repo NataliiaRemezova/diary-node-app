@@ -1,8 +1,9 @@
 import React from 'react';
 import { MdDeleteForever } from "react-icons/md";
+import { BiSolidEdit } from "react-icons/bi";
 import "../styles/ListOfEntries.css";
 
-function ListOfEntries({ entries, deleteEntry, confirmDelete, cancelDelete, entryToDelete }) {
+function ListOfEntries({ entries, setupEditEntry, deleteEntry, confirmDelete, cancelDelete, entryToDelete }) {
     return (
         <div>
             <h2>List of Entries</h2>
@@ -10,10 +11,11 @@ function ListOfEntries({ entries, deleteEntry, confirmDelete, cancelDelete, entr
                 {entries.map(entry => (
                     <div key={entry._id} className="entryList">
                         <div className="singleEntryList">
-                            {entry.text}
+                            {entry.text} {entry.date}
                         </div>
                         <div>
                             <button onClick={() => deleteEntry(entry._id)} className="buttonRound" ><MdDeleteForever /></button>
+                            <button onClick={() => setupEditEntry(entry._id, entry.text)} className="buttonRound" ><BiSolidEdit /></button>
                         </div>
                         {entryToDelete === entry._id && (
                             <div className="modal">

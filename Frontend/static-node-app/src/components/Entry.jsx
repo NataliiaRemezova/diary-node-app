@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { MdOutlineSaveAlt } from "react-icons/md";
 //import { IoIosAddCircle } from "react-icons/io";
 import "../styles/Entry.css";
-function Entry({ addEntry }) {
-  const [newEntryText, setNewEntryText] = useState('');
+function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry }) {
 
   // Function to get today's date in the format "MM/DD/YYYY"
   const todayDate = () => {
@@ -15,9 +14,15 @@ function Entry({ addEntry }) {
   };
 
   const handleAddEntry = () => {
-    const entryTextWithDate = `${newEntryText}, ${todayDate()}`;
-    addEntry(entryTextWithDate);
-    setNewEntryText('');
+    const entryText = `${entryTextfield}`;
+    addEntry(entryText);
+    editTextfield('');
+  };
+
+  const handleEditEntry = () => {
+    const entryText = `${entryTextfield}`;
+    editEntry(entryText);
+    editTextfield('');
   };
 
   return (
@@ -26,13 +31,16 @@ function Entry({ addEntry }) {
         <div>
             <textarea
                 type="text"
-                value={newEntryText}
-                onChange={(e) => setNewEntryText(e.target.value)}
+                value={entryTextfield}
+                onChange={(e) => editTextfield(e.target.value)}
                 placeholder="Enter new entry"
                 className="entryField"
             />
         </div>
-      <button onClick={handleAddEntry} className="buttonRound" ><MdOutlineSaveAlt /></button>
+      <button onClick={handleAddEntry} >New Entry</button>
+      {entryToEdit !== null && (
+        <button onClick={handleEditEntry} >Update Entry</button>
+      )}
     </div>
   );
 }
