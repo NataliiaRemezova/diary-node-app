@@ -28,7 +28,7 @@ function App() {
     setEntryToDelete(null);
   };
   return (
-    <div>
+    <div className="appBody">
       <div>
         <h1>Diary app</h1>
         <div>
