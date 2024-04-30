@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState, useEffect } from 'react';
 import Entry from './components/Entry';
 import ListOfEntries from './components/ListOfEntries';
 import './App.css'
@@ -86,15 +86,15 @@ function App() {
   return (
       <div className="appBody">
           <div>
-              <h1>Diary app</h1>
-              <div>
+            <h1>Diary app</h1>
+            <div>
                 <Entry addEntry={addEntry} entryTextfield={entryTextfield} editTextfield={editTextfield} entryToEdit={entryToEdit} editEntry={editEntry}/>
                 <ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
-                </div>
+            </div>
             <div><PigRun/></div>
         </div>
-    <Footer/>
-</div>
+        <Footer/>
+      </div>
   );
 }
 

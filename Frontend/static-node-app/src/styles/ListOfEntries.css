@@ -1,5 +1,4 @@
 .entryList{
-    overflow: auto;
     margin-bottom: 30px;
     width: 80vw;
 }
@@ -10,10 +9,18 @@
     align-items: center;
     justify-content: center;
 }
+
 .singleEntryList{
-    width: 80vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    height: fit-content;
 }
 
+.singleEntryDate{
+    text-align: right;
+    padding-bottom: 5px;
+}
 .yesNoButton{
     margin: 10px;
 }

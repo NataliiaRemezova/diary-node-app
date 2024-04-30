@@ -10,9 +10,9 @@
 
 @keyframes slideRight {
     0% {
-        transform: translateX(calc(-80%));
+        transform: translateX(calc(-45%));
     }
     100% {
-        transform: translateX(80%);
+        transform: translateX(45%);
     }
 }

@@ -10,8 +10,13 @@ function ListOfEntries({ entries, setupEditEntry, deleteEntry, confirmDelete, ca
             <div className="divList">
                 {entries.map(entry => (
                     <div key={entry._id} className="entryList">
-                        <div className="singleEntryList">
-                            {entry.text} {entry.date}
+                        <div>
+                            <div className="singleEntryDate">
+                                {entry.date}
+                            </div>
+                            <div className="singleEntryList">
+                                {entry.text}
+                            </div>
                         </div>
                         <div>
                             <button onClick={() => deleteEntry(entry._id)} className="buttonRound" ><MdDeleteForever /></button>
