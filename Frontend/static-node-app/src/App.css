@@ -55,6 +55,8 @@
 }
 .buttonRound svg{
  height: 100%;
+ display:inline;
+ padding-bottom: 10px;
 }
 .buttonRound:hover {
   color: #d5d4f3;
