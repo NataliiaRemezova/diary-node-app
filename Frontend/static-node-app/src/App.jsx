@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import Entry from './components/Entry';
 import ListOfEntries from './components/ListOfEntries';
 import './App.css'
 import PigRun from "./components/PigRun.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   const [entries, setEntries] = useState([]);
@@ -82,16 +83,18 @@ function App() {
   const cancelDelete = () => {
     setEntryToDelete(null);
   };
-
   return (
-    <div>
-      <h1>Diary app</h1>
-      <div>
-        <Entry addEntry={addEntry} entryTextfield={entryTextfield} editTextfield={editTextfield} entryToEdit={entryToEdit} editEntry={editEntry}/>
-        <ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
+      <div className="appBody">
+          <div>
+            <h1>Diary app</h1>
+            <div>
+                <Entry addEntry={addEntry} entryTextfield={entryTextfield} editTextfield={editTextfield} entryToEdit={entryToEdit} editEntry={editEntry}/>
+                <ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
+            </div>
+            <div><PigRun/></div>
+        </div>
+        <Footer/>
       </div>
-      <div><PigRun/></div>
-    </div>
   );
 }
 

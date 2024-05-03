@@ -7,24 +7,31 @@ function ListOfEntries({ entries, setupEditEntry, deleteEntry, confirmDelete, ca
     return (
         <div>
             <h2>List of Entries</h2>
-            <ul>
+            <div className="divList">
                 {entries.map(entry => (
                     <div key={entry._id} className="entryList">
-                        {entry.text} {entry.date}
-                        <button onClick={() => deleteEntry(entry._id)} className="buttonRound" ><MdDeleteForever /></button>
-                        <button onClick={() => setupEditEntry(entry._id, entry.text)} className="buttonRound" ><BiSolidEdit /></button>
+                        <div>
+                            <div className="singleEntryDate">
+                                {entry.date}
+                            </div>
+                            <div className="singleEntryList">
+                                {entry.text}
+                            </div>
+                        </div>
+                        <div>
+                            <button onClick={() => deleteEntry(entry._id)} className="buttonRound" ><MdDeleteForever /></button>
+                            <button onClick={() => setupEditEntry(entry._id, entry.text)} className="buttonRound" ><BiSolidEdit /></button>
+                        </div>
                         {entryToDelete === entry._id && (
                             <div className="modal">
-                                <div className="modal-content">
-                                    <p>Möchten Sie wirklich löschen?</p>
-                                    <button onClick={confirmDelete} className="yesNoButton">yes</button>
-                                    <button onClick={cancelDelete} className="yesNoButton">no</button>
-                                </div>
+                                <p>Möchten Sie wirklich löschen?</p>
+                                <button onClick={confirmDelete} className="yesNoButton">yes</button>
+                                <button onClick={cancelDelete} className="yesNoButton">no</button>
                             </div>
                         )}
                     </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }

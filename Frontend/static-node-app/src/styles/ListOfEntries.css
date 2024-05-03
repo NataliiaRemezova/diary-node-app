@@ -1,5 +1,31 @@
 .entryList{
-    overflow: auto;
-    max-width: 100vw;
     margin-bottom: 30px;
+    width: 80vw;
+}
+.divList{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.singleEntryList{
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    height: fit-content;
+}
+
+.singleEntryDate{
+    text-align: right;
+    padding-bottom: 5px;
+}
+.yesNoButton{
+    margin: 10px;
+}
+.yesNoButton:hover{
+    color: #d5d4f3;
+    background-color: #7691e2;
+    border-color: #7691e2;
 }
