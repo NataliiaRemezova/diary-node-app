@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {Navbar, NavbarContent, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link} from "@nextui-org/react";
 
 const NavbarMobile = () => {
@@ -24,7 +24,7 @@ const NavbarMobile = () => {
                 index === menuItems.length - 1 ? "danger" : "foreground"
               }
               className="w-full"
-              href={index === 0 ? "/" :  index === 1 ? "/entries" : index === 2 ? "/emotions" : index === 3 ? "/logout" : "/error"}
+              href={index === 0 ? "/" :  index === 1 ? "/entries" : index === 2 ? "/emotions" : index === 3 ? "/login" : "/error"}
               size="lg"
             >
               {item}
