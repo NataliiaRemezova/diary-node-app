@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Button} from "@nextui-org/react";
 import { MdOutlineSaveAlt } from "react-icons/md";
 //import { IoIosAddCircle } from "react-icons/io";
 import "../styles/Entry.css";
@@ -37,9 +38,9 @@ function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry
                 className="entryField"
             />
         </div>
-      <button onClick={handleAddEntry} >New Entry</button>
+      <Button onClick={handleAddEntry} >New Entry</Button>
       {entryToEdit !== null && (
-        <button onClick={handleEditEntry} >Update Entry</button>
+        <Button onClick={handleEditEntry} >Update Entry</Button>
       )}
     </div>
   );

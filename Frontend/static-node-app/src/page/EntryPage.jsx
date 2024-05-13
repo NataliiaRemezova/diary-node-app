@@ -1,5 +1,6 @@
 import Entry from "../components/Entry.jsx";
 import ListOfEntries from "../components/ListOfEntries.jsx";
+import {Calendar} from "@nextui-org/calendar";
 import { useState, useEffect } from 'react';
 
 function EntryPage(){
@@ -84,6 +85,7 @@ function EntryPage(){
         <div>
             <h1 className="text-3xl font-bold underline">Diary app</h1>
             <div>
+                <Calendar />
                 <Entry addEntry={addEntry} entryTextfield={entryTextfield} editTextfield={editTextfield} entryToEdit={entryToEdit} editEntry={editEntry}/>
                 <ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
             </div>
