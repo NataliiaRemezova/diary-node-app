@@ -10,10 +10,10 @@ import {
 
 const habitRouter = express.Router();
 
-router.get('/get-all-habits', getAllHabits);
-router.get('/get-habit/:id', getHabit);
-router.post('/create-habit', createHabit);
-router.put('/update-habit/:id', updateHabit);
-router.delete('/delete-habit/:id', deleteHabit);
+habitRouter.get('/get-all-habits', getAllHabits);
+habitRouter.get('/get-habit/:id', getHabit);
+habitRouter.post('/create-habit', createHabit);
+habitRouter.put('/update-habit/:id', updateHabit);
+habitRouter.delete('/delete-habit/:id', deleteHabit);
 
-export default habitRouter ;
+export default habitRouter;
