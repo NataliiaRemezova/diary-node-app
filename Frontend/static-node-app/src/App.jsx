@@ -1,4 +1,3 @@
-
 import { useMediaQuery } from "react-responsive";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { NextUIProvider } from '@nextui-org/system';
@@ -11,7 +10,7 @@ import Home from "./page/HomePage.jsx";
 import EntryPage from "./page/EntryPage.jsx";
 
 function App() {
-  const isMobile = useMediaQuery({maxWidth:"1100px"}); // the screen size at which the device is considered mobile
+  const isMobile = useMediaQuery({ maxWidth: '1100px' }); // the screen size at which the device is considered mobile
   const navigate = useNavigate(); // navigation for single page routing with react router dom
 
   return (
