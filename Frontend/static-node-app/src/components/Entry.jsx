@@ -16,7 +16,9 @@ function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry
 
   const handleAddEntry = () => {
     const entryText = `${entryTextfield}`;
-    addEntry(entryText);
+    if(entryText!=''){
+      addEntry(entryText);
+    }
     editTextfield('');
   };
 
@@ -29,18 +31,22 @@ function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry
   return (
     <div>
       <p>Today's Date: {todayDate()}</p>
-        <div>
-            <textarea
-                type="text"
-                value={entryTextfield}
-                onChange={(e) => editTextfield(e.target.value)}
-                placeholder="Enter new entry"
-                className="entryField"
-            />
-        </div>
-      <Button onClick={handleAddEntry} >New Entry</Button>
-      {entryToEdit !== null && (
-        <Button onClick={handleEditEntry} >Update Entry</Button>
+      <div>
+        <textarea
+          type="text"
+          value={entryTextfield}
+          onChange={(e) => editTextfield(e.target.value)}
+          placeholder="Enter new entry"
+          className="entryField"
+        />
+      </div>
+      {entryTextfield.trim() !== '' && (  // Check if entryTextfield is not empty
+        <>
+          <Button onClick={handleAddEntry}>New Entry</Button>
+          {entryToEdit !== null && (
+            <Button onClick={handleEditEntry}>Update Entry</Button>
+          )}
+        </>
       )}
     </div>
   );
