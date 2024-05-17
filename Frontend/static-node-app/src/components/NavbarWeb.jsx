@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {Navbar, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
 
 const NavbarWeb = () => {
@@ -46,7 +46,7 @@ const NavbarWeb = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button as={Link} color="primary" href="logout" variant="flat">
+          <Button as={Link} color="primary" href="/login" variant="flat">
             LogOut
           </Button>
         </NavbarItem>
