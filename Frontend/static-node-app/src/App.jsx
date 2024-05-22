@@ -20,8 +20,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/entries" element={<EntryPage/>} />
+        <Route path="/login" element={<LoginPage/>} />
         {/* more routes to follow in the next sprints */}
-        <Route path="/Login" element={<LoginPage/>} />
       </Routes>
       <Footer/>
       </div>
