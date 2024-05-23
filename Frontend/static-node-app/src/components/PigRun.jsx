@@ -15,7 +15,6 @@ function PigRun() {
             }
         };
 
-        // Lade alle Bilder
         const loadImages = async () => {
             for (let i = 0; i < 4; i++) {
                 await loadImage(i);

@@ -8,7 +8,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  background-color: #e4e7d2;
+  background: linear-gradient( white , #e4e7d2);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -27,7 +27,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+
   place-items: center;
   min-width: 320px;
   min-height: 100vh;

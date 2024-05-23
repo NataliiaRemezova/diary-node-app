@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { MdOutlineSaveAlt } from "react-icons/md";
-//import { IoIosAddCircle } from "react-icons/io";
+import React from 'react';
 import "../styles/Entry.css";
+import {Button} from "@nextui-org/react";
 function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry }) {
 
   // Function to get today's date in the format "MM/DD/YYYY"
@@ -37,9 +36,9 @@ function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry
                 className="entryField"
             />
         </div>
-      <button onClick={handleAddEntry} >New Entry</button>
+      <Button onClick={handleAddEntry} >New Entry</Button>
       {entryToEdit !== null && (
-        <button onClick={handleEditEntry} >Update Entry</button>
+        <Button onClick={handleEditEntry} >Update Entry</Button>
       )}
     </div>
   );
