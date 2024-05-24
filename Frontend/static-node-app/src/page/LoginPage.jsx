@@ -1,4 +1,4 @@
-import "../styles/LoginPage.css";
+import "../styles/LoginRegPage.css";
 import AuthForm from "../components/AuthForm.jsx"
 
 function LoginPage() {
