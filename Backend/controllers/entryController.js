@@ -33,9 +33,9 @@ export const getEntryById = async (req, res) => {
 };
 
 export const updateEntry = async (req, res) => {
-    const { text, date } = req.body;
+    const { text } = req.body;
     try {
-        const entry = await Entry.findByIdAndUpdate(req.params.id, { text, date }, { new: true });
+        const entry = await Entry.findByIdAndUpdate(req.params.id, { text }, { new: true });
         if (!entry) {
             return res.status(404).send('Entry not found');
         }

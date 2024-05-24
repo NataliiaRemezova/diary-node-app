@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
 import {Button} from "@nextui-org/react";
@@ -13,21 +14,21 @@ function ListOfEntries({ entries, setupEditEntry, deleteEntry, confirmDelete, ca
                     <div key={entry._id} className="entryList">
                         <div>
                             <div className="singleEntryDate">
-                                {entry.date}
+                                {moment(entry.date).format('MMMM Do, YYYY')}
                             </div>
                             <div className="singleEntryList">
                                 {entry.text}
                             </div>
                         </div>
                         <div>
-                            <button onClick={() => deleteEntry(entry._id)} className="buttonRound" ><MdDeleteForever /></button>
-                            <button onClick={() => setupEditEntry(entry._id, entry.text)} className="buttonRound" ><BiSolidEdit /></button>
+                            <Button isIconOnly  radius="full" onClick={() => deleteEntry(entry._id)} className="buttonRound" ><MdDeleteForever /></Button>
+                            <Button isIconOnly radius="full" onClick={() => setupEditEntry(entry._id, entry.text)} className="buttonRound" ><BiSolidEdit /></Button>
                         </div>
                         {entryToDelete === entry._id && (
                             <div className="modal">
                                 <p>Möchten Sie wirklich löschen?</p>
-                                <button onClick={confirmDelete} className="yesNoButton">yes</button>
-                                <button onClick={cancelDelete} className="yesNoButton">no</button>
+                                <Button onClick={confirmDelete} className="yesNoButton">yes</Button>
+                                <Button onClick={cancelDelete} className="yesNoButton">no</Button>
                             </div>
                         )}
                     </div>
