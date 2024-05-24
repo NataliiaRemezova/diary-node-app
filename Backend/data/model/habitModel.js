@@ -1,25 +1,8 @@
 import mongoose from 'mongoose';
 
 const HabitSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-  },
-  frequency: {
-    type: String,
-    required: true,
-  },
-  completed: {
-    type: Boolean,
-    default: false,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  name: String,
+  completions: [Boolean]
 });
 
 const Habit = mongoose.model('Habit', HabitSchema);
