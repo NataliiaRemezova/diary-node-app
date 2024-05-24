@@ -1,10 +1,12 @@
 import Entry from "../components/Entry.jsx";
 import ListOfEntries from "../components/ListOfEntries.jsx";
+import {Calendar} from "@nextui-org/calendar";
 import { useState, useEffect } from 'react';
 
 function EntryPage(){
     const [entries, setEntries] = useState([]);
     const [entryTextfield, setEntryTextfield] = useState('');
+    const [entryDate, setEntryDate] = useState(null);
     const [entryToEdit, setEntryToEdit] = useState(null);
     const [entryToDelete, setEntryToDelete] = useState(null);
 
@@ -31,13 +33,10 @@ function EntryPage(){
             .catch(error => console.error('Error adding entry:', error));
     };
 
-    const setupEditEntry = (id, text) => {
+    const setupEditEntry = (id, text, date) => {
         setEntryToEdit(id);
-        editTextfield(text);
-    };
-
-    const editTextfield = (text) => {
         setEntryTextfield(text);
+        setEntryDate(date);
     };
 
     const editEntry = (newEntryText) => {
@@ -46,14 +45,14 @@ function EntryPage(){
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({text: newEntryText, date: new Date().toISOString() })
+            body: JSON.stringify({ text: newEntryText })
         })
             .then(response => response.json())
             .then((data) => {
-                // if entry is entryToEdit --> change its text and date
+                // if entry is entryToEdit --> change its text
                 setEntries(entries.map(entry => {
                     if (entry._id === entryToEdit) {
-                        return { ...entry, text: newEntryText, date: new Date().toISOString() };
+                        return { ...entry, text: newEntryText };
                     }
                     return entry;
                 }));
@@ -84,7 +83,8 @@ function EntryPage(){
         <div>
             <h1 className="text-3xl font-bold underline">Diary app</h1>
             <div>
-                <Entry addEntry={addEntry} entryTextfield={entryTextfield} editTextfield={editTextfield} entryToEdit={entryToEdit} editEntry={editEntry}/>
+                <Calendar />
+                <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} entryDate={entryDate} setEntryDate={setEntryDate} entryToEdit={entryToEdit} editEntry={editEntry}/>
                 <ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
             </div>
         </div>

@@ -1,7 +1,10 @@
-import React from 'react';
-import "../styles/Entry.css";
+import React, { useState } from 'react';
+import moment from 'moment';
 import {Button} from "@nextui-org/react";
-function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry }) {
+import { MdOutlineSaveAlt } from "react-icons/md";
+import "../styles/Entry.css";
+function Entry({ addEntry, entryTextfield, setEntryTextfield, entryDate, setEntryDate, entryToEdit, editEntry }) {
+
 
   // Function to get today's date in the format "MM/DD/YYYY"
   const todayDate = () => {
@@ -14,31 +17,43 @@ function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry
 
   const handleAddEntry = () => {
     const entryText = `${entryTextfield}`;
-    addEntry(entryText);
-    editTextfield('');
+    if(entryText!=''){
+      addEntry(entryText);
+    }
+    setEntryTextfield('');
+    setEntryDate(null);
   };
 
   const handleEditEntry = () => {
     const entryText = `${entryTextfield}`;
     editEntry(entryText);
-    editTextfield('');
+    setEntryTextfield('');
+    setEntryDate(null);
   };
 
   return (
     <div>
-      <p>Today's Date: {todayDate()}</p>
-        <div>
-            <textarea
-                type="text"
-                value={entryTextfield}
-                onChange={(e) => editTextfield(e.target.value)}
-                placeholder="Enter new entry"
-                className="entryField"
-            />
-        </div>
-      <Button onClick={handleAddEntry} >New Entry</Button>
-      {entryToEdit !== null && (
-        <Button onClick={handleEditEntry} >Update Entry</Button>
+      <p>
+        {entryDate === null 
+          ? `Today's Date: ${moment(todayDate()).format('MMMM Do, YYYY')}` 
+          : `Date of Entry: ${moment(entryDate).format('MMMM Do, YYYY')}`}
+      </p>
+      <div>
+        <textarea
+          type="text"
+          value={entryTextfield}
+          onChange={(e) => setEntryTextfield(e.target.value)}
+          placeholder="Enter new entry"
+          className="entryField"
+        />
+      </div>
+      {entryTextfield.trim() !== '' && (  // Check if entryTextfield is not empty
+        <>
+          <Button onClick={handleAddEntry}>New Entry</Button>
+          {entryToEdit !== null && (
+            <Button onClick={handleEditEntry}>Update Entry</Button>
+          )}
+        </>
       )}
     </div>
   );

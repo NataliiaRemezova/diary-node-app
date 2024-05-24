@@ -1,6 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
+import {Button} from "@nextui-org/react";
 import "../styles/ListOfEntries.css";
 import {Button} from "@nextui-org/react";
 
@@ -13,7 +15,7 @@ function ListOfEntries({ entries, setupEditEntry, deleteEntry, confirmDelete, ca
                     <div key={entry._id} className="entryList">
                         <div>
                             <div className="singleEntryDate">
-                                {entry.date}
+                                {moment(entry.date).format('MMMM Do, YYYY')}
                             </div>
                             <div className="singleEntryList">
                                 {entry.text}
