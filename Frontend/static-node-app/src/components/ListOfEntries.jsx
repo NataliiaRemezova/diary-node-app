@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidEdit } from "react-icons/bi";
+import {Button} from "@nextui-org/react";
 import "../styles/ListOfEntries.css";
 
 function ListOfEntries({ entries, setupEditEntry, deleteEntry, confirmDelete, cancelDelete, entryToDelete }) {
