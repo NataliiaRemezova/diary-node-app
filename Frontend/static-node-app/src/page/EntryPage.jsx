@@ -47,14 +47,14 @@ function EntryPage(){
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({text: newEntryText, date: new Date().toISOString() })
+            body: JSON.stringify({ text: newEntryText })
         })
             .then(response => response.json())
             .then((data) => {
-                // if entry is entryToEdit --> change its text and date
+                // if entry is entryToEdit --> change its text
                 setEntries(entries.map(entry => {
                     if (entry._id === entryToEdit) {
-                        return { ...entry, text: newEntryText, date: new Date().toISOString() };
+                        return { ...entry, text: newEntryText };
                     }
                     return entry;
                 }));
