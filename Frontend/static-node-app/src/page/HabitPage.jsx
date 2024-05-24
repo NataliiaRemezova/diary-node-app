@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import HabitList from "../components/HabitList";
-import '../styles/HabitPage.css';
+import { Button } from "@nextui-org/react";
 
 const HabitPage = () => {
-    const [habitForm, setHabitForm] = useState({ name: '', description: '', frequency: '' });
+    const [habitForm, setHabitForm] = useState({ name: '', description: '' });
     const [editMode, setEditMode] = useState(false);
     const [currentHabitId, setCurrentHabitId] = useState(null);
     const [habits, setHabits] = useState([]);
@@ -38,7 +38,7 @@ const HabitPage = () => {
         })
         .then(response => response.json())
         .then(() => {
-            setHabitForm({ name: '', description: '', frequency: '' });
+            setHabitForm({ name: '', description: '' });
             setEditMode(false);
             setCurrentHabitId(null);
             fetchHabits();
@@ -47,7 +47,7 @@ const HabitPage = () => {
     };
 
     const handleEditHabit = (habit) => {
-        setHabitForm({ name: habit.name, description: habit.description, frequency: habit.frequency });
+        setHabitForm({ name: habit.name, description: habit.description });
         setEditMode(true);
         setCurrentHabitId(habit._id);
     };
@@ -97,17 +97,9 @@ const HabitPage = () => {
                         onChange={handleChange}
                         className="mb-3 p-2 w-80 border rounded bg-white"
                     />
-                    <input
-                        type="text"
-                        name="frequency"
-                        placeholder="Frequency"
-                        value={habitForm.frequency}
-                        onChange={handleChange}
-                        className="mb-3 p-2 w-80 border rounded bg-white"
-                    />
-                    <button type="submit" className="p-2 w-80 bg-blue-500 text-white rounded">
+                    <Button type="submit" color="primary" className="w-80 bg-white text-black">
                         {editMode ? 'Update Habit' : 'Create Habit'}
-                    </button>
+                    </Button>
                 </form>
                 <HabitList habits={habits} onEditHabit={handleEditHabit} onDeleteHabit={handleDeleteHabit} onCheckboxChange={handleCheckboxChange} />
             </main>

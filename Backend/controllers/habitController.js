@@ -21,9 +21,9 @@ export const getHabit = async (req, res) => {
 };
 
 export const createHabit = async (req, res) => {
-  const { name, description, frequency } = req.body;
+  const { name, description } = req.body;
   try {
-      const newHabit = new Habit({ name, description, frequency });
+      const newHabit = new Habit({ name, description, completions: Array(7).fill(false) });
       await newHabit.save();
       res.status(201).json(newHabit);
   } catch (error) {
@@ -33,11 +33,11 @@ export const createHabit = async (req, res) => {
 
 export const updateHabit = async (req, res) => {
   const { id } = req.params;
-  const { name, description, frequency, completed } = req.body;
+  const { name, description, completions } = req.body;
   try {
       const habit = await Habit.findByIdAndUpdate(
           id,
-          { name, description, frequency, completed },
+          { name, description, completions },
           { new: true }
       );
       res.json(habit);
