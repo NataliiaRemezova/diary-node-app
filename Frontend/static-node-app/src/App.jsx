@@ -22,8 +22,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/entries" element={<EntryPage/>} />
         <Route path="/habits" element={<HabitPage/>} />
-        {/* more routes to follow in the next sprints */}
-        <Route path="/Login" element={<LoginPage/>} />
+        <Route path="/login" element={<LoginPage/>} />
       </Routes>
       <Footer/>
       </div>
