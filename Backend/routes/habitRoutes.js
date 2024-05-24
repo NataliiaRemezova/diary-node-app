@@ -1,11 +1,11 @@
-// server/routes/habitRoutes.js
 import express from 'express';
 import {
-  getAllHabits,
-  getHabit,
-  createHabit,
-  updateHabit,
-  deleteHabit,
+    getAllHabits,
+    getHabit,
+    createHabit,
+    updateHabit,
+    updateHabitCompletion,
+    deleteHabit,
 } from '../controllers/habitController.js';
 
 const habitRouter = express.Router();
@@ -14,6 +14,7 @@ habitRouter.get('/get-all-habits', getAllHabits);
 habitRouter.get('/get-habit/:id', getHabit);
 habitRouter.post('/create-habit', createHabit);
 habitRouter.put('/update-habit/:id', updateHabit);
+habitRouter.put('/update-habit-completion/:id/:index', updateHabitCompletion); // New route
 habitRouter.delete('/delete-habit/:id', deleteHabit);
 
 export default habitRouter;

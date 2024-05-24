@@ -1,0 +1,42 @@
+.habit-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.habit-header {
+    margin-bottom: 20px;
+}
+
+.habit-main {
+    width: 100%;
+}
+
+.habit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.habit-form input {
+    margin: 5px;
+    padding: 10px;
+    width: 300px;
+}
+
+.habit-form button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.actions-container button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
