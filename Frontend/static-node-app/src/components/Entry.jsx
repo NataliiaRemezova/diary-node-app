@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import {Button} from "@nextui-org/react";
 import { MdOutlineSaveAlt } from "react-icons/md";
-//import { IoIosAddCircle } from "react-icons/io";
 import "../styles/Entry.css";
 function Entry({ addEntry, entryTextfield, setEntryTextfield, entryDate, setEntryDate, entryToEdit, editEntry }) {
+
 
   // Function to get today's date in the format "MM/DD/YYYY"
   const todayDate = () => {

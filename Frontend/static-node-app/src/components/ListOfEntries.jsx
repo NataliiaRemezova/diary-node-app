@@ -21,8 +21,8 @@ function ListOfEntries({ entries, setupEditEntry, deleteEntry, confirmDelete, ca
                             </div>
                         </div>
                         <div>
-                            <Button isIconOnly onClick={() => deleteEntry(entry._id)} className="buttonRound" color="blue" ><MdDeleteForever /></Button>
-                            <Button isIconOnly onClick={() => setupEditEntry(entry._id, entry.text, entry.date)} className="buttonRound" color="blue"><BiSolidEdit /></Button>
+                            <Button isIconOnly  radius="full" onClick={() => deleteEntry(entry._id)} className="buttonRound" ><MdDeleteForever /></Button>
+                            <Button isIconOnly radius="full" onClick={() => setupEditEntry(entry._id, entry.text)} className="buttonRound" ><BiSolidEdit /></Button>
                         </div>
                         {entryToDelete === entry._id && (
                             <div className="modal">

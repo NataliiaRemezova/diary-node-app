@@ -25,7 +25,7 @@ const NavbarWeb = () => {
     }
 
   return (
-    <Navbar shouldHideOnScroll>
+    <Navbar shouldHideOnScroll style={{borderRadius: "15px"}}>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <Link href="/" aria-current="page" onClick={ toggleHome } className={`${isClickedHome ? "font-bold underline" : "foreground"}`}  >

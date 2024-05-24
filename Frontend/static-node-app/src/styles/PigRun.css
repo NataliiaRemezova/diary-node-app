@@ -1,11 +1,13 @@
 .PigRun {
     height: 50px;
     overflow-x: hidden;
+    animation: slideRight 15s infinite linear;
 }
 
 .pigdiv {
-    width: 100vw;
-    animation: slideRight 30s infinite linear;
+
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 
 @keyframes slideRight {
@@ -13,6 +15,6 @@
         transform: translateX(calc(-5%));
     }
     100% {
-        transform: translateX(100%);
+        transform: translateX(100vw);
     }
 }

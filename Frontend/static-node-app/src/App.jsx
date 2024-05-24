@@ -15,8 +15,9 @@ function App() {
   const navigate = useNavigate(); // navigation for single page routing with react router dom
 
   return (
-    <NextUIProvider navigate={navigate}> {/* for NextUI */}
+    <NextUIProvider navigate={navigate} style={{display:"flex", justifyContent:"center"}}>
      <div className="appBody">
+
       {isMobile ? ( <NavbarMobile/> ) : ( <NavbarWeb/> )}
       <Routes>
         <Route path="/" element={<Home/>} />
