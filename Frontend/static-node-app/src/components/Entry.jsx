@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Button} from "@nextui-org/react";
 import { MdOutlineSaveAlt } from "react-icons/md";
 //import { IoIosAddCircle } from "react-icons/io";
 import "../styles/Entry.css";
@@ -15,7 +16,9 @@ function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry
 
   const handleAddEntry = () => {
     const entryText = `${entryTextfield}`;
-    addEntry(entryText);
+    if(entryText!=''){
+      addEntry(entryText);
+    }
     editTextfield('');
   };
 
@@ -28,18 +31,22 @@ function Entry({ addEntry, entryTextfield, editTextfield, entryToEdit, editEntry
   return (
     <div>
       <p>Today's Date: {todayDate()}</p>
-        <div>
-            <textarea
-                type="text"
-                value={entryTextfield}
-                onChange={(e) => editTextfield(e.target.value)}
-                placeholder="Enter new entry"
-                className="entryField"
-            />
-        </div>
-      <button onClick={handleAddEntry} >New Entry</button>
-      {entryToEdit !== null && (
-        <button onClick={handleEditEntry} >Update Entry</button>
+      <div>
+        <textarea
+          type="text"
+          value={entryTextfield}
+          onChange={(e) => editTextfield(e.target.value)}
+          placeholder="Enter new entry"
+          className="entryField"
+        />
+      </div>
+      {entryTextfield.trim() !== '' && (  // Check if entryTextfield is not empty
+        <>
+          <Button onClick={handleAddEntry}>New Entry</Button>
+          {entryToEdit !== null && (
+            <Button onClick={handleEditEntry}>Update Entry</Button>
+          )}
+        </>
       )}
     </div>
   );
