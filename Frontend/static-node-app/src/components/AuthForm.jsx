@@ -43,7 +43,7 @@ function AuthForm (){
                     fullWidth
                     required
                 />
-                <Spacer y={1} />
+                <Spacer y={2} />
                 <Input
                     label="Password"
                     placeholder="Enter your password"

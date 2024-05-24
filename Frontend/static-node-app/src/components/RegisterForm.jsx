@@ -54,7 +54,7 @@ function RegisterForm (){
                     fullWidth
                     required
                 />
-                <Spacer y={1} />
+                <Spacer y={2} />
                 <Input
                     label="Email"
                     placeholder="Enter your email"
@@ -64,7 +64,7 @@ function RegisterForm (){
                     fullWidth
                     required
                 />
-                <Spacer y={1} />
+                <Spacer y={2} />
                 <Input
                     label="Password"
                     placeholder="Enter your password"
@@ -74,7 +74,7 @@ function RegisterForm (){
                     fullWidth
                     required
                 />
-                <Spacer y={1} />
+                <Spacer y={2} />
                 <Input
                     label="Confirm Password"
                     placeholder="Confirm your password"
