@@ -7,7 +7,7 @@ const NavbarMobile = () => {
   const menuItems = [
     "Home",
     "Diary Entries",
-    "Emotions Overview",
+    "Habit Tracker",
     "LogOut",
   ];
 
@@ -24,7 +24,7 @@ const NavbarMobile = () => {
                 index === menuItems.length - 1 ? "danger" : "foreground"
               }
               className="w-full"
-              href={index === 0 ? "/" :  index === 1 ? "/entries" : index === 2 ? "/emotions" : index === 3 ? "/login" : "/error"}
+              href={index === 0 ? "/" :  index === 1 ? "/entries" : index === 2 ? "/habits" : index === 3 ? "/login" : "/error"}
               size="lg"
             >
               {item}

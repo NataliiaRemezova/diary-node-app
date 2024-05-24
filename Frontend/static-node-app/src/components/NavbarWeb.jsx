@@ -6,20 +6,20 @@ const NavbarWeb = () => {
     // states and functions toggling the page you are on (used later to correctly render the link design)
     const [isClickedHome, setIsClickedHome] = useState(false);
     const [isClickedEntries, setIsClickedEntries] = useState(false);
-    const [isClickedEmotions, setIsClickedEmotions] = useState(false);
+    const [isClickedHabits, setIsClickedHabits] = useState(false);
 
     const toggleHome = () => {
         setIsClickedHome(true);
         setIsClickedEntries(false);
-        setIsClickedEmotions(false);
+        setIsClickedHabits(false);
     }
     const toggleEntries = () => {
         setIsClickedEntries(true);
         setIsClickedHome(false);
-        setIsClickedEmotions(false);
+        setIsClickedHabits(false);
     }
-    const toggleEmotions = () => {
-        setIsClickedEmotions(true);
+    const toggleHabits = () => {
+        setIsClickedHabits(true);
         setIsClickedHome(false);
         setIsClickedEntries(false);
     }
@@ -39,8 +39,8 @@ const NavbarWeb = () => {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link className={`${isClickedEmotions ? "font-bold underline" : "foreground"}`} onClick={ toggleEmotions } href="/emotions">
-            Emotions Overview
+          <Link className={`${isClickedHabits ? "font-bold underline" : "foreground"}`} onClick={ toggleHabits } href="/habits">
+            Habit Tracker
           </Link>
         </NavbarItem>
       </NavbarContent>
