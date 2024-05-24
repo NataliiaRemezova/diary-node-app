@@ -1,65 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/HabitList.css';
 
-const HabitList = ({ onEditHabit, onDeleteHabit }) => {
-    const [habits, setHabits] = useState([]);
-    const [dates, setDates] = useState([]);
+const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange }) => {
+  const [dates, setDates] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/api/habit/get-all-habits')
-            .then(response => response.json())
-            .then(data => setHabits(data))
-            .catch(err => console.error('Error fetching habits:', err));
-        
-        const days = [];
-        for (let i = 4; i >= 0; i--) {
-            const date = new Date();
-            date.setDate(date.getDate() - i);
-            days.push(date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric' }));
-        }
-        setDates(days);
-    }, []);
+  useEffect(() => {
+      const days = [];
+      for (let i = 4; i >= 0; i--) {
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+          days.push(date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric' }));
+      }
+      setDates(days);
+  }, []);
 
-    const handleCheckboxChange = (habitId, index) => {
-        fetch(`http://localhost:5000/api/habit/update-habit-completion/${habitId}/${index}`, {
-            method: 'PUT'
-        })
-        .then(response => response.json())
-        .then(data => {
-            setHabits(habits.map(habit => habit._id === data._id ? data : habit));
-        })
-        .catch(err => console.error('Error updating habit:', err));
-    };
-
-    return (
-        <div className="habit-list">
-            <div className="dates-row">
-                <div className="habit-name">Habit / Date</div>
-                {dates.map((date, index) => (
-                    <div key={index} className="date-header">{date}</div>
-                ))}
-                <div className="actions-header">Actions</div>
-            </div>
-            {habits.map(habit => (
-                <div key={habit._id} className="habit-row">
-                    <div className="habit-name">{habit.name}</div>
-                    {habit.completions.map((completed, index) => (
-                        <div key={index} className="checkbox-container">
-                            <input
-                                type="checkbox"
-                                checked={completed}
-                                onChange={() => handleCheckboxChange(habit._id, index)}
-                            />
-                        </div>
-                    ))}
-                    <div className="actions-container">
-                        <button onClick={() => onEditHabit(habit)}>Edit</button>
-                        <button onClick={() => onDeleteHabit(habit._id)}>Delete</button>
-                    </div>
-                </div>
-            ))}
-        </div>
-    );
+  return (
+      <div className="habit-list w-full">
+          <table className="w-full border-collapse">
+              <thead>
+                  <tr>
+                      <th className="border p-2 bg-gray-200">Habit / Date</th>
+                      {dates.map((date, index) => (
+                          <th key={index} className="border p-2 bg-gray-200">{date}</th>
+                      ))}
+                      <th className="border p-2 bg-gray-200">Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {habits.map(habit => (
+                      <tr key={habit._id}>
+                          <td className="border p-2">{habit.name}</td>
+                          {habit.completions.map((completed, index) => (
+                              <td key={index} className="border p-2 text-center">
+                                  <input
+                                      type="checkbox"
+                                      checked={completed}
+                                      onChange={() => onCheckboxChange(habit._id, index)}
+                                      className="cursor-pointer"
+                                  />
+                              </td>
+                          ))}
+                          <td className="border p-2">
+                              <button onClick={() => onEditHabit(habit)} className="mr-2 p-2 bg-white border rounded">Edit</button>
+                              <button onClick={() => onDeleteHabit(habit._id)} className="p-2 bg-white border rounded">Delete</button>
+                          </td>
+                      </tr>
+                  ))}
+              </tbody>
+          </table>
+      </div>
+  );
 };
 
 export default HabitList;

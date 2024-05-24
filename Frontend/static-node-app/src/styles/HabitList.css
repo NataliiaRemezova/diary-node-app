@@ -1,31 +1,30 @@
 .habit-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.dates-row, .habit-row {
-    display: flex;
     width: 100%;
 }
 
-.habit-name {
-    flex: 1;
-    padding: 10px;
-    font-weight: bold;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.date-header {
-    flex: 1;
-    padding: 10px;
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: center;
-    font-weight: bold;
+}
+
+th {
+    background-color: #f4f4f4;
 }
 
 .checkbox-container {
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+}
+
+.actions-container button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
