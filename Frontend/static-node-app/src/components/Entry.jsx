@@ -9,12 +9,12 @@ function Entry({ addEntry, entryTextfield, setEntryTextfield, selectedDate, entr
     if(entryTextfield!=''){
       addEntry(entryTextfield);
     }
-    setEntryTextfield('');
   };
 
   const handleEditEntry = () => {
-    editEntry(entryTextfield);
-    setEntryTextfield('');
+    if(entryTextfield!=''){
+      editEntry(entryTextfield);
+    }
   };
 
   return (
@@ -32,12 +32,18 @@ function Entry({ addEntry, entryTextfield, setEntryTextfield, selectedDate, entr
         />
       </div>
       {entryTextfield.trim() !== '' && (  // Check if entryTextfield is not empty
+        entryToEdit === null && (
         <>
           <Button onClick={handleAddEntry}>New Entry</Button>
-          {entryToEdit !== null && (
-            <Button onClick={handleEditEntry}>Update Entry</Button>
-          )}
         </>
+        )
+      )}
+      {entryTextfield.trim() !== '' && (
+        entryToEdit !== null && (
+          <>
+              <Button onClick={handleEditEntry}>Update Entry</Button>
+          </>
+        )
       )}
     </div>
   );

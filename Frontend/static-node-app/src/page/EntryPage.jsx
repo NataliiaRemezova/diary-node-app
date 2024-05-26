@@ -45,17 +45,22 @@ function EntryPage(){
             body: JSON.stringify({ text: newEntryText, date: new Date(selectedDate).toISOString() })
         })
             .then(response => response.json())
-            .then(data => setEntries([...entries, data]))
-            .then(() => {
-                setEntryToEdit(null);
+            .then(data => {
+                setEntries([...entries, data])
+                console.log(data);
+                setEntryToEdit(data._id);
             })
             .catch(error => console.error('Error adding entry:', error));
     };
 
-    const setupEditEntry = (id, text, date) => {
+    const setupEditEntry = (id, text) => {
         setEntryToEdit(id);
         setEntryTextfield(text);
-        setEntryDate(date);
+    };
+
+    const setupNewEntry = () => {
+        setEntryToEdit(null);
+        setEntryTextfield('');
     };
 
     const editEntry = (newEntryText) => {
@@ -75,7 +80,6 @@ function EntryPage(){
                     }
                     return entry;
                 }));
-                setEntryToEdit(null);
             })
             .catch(error => console.error('Error updating entry:', error));
     };
@@ -98,6 +102,24 @@ function EntryPage(){
     const cancelDelete = () => {
         setEntryToDelete(null);
     };
+
+    const findEntryByDate = (newDate) => {
+        //callback function to make sure setSelectedDate() happens first
+        setSelectedDate(() => {
+            const thisDate = new Date(newDate).toISOString();
+    
+            //find entry by current date
+            for (const entry of entries) {
+                if (entry.date === thisDate) {
+                    setupEditEntry(entry._id, entry.text);
+                    return newDate;
+                }
+            }
+            setupNewEntry();
+            return newDate;
+        });
+    };
+
     return(
         <div>
             <h1 className="text-3xl font-bold underline">Diary app</h1>
@@ -105,7 +127,7 @@ function EntryPage(){
                 <Calendar 
                     aria-label="Date (Controlled)" 
                     value={selectedDate} 
-                    onChange={setSelectedDate} 
+                    onChange={findEntryByDate} 
                 />
                 <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} selectedDate={selectedDate} entryToEdit={entryToEdit} editEntry={editEntry}/>
                 <ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
