@@ -3,7 +3,7 @@ import moment from 'moment';
 import {Button} from "@nextui-org/react";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import "../styles/Entry.css";
-function Entry({ addEntry, entryTextfield, setEntryTextfield, selectedDate, entryToEdit, editEntry }) {
+function Entry({ addEntry, entryTextfield, setEntryTextfield, selectedDate, entryToEdit, editEntry, deleteEntry, confirmDelete, cancelDelete, entryToDelete }) {
 
   const handleAddEntry = () => {
     if(entryTextfield!=''){
@@ -42,9 +42,19 @@ function Entry({ addEntry, entryTextfield, setEntryTextfield, selectedDate, entr
         entryToEdit !== null && (
           <>
               <Button onClick={handleEditEntry}>Update Entry</Button>
+              <Button onClick={() => deleteEntry(entryToEdit)}>Delete Entry</Button>
           </>
         )
       )}
+      <div>
+        {entryToDelete !== null && (
+          <div className="modal">
+            <p>Möchten Sie wirklich löschen?</p>
+            <Button onClick={confirmDelete} className="yesNoButton">yes</Button>
+            <Button onClick={cancelDelete} className="yesNoButton">no</Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

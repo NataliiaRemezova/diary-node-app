@@ -47,7 +47,6 @@ function EntryPage(){
             .then(response => response.json())
             .then(data => {
                 setEntries([...entries, data])
-                console.log(data);
                 setEntryToEdit(data._id);
             })
             .catch(error => console.error('Error adding entry:', error));
@@ -95,6 +94,7 @@ function EntryPage(){
             .then(() => {
                 setEntries(entries.filter(entry => entry._id !== entryToDelete));
                 setEntryToDelete(null);
+                setupNewEntry();
             })
             .catch(error => console.error('Error deleting entry:', error));
     };
@@ -129,8 +129,8 @@ function EntryPage(){
                     value={selectedDate} 
                     onChange={findEntryByDate} 
                 />
-                <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} selectedDate={selectedDate} entryToEdit={entryToEdit} editEntry={editEntry}/>
-                <ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
+                <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} selectedDate={selectedDate} entryToEdit={entryToEdit} editEntry={editEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete}/>
+                {/*<ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />*/}
             </div>
         </div>
     );
