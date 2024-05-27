@@ -1,0 +1,11 @@
+.preview{
+   height: 60vh;
+}
+.previewEntry{
+    text-align: left;
+    margin: 20px;
+}
+.previewText{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
