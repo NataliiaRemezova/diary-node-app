@@ -12,11 +12,11 @@ function PreviewEntry({ entries }) {
     }, [entries]);
 
     return (
-        <div className="preview">
-            <h2>Last Three Entries</h2>
-            <div className="">
+        <div>
+            <h2 className="previewHeader">Last Three Entries</h2>
+            <div>
                 {lastThreeEntries.map(entry => (
-                    <div key={entry._id} className="">
+                    <div key={entry._id}>
                         <div className="previewEntry">
                             <div className="previewDate">
                                 {moment(entry.date).format('MMMM Do, YYYY')}

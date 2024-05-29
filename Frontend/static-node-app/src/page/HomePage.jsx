@@ -1,9 +1,10 @@
+import {useEffect, useState} from "react";
 import PigRun from "../components/PigRun.jsx";
 import "../styles/HomePage.css";
 import { TypeAnimation } from 'react-type-animation';
 import {Button,Link} from "@nextui-org/react";
 import PreviewEntry from "../components/PreviewEntry.jsx";
-import {useEffect, useState} from "react";
+import DateTime from "../components/DateTime.jsx";
 function Home (){
     const [entries, setEntries] = useState([]);
 
@@ -40,18 +41,20 @@ function Home (){
                     style={{fontSize: '3em', fontWeight: 'bolder', color: '#1b3776'}}
                 />
             </div>
-            <div>
-                <div className="container">
+            <div className="outerContainer">
+                <div className="innerContainer">
                     <div className="blockHome box-1">
-                        <p>diary</p>
-                        <Button as={Link} color="primary" href="/entries" variant="flat" className="buttonRound">
-                            click here</Button>
+                      <DateTime/>
                     </div>
-                    <div className="blockHome box-2">
-                        <PreviewEntry entries={entries}/>
+                    <div className="blockHome box-3">
+                        <p>diary</p>
                     </div>
                 </div>
-                <div className="blockHome box-3">
+                <div className="blockHome box-2">
+                    <PreviewEntry entries={entries}/>
+                    <Button as={Link} color="primary" href="/entries" variant="flat" className="buttonRound">
+                        click here
+                    </Button>
                 </div>
             </div>
             <PigRun/>
