@@ -1,0 +1,12 @@
+.flexContainer{
+    display: flex;
+    align-items: center;
+    gap: 3vw;
+}
+.entry{
+    padding-top: 4.5vh;
+}
+.arrowButton{
+    margin-top: 1.5vh;
+    margin: 1vw;
+}
