@@ -1,5 +1,16 @@
 import mongoose from 'mongoose';
 
+const completionSchema = new mongoose.Schema({
+    date: {
+        type: Date,
+        required: true
+    },
+    completed: {
+        type: Boolean,
+        required: true
+    }
+});
+
 const habitSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -10,8 +21,8 @@ const habitSchema = new mongoose.Schema({
         required: true
     },
     completions: {
-        type: [Boolean],
-        default: Array(7).fill(false)
+        type: [completionSchema],
+        default: []
     }
 });
 

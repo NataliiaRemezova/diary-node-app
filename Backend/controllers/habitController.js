@@ -23,7 +23,7 @@ export const getHabit = async (req, res) => {
 export const createHabit = async (req, res) => {
     const { name, description } = req.body;
     try {
-        const newHabit = new Habit({ name, description, completions: Array(7).fill(false) });
+        const newHabit = new Habit({ name, description });
         await newHabit.save();
         res.status(201).json(newHabit);
     } catch (error) {
@@ -57,13 +57,19 @@ export const deleteHabit = async (req, res) => {
 };
 
 export const updateHabitCompletion = async (req, res) => {
-    const { id, index } = req.params;
+    const { id } = req.params;
+    const { date, completed } = req.body;
     try {
         const habit = await Habit.findById(id);
         if (!habit) {
             return res.status(404).json({ message: 'Habit not found' });
         }
-        habit.completions[index] = !habit.completions[index];
+        const completionIndex = habit.completions.findIndex(c => c.date.toISOString() === new Date(date).toISOString());
+        if (completionIndex >= 0) {
+            habit.completions[completionIndex].completed = completed;
+        } else {
+            habit.completions.push({ date, completed });
+        }
         await habit.save();
         res.json(habit);
     } catch (error) {
