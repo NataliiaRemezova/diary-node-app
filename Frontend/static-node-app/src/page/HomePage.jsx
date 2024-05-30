@@ -5,6 +5,7 @@ import { TypeAnimation } from 'react-type-animation';
 import {Button,Link} from "@nextui-org/react";
 import PreviewEntry from "../components/PreviewEntry.jsx";
 import DateTime from "../components/DateTime.jsx";
+import Streak from "../components/Streak.jsx";
 function Home (){
     const [entries, setEntries] = useState([]);
 
@@ -47,7 +48,7 @@ function Home (){
                       <DateTime/>
                     </div>
                     <div className="blockHome box-3">
-                        <p>diary</p>
+                        <Streak/>
                     </div>
                 </div>
                 <div className="blockHome box-2">

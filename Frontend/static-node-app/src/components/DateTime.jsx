@@ -7,12 +7,14 @@ const DateTime = () => {
 
     return (
         <div className="dateTimeDisplay">
-            <div className="date">
-                {moment().format('Do')}
-                <Spacer y={1} />
-                {moment().format('MMMM')}
+            <div className="dateAlign">
+                <div className="date">
+                    {moment().format('Do')}
+                    <Spacer y={1} />
+                    {moment().format('MMMM')}
+                </div>
+                <p className="dateText"> todays date</p>
             </div>
-            <p> todays date</p>
         </div>
     );
 };
