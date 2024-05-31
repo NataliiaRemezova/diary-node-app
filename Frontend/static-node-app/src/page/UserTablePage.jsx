@@ -33,7 +33,7 @@ function UserTable (){
     }, []);
 
     
-    const addEntry = async () => {
+    const addUser = async () => {
         setNum(num+1);
 
         fetch('http://localhost:5000/api/user/create-user', {
@@ -55,7 +55,7 @@ function UserTable (){
 
     return(
             <div>
-                <button style={{backgroundColor: "blue"}} onClick={addEntry}>Add Entry</button>
+                <button style={{backgroundColor: "blue"}} onClick={addUser}>Add User</button>
 
                 <table class="styled-table">
                     <tr>
