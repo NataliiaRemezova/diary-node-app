@@ -23,7 +23,8 @@ const habitSchema = new mongoose.Schema({
     completions: {
         type: [completionSchema],
         default: []
-    }
+    },
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
 });
 
 const Habit = mongoose.model('Habit', habitSchema);
