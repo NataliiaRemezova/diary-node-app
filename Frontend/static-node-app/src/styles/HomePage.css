@@ -19,9 +19,11 @@
     border-radius: 30px;
     margin: 15px;
 }
+
 .innerContainer{
     display: block;
 }
 .outerContainer{
     display: flex;
+
 }

@@ -6,6 +6,7 @@ import {Button,Link} from "@nextui-org/react";
 import PreviewEntry from "../components/PreviewEntry.jsx";
 import DateTime from "../components/DateTime.jsx";
 import Streak from "../components/Streak.jsx";
+
 function Home (){
     const [entries, setEntries] = useState([]);
 

@@ -2,40 +2,24 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import {Button} from "@nextui-org/react";
 import "../styles/Entry.css";
-function Entry({ addEntry, entryTextfield, setEntryTextfield, entryDate, setEntryDate, entryToEdit, editEntry }) {
-
-
-  // Function to get today's date in the format "MM/DD/YYYY"
-  const todayDate = () => {
-    const today = new Date();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const year = today.getFullYear();
-    return `${month}/${day}/${year}`;
-  };
+function Entry({ addEntry, entryTextfield, setEntryTextfield, selectedDate, entryToEdit, editEntry, deleteEntry, confirmDelete, cancelDelete, entryToDelete }) {
 
   const handleAddEntry = () => {
-    const entryText = `${entryTextfield}`;
-    if(entryText!=''){
-      addEntry(entryText);
+    if(entryTextfield!=''){
+      addEntry(entryTextfield);
     }
-    setEntryTextfield('');
-    setEntryDate(null);
   };
 
   const handleEditEntry = () => {
-    const entryText = `${entryTextfield}`;
-    editEntry(entryText);
-    setEntryTextfield('');
-    setEntryDate(null);
+    if(entryTextfield!=''){
+      editEntry(entryTextfield);
+    }
   };
 
   return (
     <div>
       <p>
-        {entryDate === null 
-          ? `Today's Date: ${moment(todayDate()).format('MMMM Do, YYYY')}` 
-          : `Date of Entry: ${moment(entryDate).format('MMMM Do, YYYY')}`}
+        {`Date of Entry: ${moment(new Date(selectedDate).toISOString()).format('MMMM Do, YYYY')}`}
       </p>
       <div>
         <textarea
@@ -47,13 +31,29 @@ function Entry({ addEntry, entryTextfield, setEntryTextfield, entryDate, setEntr
         />
       </div>
       {entryTextfield.trim() !== '' && (  // Check if entryTextfield is not empty
+        entryToEdit === null && (
         <>
           <Button onClick={handleAddEntry}>New Entry</Button>
-          {entryToEdit !== null && (
-            <Button onClick={handleEditEntry}>Update Entry</Button>
-          )}
         </>
+        )
       )}
+      {entryTextfield.trim() !== '' && (
+        entryToEdit !== null && (
+          <>
+              <Button onClick={handleEditEntry}>Update Entry</Button>
+              <Button onClick={() => deleteEntry(entryToEdit)}>Delete Entry</Button>
+          </>
+        )
+      )}
+      <div>
+        {entryToDelete !== null && (
+          <div className="modal">
+            <p>Möchten Sie wirklich löschen?</p>
+            <Button onClick={confirmDelete} className="yesNoButton">yes</Button>
+            <Button onClick={cancelDelete} className="yesNoButton">no</Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

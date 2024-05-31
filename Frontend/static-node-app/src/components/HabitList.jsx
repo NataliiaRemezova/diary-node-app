@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Checkbox } from "@nextui-org/react";
 import { Button, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import dayjs from 'dayjs';
 
 const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange }) => {
     const [dates, setDates] = useState([]);
 
     useEffect(() => {
+        const start = dayjs().startOf('week');
+        const end = dayjs().endOf('week');
         const days = [];
-        for (let i = 6; i >= 0; i--) {
-            const date = new Date();
-            date.setDate(date.getDate() - i);
-            days.push(date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric' }));
+        let currentDate = start;
+        while (currentDate <= end) {
+            days.push(currentDate.toDate());
+            currentDate = currentDate.add(1, 'day');
         }
         setDates(days);
     }, []);
@@ -22,7 +25,7 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange }) => 
                     <tr>
                         <th className="border p-2 bg-gray-200">Habit / Date</th>
                         {dates.map((date, index) => (
-                            <th key={index} className="border p-2 bg-gray-200">{date}</th>
+                            <th key={index} className="border p-2 bg-gray-200">{dayjs(date).format('ddd D')}</th>
                         ))}
                         <th className="border p-2 bg-gray-200">Actions</th>
                     </tr>
@@ -43,14 +46,17 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange }) => 
                                     </PopoverContent>
                                 </Popover>
                             </td>
-                            {habit.completions.map((completed, index) => (
-                                <td key={index} className="border p-2 text-center">
-                                    <Checkbox
-                                        isSelected={completed}
-                                        onChange={() => onCheckboxChange(habit._id, index)}
-                                    />
-                                </td>
-                            ))}
+                            {dates.map((date, index) => {
+                                const completion = habit.completions.find(c => dayjs(c.date).isSame(date, 'day'));
+                                return (
+                                    <td key={index} className="border p-2 text-center">
+                                        <Checkbox
+                                            isSelected={completion ? completion.completed : false}
+                                            onChange={() => onCheckboxChange(habit._id, date)}
+                                        />
+                                    </td>
+                                );
+                            })}
                             <td className="border p-2">
                                 <Button onClick={() => onEditHabit(habit)} className="mr-2 bg-white text-black">Edit</Button>
                                 <Popover placement="right">
