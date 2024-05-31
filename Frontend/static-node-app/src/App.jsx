@@ -9,6 +9,7 @@ import LoginPage from "./page/LoginPage.jsx";
 import Home from "./page/HomePage.jsx";
 import EntryPage from "./page/EntryPage.jsx";
 import HabitPage from "./page/HabitPage.jsx";
+import UserTable from "./page/UserTablePage.jsx";
 
 function App() {
   const isMobile = useMediaQuery({ maxWidth: '1100px' }); // the screen size at which the device is considered mobile
@@ -21,6 +22,7 @@ function App() {
       {isMobile ? ( <NavbarMobile/> ) : ( <NavbarWeb/> )}
       <Routes>
         <Route path="/" element={<Home/>} />
+        <Route path="/users" element={<UserTable/>} />
         <Route path="/entries" element={<EntryPage/>} />
         <Route path="/habits" element={<HabitPage/>} />
         <Route path="/login" element={<LoginPage/>} />

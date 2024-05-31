@@ -2,10 +2,11 @@ import PigRun from "../components/PigRun.jsx";
 import "../styles/HomePage.css";
 import { TypeAnimation } from 'react-type-animation';
 import {Button,Link} from "@nextui-org/react";
+import { useState, useEffect } from 'react';
 function Home (){
 
-    return(
-        <div >
+    return( 
+        <div> 
             <div className="headerDiv">
                 <TypeAnimation
                     sequence={[
