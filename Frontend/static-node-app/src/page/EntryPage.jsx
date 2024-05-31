@@ -2,13 +2,32 @@ import Entry from "../components/Entry.jsx";
 import ListOfEntries from "../components/ListOfEntries.jsx";
 import {Calendar} from "@nextui-org/calendar";
 import { useState, useEffect } from 'react';
+import {parseDate} from "@internationalized/date";
 
 function EntryPage(){
+
+    function formatDate(date) {
+        // Extract the year, month, and day from the date object
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+        const day = String(date.getDate()).padStart(2, '0'); // Pad single digit days with a leading zero
+    
+        // Format the date as "YYYY-MM-DD"
+        return `${year}-${month}-${day}`;
+    }
+    
+    // Get the current date
+    const currentDate = new Date();
+    
+    // Convert the current date to the "YYYY-MM-DD" format
+    const formattedDate = formatDate(currentDate);
+
+    
     const [entries, setEntries] = useState([]);
     const [entryTextfield, setEntryTextfield] = useState('');
-    const [entryDate, setEntryDate] = useState(null);
     const [entryToEdit, setEntryToEdit] = useState(null);
     const [entryToDelete, setEntryToDelete] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(parseDate(formattedDate));
 
     useEffect(() => {
         fetch('http://localhost:5000/api/entry/get-entries')
@@ -23,20 +42,24 @@ function EntryPage(){
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ text: newEntryText, date: new Date().toISOString() })
+            body: JSON.stringify({ text: newEntryText, date: new Date(selectedDate).toISOString() })
         })
             .then(response => response.json())
-            .then(data => setEntries([...entries, data]))
-            .then(() => {
-                setEntryToEdit(null);
+            .then(data => {
+                setEntries([...entries, data])
+                setEntryToEdit(data._id);
             })
             .catch(error => console.error('Error adding entry:', error));
     };
 
-    const setupEditEntry = (id, text, date) => {
+    const setupEditEntry = (id, text) => {
         setEntryToEdit(id);
         setEntryTextfield(text);
-        setEntryDate(date);
+    };
+
+    const setupNewEntry = () => {
+        setEntryToEdit(null);
+        setEntryTextfield('');
     };
 
     const editEntry = (newEntryText) => {
@@ -45,18 +68,17 @@ function EntryPage(){
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ text: newEntryText })
+            body: JSON.stringify({text: newEntryText, date: new Date(selectedDate).toISOString() })
         })
             .then(response => response.json())
             .then((data) => {
                 // if entry is entryToEdit --> change its text
                 setEntries(entries.map(entry => {
                     if (entry._id === entryToEdit) {
-                        return { ...entry, text: newEntryText };
+                        return { ...entry, text: newEntryText, date: new Date(selectedDate).toISOString() };
                     }
                     return entry;
                 }));
-                setEntryToEdit(null);
             })
             .catch(error => console.error('Error updating entry:', error));
     };
@@ -72,6 +94,7 @@ function EntryPage(){
             .then(() => {
                 setEntries(entries.filter(entry => entry._id !== entryToDelete));
                 setEntryToDelete(null);
+                setupNewEntry();
             })
             .catch(error => console.error('Error deleting entry:', error));
     };
@@ -79,13 +102,35 @@ function EntryPage(){
     const cancelDelete = () => {
         setEntryToDelete(null);
     };
+
+    const findEntryByDate = (newDate) => {
+        //callback function to make sure setSelectedDate() happens first
+        setSelectedDate(() => {
+            const thisDate = new Date(newDate).toISOString();
+    
+            //find entry by current date
+            for (const entry of entries) {
+                if (entry.date === thisDate) {
+                    setupEditEntry(entry._id, entry.text);
+                    return newDate;
+                }
+            }
+            setupNewEntry();
+            return newDate;
+        });
+    };
+
     return(
         <div>
             <h1 className="text-3xl font-bold underline">Diary app</h1>
             <div>
-                <Calendar />
-                <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} entryDate={entryDate} setEntryDate={setEntryDate} entryToEdit={entryToEdit} editEntry={editEntry}/>
-                <ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />
+                <Calendar 
+                    aria-label="Date (Controlled)" 
+                    value={selectedDate} 
+                    onChange={findEntryByDate} 
+                />
+                <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} selectedDate={selectedDate} entryToEdit={entryToEdit} editEntry={editEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete}/>
+                {/*<ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />*/}
             </div>
         </div>
     );
