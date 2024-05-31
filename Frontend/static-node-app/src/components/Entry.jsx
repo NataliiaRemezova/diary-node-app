@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import {Button} from "@nextui-org/react";
-import { MdOutlineSaveAlt } from "react-icons/md";
 import "../styles/Entry.css";
 function Entry({ addEntry, entryTextfield, setEntryTextfield, selectedDate, entryToEdit, editEntry, deleteEntry, confirmDelete, cancelDelete, entryToDelete }) {
 

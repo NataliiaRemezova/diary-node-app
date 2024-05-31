@@ -43,7 +43,7 @@ function AuthForm (){
                     fullWidth
                     required
                 />
-                <Spacer y={1} />
+                <Spacer y={2} />
                 <Input
                     label="Password"
                     placeholder="Enter your password"
@@ -59,7 +59,7 @@ function AuthForm (){
                 </Button>
                 <Spacer y = {4}/>
             </form>
-            <p> You don´t have a profil? <Link href="/">Register here</Link></p>
+            <p> You don´t have a profil? <Link href="/registration">Register here</Link></p>
         </div>
     );
 }
