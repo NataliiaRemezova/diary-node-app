@@ -136,6 +136,8 @@ function EntryPage(){
         const nextDay = String(selectedDay).padStart(2, '0');
 
         const newSelectedDate = `${selectedYear}-${currentMonth}-${nextDay}`;
+
+        findEntryByDate(newSelectedDate);
         
         // checking date to ensure no entries are added for dates ahead of the current date
         const today = new Date();
@@ -162,12 +164,13 @@ function EntryPage(){
 
         const newSelectedDate = `${selectedYear}-${currentMonth}-${previousDay}`;
 
+        findEntryByDate(newSelectedDate);
+
         setSelectedDate(parseDate(newSelectedDate));
     }
 
     return(
         <div>
-            <h1 className="text-3xl font-bold underline">Diary app</h1>
             <div className="flexContainer">
                 <div>
                     <Calendar 
