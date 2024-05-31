@@ -2,7 +2,11 @@ import Entry from "../components/Entry.jsx";
 import ListOfEntries from "../components/ListOfEntries.jsx";
 import {Calendar} from "@nextui-org/calendar";
 import { useState, useEffect } from 'react';
-import {parseDate} from "@internationalized/date";
+import {parseDate, today, getLocalTimeZone} from "@internationalized/date";
+import {Button} from "@nextui-org/react";
+import { RiArrowRightSFill } from "react-icons/ri";
+import { RiArrowLeftSFill } from "react-icons/ri"
+import "../styles/EntryPage.css";
 
 function EntryPage(){
 
@@ -120,17 +124,72 @@ function EntryPage(){
         });
     };
 
+    const changeToNextDay = () => {
+        const currentDate = new Date(selectedDate);
+        currentDate.setDate(currentDate.getDate()+1);
+
+        const selectedYear = selectedDate.year;
+        const selectedMonth = selectedDate.month;
+        const selectedDay = currentDate.getDate();
+        
+        const currentMonth = String(selectedMonth).padStart(2, '0');
+        const nextDay = String(selectedDay).padStart(2, '0');
+
+        const newSelectedDate = `${selectedYear}-${currentMonth}-${nextDay}`;
+
+        findEntryByDate(newSelectedDate);
+        
+        // checking date to ensure no entries are added for dates ahead of the current date
+        const today = new Date();
+        const nextDate = new Date(newSelectedDate);
+
+        if(nextDate > today) {
+            setSelectedDate(selectedDate);
+        } else {
+            setSelectedDate(parseDate(newSelectedDate));
+        }
+        
+    }
+
+    const changeToPreviousDay = () => {
+        const currentDate = new Date(selectedDate);
+        currentDate.setDate(currentDate.getDate()-1);
+
+        const selectedYear = selectedDate.year;
+        const selectedMonth = selectedDate.month;
+        const selectedDay = currentDate.getDate();
+        
+        const currentMonth = String(selectedMonth).padStart(2, '0');
+        const previousDay = String(selectedDay).padStart(2, '0');
+
+        const newSelectedDate = `${selectedYear}-${currentMonth}-${previousDay}`;
+
+        findEntryByDate(newSelectedDate);
+
+        setSelectedDate(parseDate(newSelectedDate));
+    }
+
     return(
         <div>
-            <h1 className="text-3xl font-bold underline">Diary app</h1>
-            <div>
-                <Calendar 
+            <div className="flexContainer">
+                <div>
+                    <Calendar 
                     aria-label="Date (Controlled)" 
                     value={selectedDate} 
-                    onChange={findEntryByDate} 
-                />
-                <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} selectedDate={selectedDate} entryToEdit={entryToEdit} editEntry={editEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete}/>
-                {/*<ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />*/}
+                    onChange={findEntryByDate}
+                    maxValue={today(getLocalTimeZone())}
+                    />
+                </div>
+                <div className="entry">
+                    <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} selectedDate={selectedDate} entryToEdit={entryToEdit} editEntry={editEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete}/>
+                    {/*<ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />*/}
+                    <Button isIconOnly aria-label="Next" className="arrowButton" onClick={changeToPreviousDay} style={{backgroundColor: "#5faf4fb0", color: "#424b35c9"}}>
+                        <RiArrowLeftSFill />
+                    </Button>    
+                    <Button isIconOnly aria-label="Previous" className="arrowButton" onClick={changeToNextDay} style={{backgroundColor: "#5faf4fb0", color: "#424b35c9"}}>
+                        <RiArrowRightSFill />
+                    </Button>  
+                </div>
             </div>
         </div>
     );
