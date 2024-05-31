@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import HabitList from "../components/HabitList";
-import { Button } from "@nextui-org/react";
+import { Button, Calendar } from "@nextui-org/react";
+import {parseDate} from '@internationalized/date';
+import { RangeCalendar } from '@nextui-org/react';
+import {today, getLocalTimeZone} from '@internationalized/date';
+import HabitList from '../components/HabitList';
 
 const HabitPage = () => {
     const [habitForm, setHabitForm] = useState({ name: '', description: '' });
@@ -62,9 +65,13 @@ const HabitPage = () => {
         .catch(err => console.error('Error deleting habit:', err));
     };
 
-    const handleCheckboxChange = (habitId, index) => {
-        fetch(`http://localhost:5000/api/habit/update-habit-completion/${habitId}/${index}`, {
-            method: 'PUT'
+    const handleCheckboxChange = (habitId, date) => {
+        fetch(`http://localhost:5000/api/habit/update-habit-completion/${habitId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ date, completed: !habit.completions.some(c => c.date === date && c.completed) })
         })
         .then(response => response.json())
         .then(() => {
@@ -79,6 +86,13 @@ const HabitPage = () => {
                 <h1 className="text-2xl font-bold">Habit Tracker</h1>
             </header>
             <main className="w-full">
+                <RangeCalendar
+                    aria-label="Date (Uncontrolled)"
+                    defaultValue={{
+                    start: today(getLocalTimeZone()),
+                    end: today(getLocalTimeZone()).add({weeks: 1}),
+                    }}
+                />
                 <form onSubmit={handleSubmit} className="flex flex-col items-center mb-5">
                     <input
                         type="text"
@@ -101,7 +115,12 @@ const HabitPage = () => {
                         {editMode ? 'Update Habit' : 'Create Habit'}
                     </Button>
                 </form>
-                <HabitList habits={habits} onEditHabit={handleEditHabit} onDeleteHabit={handleDeleteHabit} onCheckboxChange={handleCheckboxChange} />
+                <HabitList 
+                    habits={habits} 
+                    onEditHabit={handleEditHabit} 
+                    onDeleteHabit={handleDeleteHabit} 
+                    onCheckboxChange={handleCheckboxChange} 
+                />
             </main>
         </div>
     );

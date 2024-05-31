@@ -1,10 +1,32 @@
 import mongoose from 'mongoose';
 
-const HabitSchema = new mongoose.Schema({
-  name: String,
-  completions: [Boolean],
-  user: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
+const completionSchema = new mongoose.Schema({
+    date: {
+        type: Date,
+        required: true
+    },
+    completed: {
+        type: Boolean,
+        required: true
+    }
 });
 
-const Habit = mongoose.model('Habit', HabitSchema);
+const habitSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    completions: {
+        type: [completionSchema],
+        default: []
+    },
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
+});
+
+const Habit = mongoose.model('Habit', habitSchema);
+
 export default Habit;

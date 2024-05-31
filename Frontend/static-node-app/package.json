@@ -12,6 +12,7 @@
   "dependencies": {
     "@internationalized/date": "^3.5.4",
     "@nextui-org/react": "^2.3.6",
+    "dayjs": "^1.11.11",
     "framer-motion": "^11.1.7",
     "moment": "^2.30.1",
     "react": "^18.2.0",
