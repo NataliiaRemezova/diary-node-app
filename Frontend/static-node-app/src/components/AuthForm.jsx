@@ -19,6 +19,8 @@ function AuthForm (){
             const data = await response.json();
             if (data.success) {
                 // Redirect to dashboard or home page
+                setEmail('');
+                setPassword('');
                 window.location.href = '/dashboard';
             } else {
                 setError(data.message);
@@ -39,6 +41,7 @@ function AuthForm (){
                     placeholder="Enter your email"
                     type="email"
                     value={email}
+                    autoComplete="off"
                     onChange={(e) => setEmail(e.target.value)}
                     fullWidth
                     required
