@@ -1,0 +1,23 @@
+.previewEntry{
+    text-align: left;
+    margin: 30px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 2px 5px 0 rgba(187, 197, 145, 0.6);
+
+}
+.previewText{
+    margin: 5px;
+    color: #13361E;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.previewHeader{
+    margin: 10px;
+    font-weight: bolder;
+    color: #13361E;
+}
+.previewDate{
+    color: #137D57;
+}

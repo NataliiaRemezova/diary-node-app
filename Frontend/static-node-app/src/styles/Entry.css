@@ -1,11 +1,13 @@
 .entryField{
     overflow: auto;
-    background-color: white;
+    background-color: #cee7a7ad;
     color: #1a1a1a;
     border-radius: 15px;
+    border-color: #a1b87cad;
+    border-width: 2px;
     padding: 15px;
-    width: 50vw;
-    height: 20vh;
+    width: 35vw;
+    height: 60vh;
 }
 
 .buttonRound {
