@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -24,6 +25,7 @@ UserSchema.methods.findUsersByName = function() {
     .find({name: this.name})
     .exec();
 };
+UserSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 
 const User = mongoose.model('User', UserSchema);
 export default User;
