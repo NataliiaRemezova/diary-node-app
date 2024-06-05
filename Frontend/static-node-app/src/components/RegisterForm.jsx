@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {Button, Input, Link, Spacer} from "@nextui-org/react";
+import { useState } from "react";
+import { Button, Input, Link, Spacer } from "@nextui-org/react";
 
-function RegisterForm (){
+function RegisterForm() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,9 +27,12 @@ function RegisterForm (){
             });
             const data = await response.json();
             if (data.success) {
-                // Redirect to login page or display success message
                 setSuccess('Registration successful! You can now log in.');
                 setError('');
+                setName('');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
             } else {
                 setError(data.message);
             }
@@ -37,11 +40,12 @@ function RegisterForm (){
             setError('An error occurred. Please try again.');
         }
     };
-    return(
+
+    return (
         <div className="loginDiv">
             <h1 className="loginHeader">Register</h1>
-            {error && <p color="error">{error}</p>}
-            {success && <p color="success">{success}</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {success && <p style={{ color: 'green' }}>{success}</p>}
             <Spacer y={3} />
             <form onSubmit={handleSubmit}>
                 <Spacer y={1} />
@@ -94,4 +98,5 @@ function RegisterForm (){
         </div>
     );
 }
+
 export default RegisterForm;

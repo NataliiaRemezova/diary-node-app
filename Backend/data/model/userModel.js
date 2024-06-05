@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const passportLocalMongoose = require('passport-local-mongoose');
+import passportLocalMongoose from 'passport-local-mongoose';
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -17,14 +17,15 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.methods.getInfo = function() {
-    return `Name: ${this.name} Email: ${this.email}`;
+  return `Name: ${this.name} Email: ${this.email}`;
 };
-  
+
 UserSchema.methods.findUsersByName = function() {
-    return this.model("User")
-    .find({name: this.name})
-    .exec();
+  return this.model("User")
+      .find({name: this.name})
+      .exec();
 };
+
 UserSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 
 const User = mongoose.model('User', UserSchema);
