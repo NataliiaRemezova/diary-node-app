@@ -37,9 +37,9 @@ passport.deserializeUser(User.deserializeUser());
 
 // Routes
 app.post('/api/register', async (req, res) => {
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
     try {
-        await User.register(new User({ name, email }), password);
+        await User.register(new User({ username, email }), password);
         res.status(201).json({ success: true, message: 'User registered successfully' });
     } catch (err) {
         res.status(400).json({ success: false, message: 'Error registering user', error: err.message });
