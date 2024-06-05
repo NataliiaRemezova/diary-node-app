@@ -18,14 +18,16 @@ function RegisterForm() {
         }
 
         try {
-            const response = await fetch('/api/register', {
+            const response = await fetch('http://localhost:5000/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ name, email, password }),
             });
+            
             const data = await response.json();
+
             if (data.success) {
                 setSuccess('Registration successful! You can now log in.');
                 setError('');
@@ -33,11 +35,12 @@ function RegisterForm() {
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
+
             } else {
                 setError(data.message);
             }
         } catch (error) {
-            setError('An error occurred. Please try again.');
+            setError('An error occurred. Please try again.'+error);
         }
     };
 
