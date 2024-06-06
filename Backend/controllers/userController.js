@@ -16,7 +16,7 @@ export const getUsers = async (req, res) => {
         const users = await User.find().populate('entries').populate('habits');
         res.status(200).json(users);
     } catch (error) {
-      res.status(400).json({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 };
 
@@ -48,7 +48,7 @@ export const updateUser = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-  };
+};
 
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
@@ -61,4 +61,4 @@ export const deleteUser = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-  };
+};

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Input, Link, Spacer } from "@nextui-org/react";
 
 function RegisterForm() {
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,24 +23,21 @@ function RegisterForm() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ username, email, password }),
             });
-            
             const data = await response.json();
-
             if (data.success) {
                 setSuccess('Registration successful! You can now log in.');
                 setError('');
-                setName('');
+                setUsername('');
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
-
             } else {
                 setError(data.message);
             }
         } catch (error) {
-            setError('An error occurred. Please try again.'+error);
+            setError('An error occurred. Please try again.');
         }
     };
 
@@ -53,11 +50,11 @@ function RegisterForm() {
             <form onSubmit={handleSubmit}>
                 <Spacer y={1} />
                 <Input
-                    label="Name"
+                    label="Username"
                     placeholder="Enter your name"
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     fullWidth
                     required
                 />

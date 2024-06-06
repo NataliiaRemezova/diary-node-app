@@ -17,12 +17,12 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.methods.getInfo = function() {
-  return `Name: ${this.name} Email: ${this.email}`;
+  return `Name: ${this.username} Email: ${this.email}`;
 };
 
 UserSchema.methods.findUsersByName = function() {
   return this.model("User")
-      .find({name: this.name})
+      .find({username: this.username})
       .exec();
 };
 
