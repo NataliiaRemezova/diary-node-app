@@ -13,33 +13,14 @@ import cookieParser from 'cookie-parser';
 dotenv.config();  // Load environment variables
 const app = express();
 
-/*
-app.use(cookieParser());
-
-const authenticateJWT = (req, res, next) => {
-    const token = req.cookies.token;
-
-    console.log(token);
-
-    if (token) {
-        jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret', (err, user) => {
-            if (err) {
-                return res.sendStatus(403);
-            }
-
-            req.user = user;
-            next();
-        });
-    } else {
-        res.sendStatus(401);
-    }
-};
-*/
-
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // Connect to MongoDB
 connectToDb();
@@ -58,6 +39,24 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// JWT Authentication Middleware
+const authenticateJWT = (req, res, next) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.status(401).json({ success: false, message: 'Access token missing or invalid' });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret', (err, user) => {
+        if (err) {
+            return res.status(403).json({ success: false, message: 'Invalid token' });
+        }
+
+        req.user = user;
+        next();
+    });
+};
 
 // Routes
 app.post('/api/register', async (req, res) => {
@@ -84,10 +83,13 @@ app.post('/api/login', (req, res, next) => {
     })(req, res, next);
 });
 
+app.get('/api/protected', authenticateJWT, (req, res) => {
+    res.json({ success: true, message: 'This is a protected route', user: req.user });
+});
+
 app.use(express.static('../Frontend/build')); // For the future Vite build
 
 app.use('/api', router);
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

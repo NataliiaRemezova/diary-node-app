@@ -19,7 +19,6 @@ function AuthForm (){
             const data = await response.json();
             console.log(data);
             if (data.success) {
-                // Redirect to dashboard or home page
                 setEmail('');
                 setPassword('');
                 //window.location.href = '/';

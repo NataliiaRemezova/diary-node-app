@@ -24,6 +24,7 @@ function RegisterForm() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ username, email, password }),
+                credentials: 'include',
             });
             const data = await response.json();
             if (data.success) {
@@ -33,6 +34,7 @@ function RegisterForm() {
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
+                window.location.href = '/';
             } else {
                 setError(data.message);
             }
