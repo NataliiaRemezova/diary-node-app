@@ -8,9 +8,33 @@ import jwt from 'jsonwebtoken';
 import connectToDb from './data/connectToDb.js';
 import router from './routes/index.js';
 import User from './data/model/userModel.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();  // Load environment variables
 const app = express();
+
+/*
+app.use(cookieParser());
+
+const authenticateJWT = (req, res, next) => {
+    const token = req.cookies.token;
+
+    console.log(token);
+
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret', (err, user) => {
+            if (err) {
+                return res.sendStatus(403);
+            }
+
+            req.user = user;
+            next();
+        });
+    } else {
+        res.sendStatus(401);
+    }
+};
+*/
 
 // Middleware
 app.use(cors());
@@ -52,14 +76,18 @@ app.post('/api/login', (req, res, next) => {
         if (!user) {
             return res.status(400).json({ success: false, message: info.message });
         }
+
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
-        res.json({ success: true, token });
+        res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+        console.log(token);
+        res.json({ success: true });
     })(req, res, next);
 });
 
 app.use(express.static('../Frontend/build')); // For the future Vite build
 
 app.use('/api', router);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
