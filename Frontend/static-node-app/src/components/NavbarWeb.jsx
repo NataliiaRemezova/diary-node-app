@@ -7,22 +7,32 @@ const NavbarWeb = () => {
     const [isClickedHome, setIsClickedHome] = useState(false);
     const [isClickedEntries, setIsClickedEntries] = useState(false);
     const [isClickedHabits, setIsClickedHabits] = useState(false);
+    const [isClickedLogin, setIsClickedLogin] = useState(true);
 
     const toggleHome = () => {
         setIsClickedHome(true);
         setIsClickedEntries(false);
         setIsClickedHabits(false);
+        setIsClickedLogin(true);
     }
     const toggleEntries = () => {
         setIsClickedEntries(true);
         setIsClickedHome(false);
         setIsClickedHabits(false);
+        setIsClickedLogin(true);
     }
     const toggleHabits = () => {
         setIsClickedHabits(true);
         setIsClickedHome(false);
         setIsClickedEntries(false);
+        setIsClickedLogin(true);
     }
+    const toggleLogin = () => {
+      setIsClickedHome(false);
+      setIsClickedEntries(false);
+      setIsClickedHabits(false);
+      setIsClickedLogin(!isClickedLogin);
+  }
 
   return (
     <Navbar shouldHideOnScroll style={{borderRadius: "15px"}}>
@@ -46,8 +56,8 @@ const NavbarWeb = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button style={{backgroundColor: "#cfe7a7c9", color: "#2cb14de1"}} as={Link} color="primary" href="/login" variant="flat">
-            LogOut
+          <Button style={{backgroundColor: "#cfe7a7c9", color: "#2cb14de1"}} as={Link} color="primary" onClick={ toggleLogin } href="/login" variant="flat">
+            {`${isClickedLogin ? "Logout" : "Login"}`}
           </Button>
         </NavbarItem>
       </NavbarContent>
