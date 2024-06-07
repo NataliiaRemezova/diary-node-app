@@ -21,7 +21,7 @@ function AuthForm (){
             if (data.success) {
                 setEmail('');
                 setPassword('');
-                //window.location.href = '/';
+                window.location.href = '/';
             } else {
                 setError(data.message);
             }

@@ -1,13 +1,13 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import PigRun from "../components/PigRun.jsx";
 import "../styles/HomePage.css";
 import { TypeAnimation } from 'react-type-animation';
-import {Button,Link} from "@nextui-org/react";
+import { Button, Link } from "@nextui-org/react";
 import PreviewEntry from "../components/PreviewEntry.jsx";
 import DateTime from "../components/DateTime.jsx";
 import Streak from "../components/Streak.jsx";
 
-function Home (){
+function Home() {
     const [entries, setEntries] = useState([]);
 
     useEffect(() => {
@@ -26,8 +26,10 @@ function Home (){
 
         fetchEntries();
     }, []);
+
     return (
         <div>
+
             <div className="headerDiv">
                 <TypeAnimation
                     sequence={[
@@ -40,28 +42,28 @@ function Home (){
                     ]}
                     speed={800}
                     repeat={5}
-                    style={{fontSize: '3em', fontWeight: 'bolder', color: '#1b3776'}}
+                    style={{ fontSize: '3em', fontWeight: 'bolder', color: '#1b3776' }}
                 />
             </div>
             <div className="outerContainer">
                 <div className="innerContainer">
                     <div className="blockHome box-1">
-                      <DateTime/>
+                        <DateTime />
                     </div>
                     <div className="blockHome box-3">
-                        <Streak/>
+                        <Streak />
                     </div>
                 </div>
                 <div className="blockHome box-2">
-                    <PreviewEntry entries={entries}/>
+                    <PreviewEntry entries={entries} />
                     <Button as={Link} color="primary" href="/entries" variant="flat" className="buttonRound">
                         click here
                     </Button>
                 </div>
             </div>
-            <PigRun/>
+            <PigRun />
         </div>
     );
 }
 
-export default Home
+export default Home;

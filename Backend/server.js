@@ -10,7 +10,7 @@ import router from './routes/index.js';
 import User from './data/model/userModel.js';
 import cookieParser from 'cookie-parser';
 
-dotenv.config();  // Load environment variables
+dotenv.config();
 const app = express();
 
 // Middleware
@@ -78,7 +78,6 @@ app.post('/api/login', (req, res, next) => {
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
-        console.log(token);
         res.json({ success: true });
     })(req, res, next);
 });
