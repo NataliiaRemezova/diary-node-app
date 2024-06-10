@@ -16,7 +16,10 @@ const HabitPage = () => {
     }, []);
 
     const fetchHabits = () => {
-        fetch('http://localhost:5000/api/habit/get-all-habits')
+        fetch('http://localhost:5000/api/habit/get-all-habits',
+            {method: 'GET',
+                credentials: 'include'
+            })
             .then(response => response.json())
             .then(data => setHabits(data))
             .catch(err => console.error('Error fetching habits:', err));
@@ -37,6 +40,7 @@ const HabitPage = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(habitForm)
         })
         .then(response => response.json())
@@ -57,7 +61,8 @@ const HabitPage = () => {
 
     const handleDeleteHabit = (id) => {
         fetch(`http://localhost:5000/api/habit/delete-habit/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            credentials: 'include',
         })
         .then(() => {
             fetchHabits();
@@ -69,7 +74,8 @@ const HabitPage = () => {
         fetch(`http://localhost:5000/api/habit/update-habit-completion/${habitId}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                credentials: 'include',
             },
             body: JSON.stringify({ date, completed: !habit.completions.some(c => c.date === date && c.completed) })
         })

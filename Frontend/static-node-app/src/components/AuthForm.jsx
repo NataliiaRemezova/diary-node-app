@@ -22,7 +22,7 @@ function AuthForm (){
             if (data.success) {
                 setEmail('');
                 setPassword('');
-                //window.location.href = '/';
+                window.location.href = '/';
                 console.log("data login success");
             } else {
                 setError(data.message);

@@ -9,11 +9,14 @@ import Streak from "../components/Streak.jsx";
 
 function Home() {
     const [entries, setEntries] = useState([]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         const fetchEntries = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/entry/get-entries');
+                const response = await fetch('http://localhost:5000/api/entry/get-entries',{
+                    credentials: 'include',
+                });
                 if (!response.ok) {
                     throw new Error('Fehler beim Abrufen der Einträge');
                 }
@@ -25,6 +28,25 @@ function Home() {
         };
 
         fetchEntries();
+    }, []);
+
+    useEffect(() => {
+        const checkAuthentication = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/check-auth', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsAuthenticated(data.authenticated);
+                }
+            } catch (error) {
+                console.error('Error checking authentication:', error);
+            }
+        };
+
+        checkAuthentication();
     }, []);
 
     return (
@@ -45,6 +67,7 @@ function Home() {
                     style={{ fontSize: '3em', fontWeight: 'bolder', color: '#1b3776' }}
                 />
             </div>
+            {isAuthenticated ? (
             <div className="outerContainer">
                 <div className="innerContainer">
                     <div className="blockHome box-1">
@@ -61,6 +84,7 @@ function Home() {
                     </Button>
                 </div>
             </div>
+            ) : ( null)}
             <PigRun />
         </div>
     );

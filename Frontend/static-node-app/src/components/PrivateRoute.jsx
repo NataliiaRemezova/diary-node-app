@@ -27,7 +27,7 @@ const PrivateRoute = ({ children }) => {
     }, []);
 
     if (isAuthenticated === null) {
-        // Zeige einen Ladestatus oder ein Spinner an
+
         return <div>Loading...</div>;
     }
 

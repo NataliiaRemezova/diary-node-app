@@ -53,6 +53,7 @@ const authenticateJWT = (req, res, next) => {
             return res.status(403).json({ success: false, message: 'Invalid token' });
         }
         req.user = user;
+        next();
     });
 };
 
@@ -92,6 +93,10 @@ app.post('/api/logout', (req, res) => {
 });
 app.get('/api/protected', authenticateJWT, (req, res) => {
     res.json({ success: true, message: 'This is a protected route', user: req.user });
+});
+
+app.get('/api/check-auth', authenticateJWT, (req, res) => {
+    res.json({ success: true, authenticated: true });
 });
 
 app.use(express.static('../Frontend/build')); // For the future Vite build
