@@ -15,13 +15,15 @@ function AuthForm (){
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password }),
+                credentials: 'include',
             });
             const data = await response.json();
-            console.log(data);
+            console.log('Response data:', data);
             if (data.success) {
                 setEmail('');
                 setPassword('');
-                window.location.href = '/';
+                //window.location.href = '/';
+                console.log("data login success");
             } else {
                 setError(data.message);
             }
