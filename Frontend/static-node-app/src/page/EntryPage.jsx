@@ -34,7 +34,10 @@ function EntryPage(){
     const [selectedDate, setSelectedDate] = useState(parseDate(formattedDate));
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/entry/get-entries')
+        fetch('http://localhost:5000/api/entry/get-entries', {
+            method: 'GET',
+            credentials: 'include'
+        })
             .then(response => response.json())
             .then(data => setEntries(data))
             .catch(error => console.error('Error fetching entries:', error));

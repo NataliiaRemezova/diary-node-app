@@ -13,9 +13,9 @@ import cookieParser from 'cookie-parser';
 dotenv.config();  // Load environment variables
 const app = express();
 
-/*
 app.use(cookieParser());
 
+/*
 const authenticateJWT = (req, res, next) => {
     const token = req.cookies.token;
 
@@ -37,7 +37,10 @@ const authenticateJWT = (req, res, next) => {
 */
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Replace with your frontend URL
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -78,8 +81,8 @@ app.post('/api/login', (req, res, next) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
-        res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
-        console.log(token);
+        cookies.set('token', token, { httpOnly: true });
+        
         res.json({ success: true });
     })(req, res, next);
 });
