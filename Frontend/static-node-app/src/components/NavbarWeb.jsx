@@ -3,8 +3,7 @@ import {Navbar, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react
 
 const NavbarWeb = () => {
 
-    // states and functions toggling the page you are on (used later to correctly render the link design)
-    const [isClickedHome, setIsClickedHome] = useState(false);
+   const [isClickedHome, setIsClickedHome] = useState(false);
     const [isClickedEntries, setIsClickedEntries] = useState(false);
     const [isClickedHabits, setIsClickedHabits] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);

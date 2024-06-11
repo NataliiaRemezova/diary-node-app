@@ -11,6 +11,11 @@
     border-radius: 15px;
     box-shadow: 10px 5px 5px #bbc591;
 }
+.headerFont{
+    font-size: 35px;
+    justify-content: center;
+    align-content: center;
+}
 .blockHome{
     width: 38vw;
     min-height: 30vh;
@@ -25,5 +30,40 @@
 }
 .outerContainer{
     display: flex;
-
+    justify-content: center;
 }
+.blockFeature{
+    width: 20vw;
+    min-height: 30vh;
+    background-color: rgb(1,1,1,0.05);
+    box-shadow: 10px 5px 5px #bbc591;
+    border-radius: 30px;
+    margin: 30px;
+}
+.blockFeature:hover{
+    box-shadow: 15px 10px 10px #bbc591;
+}
+.introText {
+    position: relative;
+    height: 40vh;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    overflow: hidden;
+    color: #13361E;
+}
+
+.ellipse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 25%;
+    height: 190%;
+    background: radial-gradient(ellipse, rgba(118, 145, 226, 0.5), rgba(118, 145, 226, 0) 70%);
+    transform: translate(-50%, -50%) rotate(75deg);
+    z-index: -1;
+    border-radius: 50%;
+}
+
