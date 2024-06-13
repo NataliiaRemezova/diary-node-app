@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Checkbox } from "@nextui-org/react";
-import { Button, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import { Checkbox, Button, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import dayjs from 'dayjs';
 
-const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange }) => {
+const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange, currentWeek }) => {
     const [dates, setDates] = useState([]);
 
     useEffect(() => {
-        const start = dayjs().startOf('week');
-        const end = dayjs().endOf('week');
+        const start = currentWeek.startOf('week');
+        const end = currentWeek.endOf('week');
         const days = [];
         let currentDate = start;
         while (currentDate <= end) {
@@ -16,7 +15,7 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange }) => 
             currentDate = currentDate.add(1, 'day');
         }
         setDates(days);
-    }, []);
+    }, [currentWeek]);
 
     return (
         <div className="habit-list w-full">
@@ -40,7 +39,6 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange }) => 
                                     </PopoverTrigger>
                                     <PopoverContent>
                                         <div className="p-2">
-                                            <div className="font-bold">{habit.name}</div>
                                             <div>{habit.description}</div>
                                         </div>
                                     </PopoverContent>
