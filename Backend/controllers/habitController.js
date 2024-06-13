@@ -1,8 +1,13 @@
 import Habit from '../data/model/habitModel.js';
+import User from '../data/model/userModel.js';
 
 export const getAllHabits = async (req, res) => {
     try {
-        const habits = await Habit.find();
+        const userId = req.user.id;
+
+        // Find entries that belong to the current user
+        const habits = await Habit.find({ user: userId });
+
         res.json(habits);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -22,9 +27,19 @@ export const getHabit = async (req, res) => {
 
 export const createHabit = async (req, res) => {
     const { name, description } = req.body;
+    const userId = req.user.id; // Access user ID from the JWT token
     try {
         const newHabit = new Habit({ name, description });
         await newHabit.save();
+
+        // Find the user and update their list of habits
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send({ error: 'User not found' });
+        }
+        user.habits.push(newHabit._id);
+        await user.save();
+
         res.status(201).json(newHabit);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -49,7 +64,14 @@ export const updateHabit = async (req, res) => {
 export const deleteHabit = async (req, res) => {
     const { id } = req.params;
     try {
-        await Habit.findByIdAndDelete(id);
+        const habit = await Habit.findByIdAndDelete(id);
+        if (!habit) {
+            return res.status(404).send('Habit not found');
+        }
+
+        // Find the user and remove the habit ID from their habits array
+        await User.findByIdAndUpdate(habit.user, { $pull: { habits: habit._id } });
+
         res.json({ message: 'Habit deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });

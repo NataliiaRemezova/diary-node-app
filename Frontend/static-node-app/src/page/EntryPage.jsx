@@ -23,7 +23,7 @@ function EntryPage() {
     const [entryToEdit, setEntryToEdit] = useState(null);
     const [entryToDelete, setEntryToDelete] = useState(null);
     const [selectedDate, setSelectedDate] = useState(parseDate(formattedDate));
-
+    
     useEffect(() => {
         const fetchEntries = async () => {
             try {

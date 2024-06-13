@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import { createEntry, getEntries, getEntryById, updateEntry, deleteEntry } from '../controllers/entryController.js';
+import authenticateJWT from '../middleware/authenticateJWT.js';
 
 const entryRouter = Router();
 
-entryRouter.post('/create-entry', createEntry);
-entryRouter.get('/get-entries', getEntries);
-entryRouter.get('/get-entry/:id', getEntryById);
-entryRouter.put('/update-entry/:id', updateEntry);
-entryRouter.delete('/delete-entry/:id', deleteEntry);
+entryRouter.post('/create-entry', authenticateJWT, createEntry);
+entryRouter.get('/get-entries', authenticateJWT, getEntries);
+entryRouter.get('/get-entry/:id', authenticateJWT, getEntryById);
+entryRouter.put('/update-entry/:id', authenticateJWT, updateEntry);
+entryRouter.delete('/delete-entry/:id', authenticateJWT, deleteEntry);
 
 export default entryRouter;
