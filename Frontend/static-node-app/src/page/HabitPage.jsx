@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 const HabitPage = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const [habitForm, setHabitForm] = useState({ name: '', description: '' });
+    const [habitForm, setHabitForm] = useState({ name: '', description: '', startDate: '', endDate: '' });
     const [editMode, setEditMode] = useState(false);
     const [currentHabitId, setCurrentHabitId] = useState(null);
     const [habits, setHabits] = useState([]);
@@ -41,7 +41,7 @@ const HabitPage = () => {
         })
         .then(response => response.json())
         .then(() => {
-            setHabitForm({ name: '', description: '' });
+            setHabitForm({ name: '', description: '', startDate: '', endDate: '' });
             setEditMode(false);
             setCurrentHabitId(null);
             onOpenChange(false);
@@ -51,7 +51,12 @@ const HabitPage = () => {
     };
 
     const handleEditHabit = (habit) => {
-        setHabitForm({ name: habit.name, description: habit.description });
+        setHabitForm({ 
+            name: habit.name, 
+            description: habit.description, 
+            startDate: dayjs(habit.startDate).format('YYYY-MM-DD'), 
+            endDate: dayjs(habit.endDate).format('YYYY-MM-DD') 
+        });
         setEditMode(true);
         setCurrentHabitId(habit._id);
         onOpenChange(true);
@@ -67,13 +72,13 @@ const HabitPage = () => {
         .catch(err => console.error('Error deleting habit:', err));
     };
 
-    const handleCheckboxChange = (habitId, date) => {
+    const handleCheckboxChange = (habitId, date, checked) => {
         fetch(`http://localhost:5000/api/habit/update-habit-completion/${habitId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ date, completed: true })
+            body: JSON.stringify({ date, completed: checked })
         })
         .then(response => response.json())
         .then(() => {
@@ -131,6 +136,24 @@ const HabitPage = () => {
                                             placeholder="Description"
                                             value={habitForm.description}
                                             onChange={handleChange}
+                                            className="mb-3 p-2 w-80 border rounded bg-white"
+                                        />
+                                        <Input
+                                            type="date"
+                                            name="startDate"
+                                            placeholder="Start Date"
+                                            value={habitForm.startDate}
+                                            onChange={handleChange}
+                                            required
+                                            className="mb-3 p-2 w-80 border rounded bg-white"
+                                        />
+                                        <Input
+                                            type="date"
+                                            name="endDate"
+                                            placeholder="End Date"
+                                            value={habitForm.endDate}
+                                            onChange={handleChange}
+                                            required
                                             className="mb-3 p-2 w-80 border rounded bg-white"
                                         />
                                     </form>
