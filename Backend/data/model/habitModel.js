@@ -8,8 +8,9 @@ const completionSchema = new mongoose.Schema({
 const habitSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
   completions: [completionSchema],
-  // user: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
 });
 
 const Habit = mongoose.model('Habit', habitSchema);
