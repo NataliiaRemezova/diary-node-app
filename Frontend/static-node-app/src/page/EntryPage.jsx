@@ -32,6 +32,10 @@ function EntryPage(){
     const [entryToEdit, setEntryToEdit] = useState(null);
     const [entryToDelete, setEntryToDelete] = useState(null);
     const [selectedDate, setSelectedDate] = useState(parseDate(formattedDate));
+    const [backgroundNextArrow, setBackgroundNextArrow] = useState("#585a58b0");
+    const [foregroundNextArrow, setForegroundNextArrow] = useState("#353830c9");
+    const [backgroundPreviousArrow, setBackgroundPreviousArrow] = useState("#5faf4fb0");
+    const [foregroundPreviousArrow, setForegroundPreviousArrow] = useState("#424b35c9");
 
     useEffect(() => {
         fetch('http://localhost:5000/api/entry/get-entries')
@@ -128,6 +132,14 @@ function EntryPage(){
         const currentDate = new Date(selectedDate);
         currentDate.setDate(currentDate.getDate()+1);
 
+        // checking date to ensure no entries are added for dates ahead of the current date
+        const today = new Date();
+        if(currentDate.getDate() > today.getDate()) currentDate.setDate(today.getDate());
+        if(currentDate.getDate() >= today.getDate()) {
+            setBackgroundNextArrow("#585a58b0");
+            setForegroundNextArrow("#353830c9");
+        }
+
         const selectedYear = selectedDate.year;
         const selectedMonth = selectedDate.month;
         const selectedDay = currentDate.getDate();
@@ -138,22 +150,23 @@ function EntryPage(){
         const newSelectedDate = `${selectedYear}-${currentMonth}-${nextDay}`;
 
         findEntryByDate(newSelectedDate);
-        
-        // checking date to ensure no entries are added for dates ahead of the current date
-        const today = new Date();
-        const nextDate = new Date(newSelectedDate);
 
-        if(nextDate > today) {
-            setSelectedDate(selectedDate);
-        } else {
-            setSelectedDate(parseDate(newSelectedDate));
-        }
-        
+        setSelectedDate(parseDate(newSelectedDate));
+
+        setBackgroundPreviousArrow("#5faf4fb0");
+        setForegroundPreviousArrow("#424b35c9");
     }
 
     const changeToPreviousDay = () => {
         const currentDate = new Date(selectedDate);
         currentDate.setDate(currentDate.getDate()-1);
+
+        if(currentDate.getDate() == 31) currentDate.setDate(1);
+        if(currentDate.getDate() == 1) {
+            setBackgroundPreviousArrow("#585a58b0"); // gray
+            setForegroundPreviousArrow("#424b35c9"); // gray
+        }
+        
 
         const selectedYear = selectedDate.year;
         const selectedMonth = selectedDate.month;
@@ -167,6 +180,9 @@ function EntryPage(){
         findEntryByDate(newSelectedDate);
 
         setSelectedDate(parseDate(newSelectedDate));
+
+        setBackgroundNextArrow("#5faf4fb0");
+        setForegroundNextArrow("#424b35c9");
     }
 
     return(
@@ -183,10 +199,10 @@ function EntryPage(){
                 <div className="entry">
                     <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} selectedDate={selectedDate} entryToEdit={entryToEdit} editEntry={editEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete}/>
                     {/*<ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />*/}
-                    <Button isIconOnly aria-label="Next" className="arrowButton" onClick={changeToPreviousDay} style={{backgroundColor: "#5faf4fb0", color: "#424b35c9"}}>
+                    <Button isIconOnly aria-label="Previous" className="arrowButton" onClick={changeToPreviousDay} style={{backgroundColor: backgroundPreviousArrow, color: foregroundPreviousArrow}}>
                         <RiArrowLeftSFill />
                     </Button>    
-                    <Button isIconOnly aria-label="Previous" className="arrowButton" onClick={changeToNextDay} style={{backgroundColor: "#5faf4fb0", color: "#424b35c9"}}>
+                    <Button isIconOnly aria-label="Next" className="arrowButton" onClick={changeToNextDay} style={{backgroundColor: backgroundNextArrow, color: foregroundNextArrow}}>
                         <RiArrowRightSFill />
                     </Button>  
                 </div>
