@@ -6,23 +6,36 @@ const NavbarWeb = () => {
    const [isClickedHome, setIsClickedHome] = useState(false);
     const [isClickedEntries, setIsClickedEntries] = useState(false);
     const [isClickedHabits, setIsClickedHabits] = useState(false);
+    /*
+    //sprint_07_matthis
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    */
+    const [isClickedLogin, setIsClickedLogin] = useState(true);
 
     const toggleHome = () => {
         setIsClickedHome(true);
         setIsClickedEntries(false);
         setIsClickedHabits(false);
+        setIsClickedLogin(true);
     }
     const toggleEntries = () => {
         setIsClickedEntries(true);
         setIsClickedHome(false);
         setIsClickedHabits(false);
+        setIsClickedLogin(true);
     }
     const toggleHabits = () => {
         setIsClickedHabits(true);
         setIsClickedHome(false);
         setIsClickedEntries(false);
+        setIsClickedLogin(true);
     }
+    const toggleLogin = () => {
+      setIsClickedHome(false);
+      setIsClickedEntries(false);
+      setIsClickedHabits(false);
+      setIsClickedLogin(!isClickedLogin);
+  }
 
     useEffect(() => {
         const checkAuthentication = async () => {
@@ -84,6 +97,8 @@ const NavbarWeb = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
+          /*
+          //sprint_07_matthis
             {isAuthenticated ? (
                 <Button style={{ backgroundColor: "#cfe7a7c9", color: "#2cb14de1" }} onClick={handleLogout} color="primary" variant="flat">
                     Logout
@@ -93,6 +108,10 @@ const NavbarWeb = () => {
                     Login
                 </Button>
             )}
+          */
+          <Button style={{backgroundColor: "#cfe7a7c9", color: "#2cb14de1"}} as={Link} color="primary" onClick={ toggleLogin } href="/login" variant="flat">
+            {`${isClickedLogin ? "Logout" : "Login"}`}
+          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
