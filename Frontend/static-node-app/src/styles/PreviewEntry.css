@@ -1,18 +1,24 @@
 .previewEntry{
     text-align: left;
+    height: 90px;
     margin: 30px;
+    margin-bottom: 10px;
     padding: 10px;
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.5);
     box-shadow: inset 2px 5px 0 rgba(187, 197, 145, 0.6);
+    overflow: hidden; /* Ensure content doesn't overflow */
 
 }
-.previewText{
-    margin: 5px;
+.previewText {
+    margin: 5px 0 0 0;
     color: #13361E;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: hidden; /* Ensures content doesn't overflow the container */
+    text-overflow: ellipsis; /* Adds ellipsis (...) when text overflows */
+    max-height: calc(100% - 15px); /* Adjusts height to fit within the parent container */
+    display: block;
 }
+
 .previewHeader{
     margin: 10px;
     font-weight: bolder;
