@@ -41,20 +41,26 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // JWT Authentication Middleware
-const authenticateJWT = (req, res, next) => {
+const authenticateJWT = async (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
         return res.status(401).json({ success: false, message: 'Access token missing or invalid' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret', (err, user) => {
-        if (err) {
-            return res.status(403).json({ success: false, message: 'Invalid token' });
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret');
+        const user = await User.findById(decoded.id).select('username email'); // Fetch user details
+
+        if (!user) {
+            return res.status(403).json({ success: false, message: 'User not found' });
         }
-        req.user = user;
+
+        req.user = user; // Attach user details to request object
         next();
-    });
+    } catch (err) {
+        return res.status(403).json({ success: false, message: 'Invalid token' });
+    }
 };
 
 // Routes
@@ -96,7 +102,7 @@ app.get('/api/protected', authenticateJWT, (req, res) => {
 });
 
 app.get('/api/check-auth', authenticateJWT, (req, res) => {
-    res.json({ success: true, authenticated: true });
+    res.json({ success: true, authenticated: true, user: req.user });
 });
 
 app.use(express.static('../Frontend/build')); // For the future Vite build
