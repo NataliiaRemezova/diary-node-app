@@ -1,8 +1,9 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {Navbar, NavbarContent, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link} from "@nextui-org/react";
 
 const NavbarMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const menuItems = [
     "Home",
@@ -11,6 +12,39 @@ const NavbarMobile = () => {
     "LogOut",
   ];
 
+    useEffect(() => {
+        const checkAuthentication = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/check-auth', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsAuthenticated(data.authenticated);
+                }
+            } catch (error) {
+                console.error('Error checking authentication:', error);
+            }
+        };
+
+        checkAuthentication();
+    }, []);
+
+    const handleLogout = () => {
+        fetch('http://localhost:5000/api/logout', {
+            method: 'POST',
+            credentials: 'include'
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    setIsAuthenticated(false);
+                    window.location.href = '/';
+                }
+            })
+            .catch(err => console.error('Error logging out:', err));
+    };
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} isBlurred="false" className="static">
       <NavbarContent>
