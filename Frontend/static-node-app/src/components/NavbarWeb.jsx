@@ -6,10 +6,10 @@ const NavbarWeb = () => {
    const [isClickedHome, setIsClickedHome] = useState(false);
     const [isClickedEntries, setIsClickedEntries] = useState(false);
     const [isClickedHabits, setIsClickedHabits] = useState(false);
-    /*
+    
     //sprint_07_matthis
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    */
+    
     const [isClickedLogin, setIsClickedLogin] = useState(true);
 
     const toggleHome = () => {
@@ -35,6 +35,7 @@ const NavbarWeb = () => {
       setIsClickedEntries(false);
       setIsClickedHabits(false);
       setIsClickedLogin(!isClickedLogin);
+      console.log("testttt");
   }
 
     useEffect(() => {
@@ -66,6 +67,7 @@ const NavbarWeb = () => {
                     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                     setIsAuthenticated(false);
                     window.location.href = '/';
+                    toggleLogin();
                 }
             })
             .catch(err => console.error('Error logging out:', err));
@@ -97,21 +99,15 @@ const NavbarWeb = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          /*
-          //sprint_07_matthis
             {isAuthenticated ? (
                 <Button style={{ backgroundColor: "#cfe7a7c9", color: "#2cb14de1" }} onClick={handleLogout} color="primary" variant="flat">
                     Logout
                 </Button>
             ) : (
-                <Button style={{ backgroundColor: "#cfe7a7c9", color: "#2cb14de1" }} as={Link} color="primary" href="/login" variant="flat">
+                <Button style={{ backgroundColor: "#cfe7a7c9", color: "#2cb14de1" }} as={Link} onClick={toggleLogin} color="primary" href="/login" variant="flat">
                     Login
                 </Button>
             )}
-          */
-          <Button style={{backgroundColor: "#cfe7a7c9", color: "#2cb14de1"}} as={Link} color="primary" onClick={ toggleLogin } href="/login" variant="flat">
-            {`${isClickedLogin ? "Logout" : "Login"}`}
-          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
