@@ -10,15 +10,15 @@
     margin-bottom: 15px;
     border-radius: 15px;
     box-shadow: 10px 5px 5px #bbc591;
-    overflow: hidden; /* Ensures that content doesn't overflow the container */
+    overflow: hidden;
 }
 
 .headerFont {
     font-size: 35px;
-    text-align: center; /* Centers text horizontally */
-    white-space: nowrap; /* Prevents text from wrapping to the next line */
-    overflow: hidden; /* Ensures that the text doesn't overflow the container */
-    text-overflow: ellipsis; /* Adds ellipsis (...) when the text overflows */
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .blockHome{
@@ -37,17 +37,7 @@
     display: flex;
     justify-content: center;
 }
-.blockFeature{
-    width: 20vw;
-    min-height: 30vh;
-    background-color: rgb(1,1,1,0.05);
-    box-shadow: 10px 5px 5px #bbc591;
-    border-radius: 30px;
-    margin: 30px;
-}
-.blockFeature:hover{
-    box-shadow: 15px 10px 10px #bbc591;
-}
+
 .introText {
     position: relative;
     height: 40vh;
@@ -62,13 +52,24 @@
 
 .ellipse {
     position: absolute;
+    overflow: auto;
     top: 50%;
     left: 50%;
     width: 25%;
     height: 190%;
     background: radial-gradient(ellipse, rgba(118, 145, 226, 0.5), rgba(118, 145, 226, 0) 70%);
     transform: translate(-50%, -50%) rotate(75deg);
-    z-index: -1;
+    z-index: -2;
     border-radius: 50%;
 }
-
+.ellipseRing{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12%;
+    height: 130%;
+    transform: translate(-50%, -50%) rotate(80deg);
+    z-index: -4;
+    border-radius: 50%;
+    border: 5px solid rgba(118, 145, 226, .5);
+}

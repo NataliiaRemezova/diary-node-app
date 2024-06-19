@@ -1,0 +1,40 @@
+.feature{
+    display: flex;
+}
+
+.blockFeature{
+    width: 18vw;
+    min-height: 20vh;
+    background-color: rgb(1,1,1,0.05);
+    box-shadow: 10px 5px 5px #bbc591;
+    border-radius: 30px;
+    margin: 30px;
+    align-content: center;
+}
+.blockFeature:hover{
+    box-shadow: 15px 10px 10px #bbc591;
+}
+
+@keyframes example {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+@keyframes shrink {
+    from{ transform: scale(1);}
+    to {transform: scale(0.8);}
+}
+/* Create a class that uses the animation */
+.animateExpand {
+    animation: example 0.5s forwards;
+}
+
+.animateShrink {
+    animation: shrinkt 0.9s forwards;
+}
+
+.featureImage{
+   height: 15vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
