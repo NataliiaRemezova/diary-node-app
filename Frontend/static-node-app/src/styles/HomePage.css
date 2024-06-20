@@ -46,13 +46,14 @@
     justify-content: center;
     align-items: center;
     z-index: 0;
-    overflow: hidden;
+    overflow: visible;
     color: #13361E;
+    font-weight: bolder;
+    font-size: 24px;
 }
 
 .ellipse {
     position: absolute;
-    overflow: auto;
     top: 50%;
     left: 50%;
     width: 25%;
@@ -72,4 +73,53 @@
     z-index: -4;
     border-radius: 50%;
     border: 5px solid rgba(118, 145, 226, .5);
+}
+.star {
+    margin: 50px 0;
+    position: relative;
+    display: block;
+    color: rgb(118, 145, 226);
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid rgb(118, 145, 226);
+    border-left: 100px solid transparent;
+    transform: rotate(35deg);
+}
+.star:before {
+    border-bottom: 80px solid rgb(118, 145, 226);
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: -45px;
+    left: -65px;
+    display: block;
+    content: '';
+    transform: rotate(-35deg);
+}
+.star:after {
+    position: absolute;
+    display: block;
+    color: rgb(118, 145, 226);
+    top: 3px;
+    left: -105px;
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid rgb(118, 145, 226);
+    border-left: 100px solid transparent;
+    transform: rotate(-70deg);
+    content: '';
+}
+
+.starTranslate{
+    position: absolute;
+    top: -25%;
+    left: 60%;
+    width: 12%;
+    height: 130%;
+    scale: 0.2;
+    transform: rotateZ(10deg);
 }

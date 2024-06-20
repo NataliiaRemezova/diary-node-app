@@ -92,12 +92,15 @@ function Home() {
                             ]}
                             speed={800}
                             repeat={5}
-                            style={{ fontSize: '3em', fontWeight: 'bolder', color: '#1b3776', alignSelf: 'center', justifySelf: 'center' }}
+                            style={{ fontSize: '3em', fontWeight: 'bolder', color: '#1b3776', alignSelf: 'center', justifySelf: 'center' , fontFamily: 'pixelFont'}}
                         />
                     </div>
                     <div className="introText">
                         <div className="ellipseRing"/>
                         <div className="ellipse"/>
+                        <div className="starTranslate">
+                            <div className="star"/>
+                        </div>
                         Hast du jemals den Wunsch verspürt, deine Gedanken, Erlebnisse und Träume an einem sicheren Ort festzuhalten? <br/>
                         Mit [App-Name] hast dein persönlichen Tagebuch immer bei dir.
                     </div>

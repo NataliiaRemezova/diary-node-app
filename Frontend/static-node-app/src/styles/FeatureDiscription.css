@@ -9,10 +9,23 @@
     box-shadow: 10px 5px 5px #bbc591;
     border-radius: 30px;
     margin: 30px;
-    align-content: center;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #13361E;
+    font-size: small;
+    overflow: visible;
 }
 .blockFeature:hover{
     box-shadow: 15px 10px 10px #bbc591;
+    color: #137D57 !important;
+}
+
+.featureFont{
+    font-size: 24px;
+    color: #13361E;
+    font-family: pixelFont;
 }
 
 @keyframes example {
@@ -20,21 +33,18 @@
     to { transform: scale(1.2); }
 }
 @keyframes shrink {
-    from{ transform: scale(1);}
-    to {transform: scale(0.8);}
+    from{ transform: scale(1.2);}
+    to {transform: scale(1);}
 }
-/* Create a class that uses the animation */
+
 .animateExpand {
     animation: example 0.5s forwards;
 }
 
 .animateShrink {
-    animation: shrinkt 0.9s forwards;
+    animation: shrinkt 1s forwards;
 }
 
 .featureImage{
-   height: 15vh;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    height: 12vh;
 }
