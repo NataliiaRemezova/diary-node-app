@@ -34,7 +34,30 @@ function RegisterForm() {
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
+                automaticLogin();
+            } else {
+                setError(data.message);
+            }
+        } catch (error) {
+            setError('An error occurred. Please try again.');
+        }
+    };
+
+    const automaticLogin = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+                credentials: 'include',
+            });
+            const data = await response.json();
+            console.log('Response data:', data);
+            if (data.success) {
                 window.location.href = '/';
+                console.log("data login success");
             } else {
                 setError(data.message);
             }
