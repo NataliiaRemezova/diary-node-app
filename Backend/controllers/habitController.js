@@ -3,7 +3,7 @@ import User from '../data/model/userModel.js';
 
 export const getAllHabits = async (req, res) => {
   try {
-    const userId = req.user.id; // Assuming req.user is set by authentication middleware
+    const userId = req.user.id;
     const habits = await Habit.find({ user: userId });
     res.json(habits);
   } catch (error) {
