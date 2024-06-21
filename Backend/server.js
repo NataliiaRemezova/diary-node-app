@@ -82,11 +82,13 @@ app.post('/api/login', (req, res, next) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'your_jwt_secret', { expiresIn: '1h' });
+        console.log('Generated Token:', token);
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
         });
+        console.log('Cookie Set:', res.get('Set-Cookie'));
         res.json({ success: true });
     })(req, res, next);
 });
@@ -95,7 +97,6 @@ app.post('/api/logout', (req, res) => {
     res.clearCookie('token', { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
     res.json({ success: true, message: 'Logged out successfully' });
 });
-
 app.get('/api/protected', authenticateJWT, (req, res) => {
     res.json({ success: true, message: 'This is a protected route', user: req.user });
 });
