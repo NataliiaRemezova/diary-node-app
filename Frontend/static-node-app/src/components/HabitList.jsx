@@ -43,57 +43,52 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange, curre
                     </tr>
                 </thead>
                 <tbody>
-                    {habits.map(habit => {
-                        const habitInRange = dates.some(date => isDateInRange(date, habit.startDate, habit.endDate));
-                        if (!habitInRange) return null;
-
-                        return (
-                            <tr key={habit._id} className="bg-white">
-                                <td className="border p-2">
-                                    <Popover placement="right">
-                                        <PopoverTrigger>
-                                            <button className="text-blue-500 underline bg-white">{habit.name}</button>
-                                        </PopoverTrigger>
-                                        <PopoverContent>
-                                            <div className="p-2">
-                                                <div className="font-bold">{habit.name}</div>
-                                                <div>{habit.description}</div>
-                                                <div>Start Date: {dayjs(habit.startDate).format('YYYY-MM-DD')}</div>
-                                                <div>End Date: {dayjs(habit.endDate).format('YYYY-MM-DD')}</div>
-                                            </div>
-                                        </PopoverContent>
-                                    </Popover>
-                                </td>
-                                {dates.map((date, index) => {
-                                    const completion = habit.completions.find(c => dayjs(c.date).isSame(date, 'day'));
-                                    const isInRange = isDateInRange(date, habit.startDate, habit.endDate);
-                                    return (
-                                        <td key={index} className="border p-2 text-center">
-                                            <Checkbox
-                                                isSelected={completion ? completion.completed : false}
-                                                isDisabled={!isInRange}
-                                                onChange={(e) => handleCheckboxChange(habit._id, date, e.target.checked)}
-                                            />
-                                        </td>
-                                    );
-                                })}
-                                <td className="border p-2">
-                                    <Button onClick={() => onEditHabit(habit)} className="mr-2 bg-white text-black">Edit</Button>
-                                    <Popover placement="right">
-                                        <PopoverTrigger>
-                                            <Button className="bg-white text-black">Delete</Button>
-                                        </PopoverTrigger>
-                                        <PopoverContent>
-                                            <div className="p-2">
-                                                <div className="font-bold">Are you sure?</div>
-                                                <Button onClick={() => onDeleteHabit(habit._id)} className="bg-red-500 text-white mt-2">Confirm</Button>
-                                            </div>
-                                        </PopoverContent>
-                                    </Popover>
-                                </td>
-                            </tr>
-                        );
-                    })}
+                    {habits.map(habit => (
+                        <tr key={habit._id}>
+                            <td className="border p-2 bg-white">
+                                <Popover>
+                                    <PopoverTrigger>
+                                        <span className="cursor-pointer">{habit.name}</span>
+                                    </PopoverTrigger>
+                                    <PopoverContent>
+                                        <div>
+                                            <p>{habit.description}</p>
+                                            <p>Start Date: {dayjs(habit.startDate).format('MMM D, YYYY')}</p>
+                                            <p>End Date: {dayjs(habit.endDate).format('MMM D, YYYY')}</p>
+                                        </div>
+                                    </PopoverContent>
+                                </Popover>
+                            </td>
+                            {dates.map((date, index) => {
+                                const completion = habit.completions.find(c => dayjs(c.date).isSame(date, 'day'));
+                                const isChecked = completion ? completion.completed : false;
+                                const isDisabled = !isDateInRange(date, habit.startDate, habit.endDate);
+                                return (
+                                    <td key={index} className="border p-2 bg-white">
+                                        <Checkbox
+                                            isSelected={isChecked}
+                                            isDisabled={isDisabled}
+                                            onChange={(e) => handleCheckboxChange(habit._id, date, e.target.checked)}
+                                        />
+                                    </td>
+                                );
+                            })}
+                            <td className="border p-2 bg-white">
+                                <Button color="default" onPress={() => onEditHabit(habit)}>Edit</Button>
+                                <Popover placement="top">
+                                    <PopoverTrigger>
+                                        <Button color="default">Delete</Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent>
+                                        <div className="p-2">
+                                            <p>Are you sure you want to delete this habit?</p>
+                                            <Button color="error" onPress={() => onDeleteHabit(habit._id)}>Confirm</Button>
+                                        </div>
+                                    </PopoverContent>
+                                </Popover>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, useDisclosure } from "@nextui-org/react";
 import HabitList from '../components/HabitList';
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'; 
 
 const HabitPage = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -16,12 +16,17 @@ const HabitPage = () => {
     }, []);
 
     const fetchHabits = () => {
-        fetch('http://localhost:5000/api/habit/get-all-habits',
-            {method: 'GET',
-                credentials: 'include'
-            })
+        fetch('http://localhost:5000/api/habit/get-all-habits', {
+            credentials: 'include',
+        })
             .then(response => response.json())
-            .then(data => setHabits(data))
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setHabits(data);
+                } else {
+                    setHabits([]);
+                }
+            })
             .catch(err => console.error('Error fetching habits:', err));
     };
 
@@ -38,12 +43,17 @@ const HabitPage = () => {
         fetch(url, {
             method: method,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             credentials: 'include',
             body: JSON.stringify(habitForm)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(() => {
             setHabitForm({ name: '', description: '', startDate: '', endDate: '' });
             setEditMode(false);
@@ -82,8 +92,8 @@ const HabitPage = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                credentials: 'include',
             },
+            credentials: 'include',
             body: JSON.stringify({ date, completed: checked })
         })
         .then(response => response.json())

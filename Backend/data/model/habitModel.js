@@ -11,6 +11,7 @@ const habitSchema = new mongoose.Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   completions: [completionSchema],
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
 const Habit = mongoose.model('Habit', habitSchema);
