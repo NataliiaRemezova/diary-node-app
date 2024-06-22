@@ -82,7 +82,11 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange, curre
                                     <PopoverContent>
                                         <div className="p-2">
                                             <p>Are you sure you want to delete this habit?</p>
-                                            <Button color="error" onPress={() => onDeleteHabit(habit._id)}>Confirm</Button>
+                                            <Button 
+                                                style={{ backgroundColor: '#d9534f', color: '#fff' }} 
+                                                onPress={() => onDeleteHabit(habit._id)}>
+                                                Confirm
+                                            </Button>
                                         </div>
                                     </PopoverContent>
                                 </Popover>
