@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import PigRun from "../components/PigRun.jsx";
 import "../styles/HomePage.css";
 import { TypeAnimation } from 'react-type-animation';
@@ -6,11 +6,12 @@ import { Button, Link } from "@nextui-org/react";
 import PreviewEntry from "../components/PreviewEntry.jsx";
 import DateTime from "../components/DateTime.jsx";
 import Streak from "../components/Streak.jsx";
+import FeatureDiscription from "../components/FeatureDiscription.jsx";
 
 function Home() {
     const [entries, setEntries] = useState([]);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(null); // State to store user details
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const fetchEntries = async () => {
@@ -41,8 +42,6 @@ function Home() {
                 if (response.ok) {
                     const data = await response.json();
                     setIsAuthenticated(data.authenticated);
-                    setUser(data.user); // Store user details in state
-                    console.log(data.user);
                 }
             } catch (error) {
                 console.error('Error checking authentication:', error);
@@ -93,24 +92,20 @@ function Home() {
                             ]}
                             speed={800}
                             repeat={5}
-                            style={{ fontSize: '3em', fontWeight: 'bolder', color: '#1b3776', alignSelf: 'center', justifySelf: 'center' }}
+                            style={{ fontSize: '3em', fontWeight: 'bolder', color: '#1b3776', alignSelf: 'center', justifySelf: 'center' , fontFamily: 'pixelFont'}}
                         />
                     </div>
                     <div className="introText">
+                        <div className="ellipseRing"/>
                         <div className="ellipse"/>
+                        <div className="starTranslate">
+                            <div className="star"/>
+                        </div>
                         Hast du jemals den Wunsch verspürt, deine Gedanken, Erlebnisse und Träume an einem sicheren Ort festzuhalten? <br/>
                         Mit [App-Name] hast dein persönlichen Tagebuch immer bei dir.
                     </div>
                     <div className="outerContainer">
-                        <div className="blockFeature">
-                            feature 1
-                        </div>
-                        <div className="blockFeature">
-                            feature 2
-                        </div>
-                        <div className="blockFeature">
-                            feature 3
-                        </div>
+                        <FeatureDiscription />
                     </div>
                 </div>
             )}

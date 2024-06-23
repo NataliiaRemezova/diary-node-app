@@ -10,15 +10,15 @@
     margin-bottom: 15px;
     border-radius: 15px;
     box-shadow: 10px 5px 5px #bbc591;
-    overflow: hidden; /* Ensures that content doesn't overflow the container */
+    overflow: hidden;
 }
 
 .headerFont {
     font-size: 35px;
-    text-align: center; /* Centers text horizontally */
-    white-space: nowrap; /* Prevents text from wrapping to the next line */
-    overflow: hidden; /* Ensures that the text doesn't overflow the container */
-    text-overflow: ellipsis; /* Adds ellipsis (...) when the text overflows */
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .blockHome{
@@ -37,17 +37,7 @@
     display: flex;
     justify-content: center;
 }
-.blockFeature{
-    width: 20vw;
-    min-height: 30vh;
-    background-color: rgb(1,1,1,0.05);
-    box-shadow: 10px 5px 5px #bbc591;
-    border-radius: 30px;
-    margin: 30px;
-}
-.blockFeature:hover{
-    box-shadow: 15px 10px 10px #bbc591;
-}
+
 .introText {
     position: relative;
     height: 40vh;
@@ -56,8 +46,10 @@
     justify-content: center;
     align-items: center;
     z-index: 0;
-    overflow: hidden;
+    overflow: visible;
     color: #13361E;
+    font-weight: bolder;
+    font-size: 24px;
 }
 
 .ellipse {
@@ -68,7 +60,66 @@
     height: 190%;
     background: radial-gradient(ellipse, rgba(118, 145, 226, 0.5), rgba(118, 145, 226, 0) 70%);
     transform: translate(-50%, -50%) rotate(75deg);
-    z-index: -1;
+    z-index: -2;
     border-radius: 50%;
 }
+.ellipseRing{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12%;
+    height: 130%;
+    transform: translate(-50%, -50%) rotate(80deg);
+    z-index: -4;
+    border-radius: 50%;
+    border: 5px solid rgba(118, 145, 226, .5);
+}
+.star {
+    margin: 50px 0;
+    position: relative;
+    display: block;
+    color: rgb(118, 145, 226);
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid rgb(118, 145, 226);
+    border-left: 100px solid transparent;
+    transform: rotate(35deg);
+}
+.star:before {
+    border-bottom: 80px solid rgb(118, 145, 226);
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: -45px;
+    left: -65px;
+    display: block;
+    content: '';
+    transform: rotate(-35deg);
+}
+.star:after {
+    position: absolute;
+    display: block;
+    color: rgb(118, 145, 226);
+    top: 3px;
+    left: -105px;
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid rgb(118, 145, 226);
+    border-left: 100px solid transparent;
+    transform: rotate(-70deg);
+    content: '';
+}
 
+.starTranslate{
+    position: absolute;
+    top: -25%;
+    left: 60%;
+    width: 12%;
+    height: 130%;
+    scale: 0.2;
+    transform: rotateZ(10deg);
+}
