@@ -11,14 +11,14 @@
 
 @font-face {
   font-family: pixelFont;
-  src: url('../public/font/pixelFont.ttf')format('truetype');
+  src: url('Frontend/static-node-app/public/font/pixelFont.ttf')format('truetype');
 }
 
 @font-face {
   font-family: TenorSans;
-  src: url('../public/font/TenorSans-Regular.ttf') format('truetype');
+  src: url('Frontend/static-node-app/public/font/TenorSans-Regular.ttf') format('truetype');
 }
 
 .myFont {
-  font-family: pixelFont, TenorSans;
+  font-family: pixelFont, TenorSans , 'sans-serif';
 }
