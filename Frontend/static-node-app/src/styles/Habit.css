@@ -1,0 +1,22 @@
+.habitHeader{
+    font-family: pixelFont;
+    font-size: 26px;
+    margin: 15px;
+    color: #13361E;
+    width: 100vw;
+}
+
+.habitButton{
+    background-color: #7691E2 !important;
+    color: #D7E5D6 !important;
+    margin: 5px;
+}
+
+.tabellenHeader{
+    background-color: #D7E5D6;
+    color: #13361E;
+}
+
+.colorChange{
+    background-color: #D5D4F3 !important;
+}
