@@ -50,13 +50,13 @@ const authenticateJWT = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret');
-        const user = await User.findById(decoded.id).select('username email'); // Fetch user details
+        const user = await User.findById(decoded.id).select('username email');
 
         if (!user) {
             return res.status(403).json({ success: false, message: 'User not found' });
         }
 
-        req.user = user; // Attach user details to request object
+        req.user = user;
         next();
     } catch (err) {
         return res.status(403).json({ success: false, message: 'Invalid token' });
