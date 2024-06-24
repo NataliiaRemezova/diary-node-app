@@ -1,0 +1,50 @@
+.feature{
+    display: flex;
+}
+
+.blockFeature{
+    width: 18vw;
+    min-height: 20vh;
+    background-color: rgb(1,1,1,0.05);
+    box-shadow: 10px 5px 5px #bbc591;
+    border-radius: 30px;
+    margin: 30px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #13361E;
+    font-size: small;
+    overflow: visible;
+}
+.blockFeature:hover{
+    box-shadow: 15px 10px 10px #bbc591;
+    color: #137D57 !important;
+}
+
+.featureFont{
+    font-size: 24px;
+    color: #13361E;
+    font-family: pixelFont;
+}
+
+@keyframes example {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+@keyframes shrink {
+    from{ transform: scale(1.2);}
+    to {transform: scale(1);}
+}
+
+.animateExpand {
+    animation: example 0.5s forwards;
+}
+
+.animateShrink {
+    animation: shrinkt 1s forwards;
+}
+
+.featureImage{
+    height: 12vh;
+}

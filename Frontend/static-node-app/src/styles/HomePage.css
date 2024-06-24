@@ -1,19 +1,29 @@
-.headerDiv{
+.headerDiv {
     display: flex;
     justify-content: center;
-    align-self: center;
-    background-color: rgb(1,1,1,0.05);
-    height: 15vh;
+    align-items: center; /* Aligns items vertically */
+    background-color: rgba(1, 1, 1, 0.05);
+    height: 100px;
     width: 80vw;
     padding: 20px;
     margin-top: 30px;
     margin-bottom: 15px;
     border-radius: 15px;
     box-shadow: 10px 5px 5px #bbc591;
+    overflow: hidden;
 }
+
+.headerFont {
+    font-size: 35px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .blockHome{
     width: 38vw;
-    min-height: 30vh;
+    min-height: 230px;
     background-color: rgb(1,1,1,0.05);
     box-shadow: 10px 5px 5px #bbc591;
     border-radius: 30px;
@@ -25,5 +35,91 @@
 }
 .outerContainer{
     display: flex;
+    justify-content: center;
+}
 
+.introText {
+    position: relative;
+    height: 40vh;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    overflow: visible;
+    color: #13361E;
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.ellipse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 25%;
+    height: 190%;
+    background: radial-gradient(ellipse, rgba(118, 145, 226, 0.5), rgba(118, 145, 226, 0) 70%);
+    transform: translate(-50%, -50%) rotate(75deg);
+    z-index: -2;
+    border-radius: 50%;
+}
+.ellipseRing{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12%;
+    height: 130%;
+    transform: translate(-50%, -50%) rotate(80deg);
+    z-index: -4;
+    border-radius: 50%;
+    border: 5px solid rgba(118, 145, 226, .5);
+}
+.star {
+    margin: 50px 0;
+    position: relative;
+    display: block;
+    color: rgb(118, 145, 226);
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid rgb(118, 145, 226);
+    border-left: 100px solid transparent;
+    transform: rotate(35deg);
+}
+.star:before {
+    border-bottom: 80px solid rgb(118, 145, 226);
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: -45px;
+    left: -65px;
+    display: block;
+    content: '';
+    transform: rotate(-35deg);
+}
+.star:after {
+    position: absolute;
+    display: block;
+    color: rgb(118, 145, 226);
+    top: 3px;
+    left: -105px;
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid rgb(118, 145, 226);
+    border-left: 100px solid transparent;
+    transform: rotate(-70deg);
+    content: '';
+}
+
+.starTranslate{
+    position: absolute;
+    top: -25%;
+    left: 60%;
+    width: 12%;
+    height: 130%;
+    scale: 0.2;
+    transform: rotateZ(10deg);
 }

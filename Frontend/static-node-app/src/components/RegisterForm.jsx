@@ -1,8 +1,8 @@
-import {useState} from "react";
-import {Button, Input, Link, Spacer} from "@nextui-org/react";
+import { useState } from "react";
+import { Button, Input, Link, Spacer } from "@nextui-org/react";
 
-function RegisterForm (){
-    const [name, setName] = useState('');
+function RegisterForm() {
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -18,18 +18,23 @@ function RegisterForm (){
         }
 
         try {
-            const response = await fetch('/api/register', {
+            const response = await fetch('http://localhost:5000/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ username, email, password }),
+                credentials: 'include',
             });
             const data = await response.json();
             if (data.success) {
-                // Redirect to login page or display success message
                 setSuccess('Registration successful! You can now log in.');
                 setError('');
+                setUsername('');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
+                automaticLogin();
             } else {
                 setError(data.message);
             }
@@ -37,20 +42,44 @@ function RegisterForm (){
             setError('An error occurred. Please try again.');
         }
     };
-    return(
+
+    const automaticLogin = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+                credentials: 'include',
+            });
+            const data = await response.json();
+            console.log('Response data:', data);
+            if (data.success) {
+                window.location.href = '/';
+                console.log("data login success");
+            } else {
+                setError(data.message);
+            }
+        } catch (error) {
+            setError('An error occurred. Please try again.');
+        }
+    };
+
+    return (
         <div className="loginDiv">
             <h1 className="loginHeader">Register</h1>
-            {error && <p color="error">{error}</p>}
-            {success && <p color="success">{success}</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {success && <p style={{ color: 'green' }}>{success}</p>}
             <Spacer y={3} />
             <form onSubmit={handleSubmit}>
                 <Spacer y={1} />
                 <Input
-                    label="Name"
+                    label="Username"
                     placeholder="Enter your name"
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     fullWidth
                     required
                 />
@@ -94,4 +123,5 @@ function RegisterForm (){
         </div>
     );
 }
+
 export default RegisterForm;

@@ -1,12 +1,15 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {Navbar, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
 
 const NavbarWeb = () => {
 
-    // states and functions toggling the page you are on (used later to correctly render the link design)
-    const [isClickedHome, setIsClickedHome] = useState(false);
+   const [isClickedHome, setIsClickedHome] = useState(false);
     const [isClickedEntries, setIsClickedEntries] = useState(false);
     const [isClickedHabits, setIsClickedHabits] = useState(false);
+    
+    //sprint_07_matthis
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    
     const [isClickedLogin, setIsClickedLogin] = useState(true);
 
     const toggleHome = () => {
@@ -32,7 +35,43 @@ const NavbarWeb = () => {
       setIsClickedEntries(false);
       setIsClickedHabits(false);
       setIsClickedLogin(!isClickedLogin);
+      console.log("testttt");
   }
+
+    useEffect(() => {
+        const checkAuthentication = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/check-auth', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsAuthenticated(data.authenticated);
+                }
+            } catch (error) {
+                console.error('Error checking authentication:', error);
+            }
+        };
+
+        checkAuthentication();
+    }, []);
+
+    const handleLogout = () => {
+        fetch('http://localhost:5000/api/logout', {
+            method: 'POST',
+            credentials: 'include'
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    setIsAuthenticated(false);
+                    window.location.href = '/';
+                    toggleLogin();
+                }
+            })
+            .catch(err => console.error('Error logging out:', err));
+    };
 
   return (
     <Navbar shouldHideOnScroll style={{borderRadius: "15px"}}>
@@ -43,22 +82,32 @@ const NavbarWeb = () => {
           </Link> {/* Link component that links the routes when a button is pressed, changes the design of that button
                    (by evaluating the variable) and is connected to react router dom (page will not fully reload) */}
         </NavbarItem>
-        <NavbarItem>
-          <Link style={{color: "#2cb14de1"}} href="/entries" className={`${isClickedEntries ? "font-bold underline" : "foreground"}`} onClick={ toggleEntries } >
-            Diary Entries
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link style={{color: "#2cb14de1"}} className={`${isClickedHabits ? "font-bold underline" : "foreground"}`} onClick={ toggleHabits } href="/habits">
-            Habit Tracker
-          </Link>
-        </NavbarItem>
+          {isAuthenticated ? (
+              <NavbarContent>
+                  <NavbarItem>
+                      <Link style={{color: "#2cb14de1"}} href="/entries" className={`${isClickedEntries ? "font-bold underline" : "foreground"}`} onClick={ toggleEntries } >
+                          Diary Entries
+                      </Link>
+                  </NavbarItem>
+                  <NavbarItem>
+                      <Link style={{color: "#2cb14de1"}} className={`${isClickedHabits ? "font-bold underline" : "foreground"}`} onClick={ toggleHabits } href="/habits">
+                          Habit Tracker
+                      </Link>
+                  </NavbarItem>
+              </NavbarContent>
+              ) : ( null)}
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button style={{backgroundColor: "#cfe7a7c9", color: "#2cb14de1"}} as={Link} color="primary" onClick={ toggleLogin } href="/login" variant="flat">
-            {`${isClickedLogin ? "Logout" : "Login"}`}
-          </Button>
+            {isAuthenticated ? (
+                <Button style={{ backgroundColor: "#cfe7a7c9", color: "#2cb14de1" }} onClick={handleLogout} color="primary" variant="flat">
+                    Logout
+                </Button>
+            ) : (
+                <Button style={{ backgroundColor: "#cfe7a7c9", color: "#2cb14de1" }} as={Link} onClick={toggleLogin} color="primary" href="/login" variant="flat">
+                    Login
+                </Button>
+            )}
         </NavbarItem>
       </NavbarContent>
     </Navbar>

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import moment from 'moment';
 import {Button} from "@nextui-org/react";
 import "../styles/Entry.css";

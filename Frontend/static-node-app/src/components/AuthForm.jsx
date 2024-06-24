@@ -9,17 +9,21 @@ function AuthForm (){
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('http://localhost:5000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password }),
+                credentials: 'include',
             });
             const data = await response.json();
+            console.log('Response data:', data);
             if (data.success) {
-                // Redirect to dashboard or home page
-                window.location.href = '/dashboard';
+                setEmail('');
+                setPassword('');
+                window.location.href = '/';
+                console.log("data login success");
             } else {
                 setError(data.message);
             }
@@ -39,6 +43,7 @@ function AuthForm (){
                     placeholder="Enter your email"
                     type="email"
                     value={email}
+                    autoComplete="off"
                     onChange={(e) => setEmail(e.target.value)}
                     fullWidth
                     required
