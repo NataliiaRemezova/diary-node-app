@@ -65,12 +65,12 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange, curre
                                 const isDisabled = !isDateInRange(date, habit.startDate, habit.endDate);
                                 return (
                                     <td key={index} className="border p-2 bg-white">
-                                        <Checkbox
-                                            isSelected={isChecked}
-                                            isDisabled={isDisabled}
-                                            onChange={(e) => handleCheckboxChange(habit._id, date, e.target.checked)}
-                                            className="checkBox"
-                                        />
+                                        {!isDisabled ? (
+                                            <Checkbox
+                                                isSelected={isChecked}
+                                                onChange={(e) => handleCheckboxChange(habit._id, date, e.target.checked)}
+                                            />
+                                        ) :null}
                                     </td>
                                 );
                             })}

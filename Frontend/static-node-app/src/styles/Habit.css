@@ -1,3 +1,9 @@
+.habit{
+    padding: 15px;
+    overflow-x: hidden;
+}
+
+
 .habitHeader{
     font-family: pixelFont;
     font-size: 26px;
@@ -10,6 +16,7 @@
     background-color: #7691E2 !important;
     color: #D7E5D6 !important;
     margin: 5px;
+    font-size: clamp(12px, 2vw, 18px);
 }
 
 .tabellenHeader{
@@ -17,6 +24,12 @@
     color: #13361E;
 }
 
-.colorChange{
-    background-color: #D5D4F3 !important;
+.changeFont{
+    font-family: pixelFont;
+    font-size: 20px !important;
+    color: #7691E2;
+}
+
+.modal{
+    background-color: #D7E5D6;
 }

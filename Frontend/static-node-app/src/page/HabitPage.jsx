@@ -123,7 +123,7 @@ const HabitPage = () => {
     };
 
     return (
-        <div className="flex flex-col items-center w-full max-w-4xl mx-auto p-5">
+        <div className="flex flex-col items-center w-full max-w-4xl mx-auto p-5 habit">
             <header className="mb-5">
                 <h1 className="habitHeader">Habit Tracker</h1>
             </header>
@@ -143,11 +143,11 @@ const HabitPage = () => {
                 <Spacer y={8}/>
                 <Button onPress={onOpen} className="mt-5 habitButton">Add Habit</Button>
                 <Modal isOpen={isOpen} onOpenChange={onOpenChange} >
-                    <ModalContent>
+                    <ModalContent >
                         {(onClose) => (
                             <>
-                                <ModalHeader className="flex flex-col gap-1">{editMode ? 'Edit Habit' : 'Add Habit'}</ModalHeader>
-                                <ModalBody>
+                                <ModalHeader className="flex flex-col changeFont modal">{editMode ? 'Edit Habit' : 'Add Habit'}</ModalHeader>
+                                <ModalBody className="modal">
                                     <form id="habitForm" onSubmit={handleSubmit} className="flex flex-col items-center">
                                         <Input
                                             type="text"
@@ -186,7 +186,7 @@ const HabitPage = () => {
                                         />
                                     </form>
                                 </ModalBody>
-                                <ModalFooter>
+                                <ModalFooter className="modal">
                                     <Button color="danger" variant="light" onPress={onClose} className="habitButton">
                                         Close
                                     </Button>
