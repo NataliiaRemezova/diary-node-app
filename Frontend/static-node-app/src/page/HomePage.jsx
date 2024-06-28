@@ -11,7 +11,7 @@ import FeatureDiscription from "../components/FeatureDiscription.jsx";
 function Home() {
     const [entries, setEntries] = useState([]);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userName, setUserName] = useState('');
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const fetchEntries = async () => {
@@ -43,31 +43,11 @@ function Home() {
                     const data = await response.json();
                     setIsAuthenticated(data.authenticated);
                     if (data.authenticated && data.user && data.user._id) {
-                        fetchUserName(data.user._id);
+                        setUser(data.user); // Store user details in state
                     }
-                    setUser(data.user); // Store user details in state
                 }
             } catch (error) {
                 console.error('Error checking authentication:', error);
-            }
-        };
-
-        const fetchUserName = async (userId) => {
-            try {
-                const response = await fetch(`http://localhost:5000/api/get-user/${userId}`, {
-                    method: 'GET',
-                    credentials: 'include'
-                });
-                console.log(response);
-
-                if (!response.ok) {
-                    throw new Error('Fehler beim Abrufen des Benutzernamens');
-                }
-                const userData = await response.json();
-                setUserName(userData.username);
-                console.log('Benutzerdaten:', userData);
-            } catch (error) {
-                console.error('Fehler beim Abrufen des Benutzernamens:', error);
             }
         };
 
@@ -80,7 +60,7 @@ function Home() {
                 <div>
                     <div className="headerDiv">
                         <h1 className="headerFont">
-                            Welcome back, {userName}
+                            Welcome back, {user && user.username}
                         </h1>
                     </div>
 
