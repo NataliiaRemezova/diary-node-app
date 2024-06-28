@@ -2,7 +2,7 @@
 FROM node:21-slim
 
 # Set the working directory
-WORKDIR /frontend
+WORKDIR /frontend/static-node-app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
