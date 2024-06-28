@@ -42,13 +42,9 @@ function Home() {
                 if (response.ok) {
                     const data = await response.json();
                     setIsAuthenticated(data.authenticated);
-<<<<<<< sprint_10_nataliia
-                    setUser(data.user);
-=======
                     if (data.authenticated && data.user && data.user._id) {
                         fetchUserName(data.user._id);
                     }
->>>>>>> sprint_10
                 }
             } catch (error) {
                 console.error('Error checking authentication:', error);
