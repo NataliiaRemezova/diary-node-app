@@ -42,6 +42,7 @@ function Home() {
                 if (response.ok) {
                     const data = await response.json();
                     setIsAuthenticated(data.authenticated);
+                    setUser(data.user); // Store user details in state
                 }
             } catch (error) {
                 console.error('Error checking authentication:', error);
