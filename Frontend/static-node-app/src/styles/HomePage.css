@@ -15,6 +15,7 @@
 
 .headerFont {
     font-size: 35px;
+    font-family: pixelFont;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;

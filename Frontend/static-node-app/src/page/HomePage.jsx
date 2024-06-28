@@ -11,7 +11,7 @@ import FeatureDiscription from "../components/FeatureDiscription.jsx";
 function Home() {
     const [entries, setEntries] = useState([]);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(null);
+    const [userName, setUserName] = useState('');
 
     useEffect(() => {
         const fetchEntries = async () => {
@@ -42,14 +42,39 @@ function Home() {
                 if (response.ok) {
                     const data = await response.json();
                     setIsAuthenticated(data.authenticated);
+<<<<<<< sprint_10_nataliia
                     setUser(data.user);
+=======
+                    if (data.authenticated && data.user && data.user._id) {
+                        fetchUserName(data.user._id);
+                    }
+>>>>>>> sprint_10
                 }
             } catch (error) {
                 console.error('Error checking authentication:', error);
             }
         };
 
-        checkAuthentication();
+        const fetchUserName = async (userId) => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/get-user/${userId}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                console.log(response);
+
+                if (!response.ok) {
+                    throw new Error('Fehler beim Abrufen des Benutzernamens');
+                }
+                const userData = await response.json();
+                setUserName(userData.username);
+                console.log('Benutzerdaten:', userData);
+            } catch (error) {
+                console.error('Fehler beim Abrufen des Benutzernamens:', error);
+            }
+        };
+
+        checkAuthentication()
     }, []);
 
     return (
@@ -58,7 +83,7 @@ function Home() {
                 <div>
                     <div className="headerDiv">
                         <h1 className="headerFont">
-                            Welcome back, {user && user.username}
+                            Welcome back, {userName}
                         </h1>
                     </div>
 

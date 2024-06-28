@@ -24,15 +24,19 @@ export const getUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
     try {
+        console.log('Fetching user with ID:', req.params.id);
         const user = await User.findById(req.params.id).populate('entries').populate('habits');
+        console.log('User found:', user);
         if (!user) {
             return res.status(404).send('User not found');
         }
         res.status(200).json(user);
     } catch (error) {
+        console.error('Error fetching user:', error);
         res.status(400).json({ error: error.message });
     }
 };
+
 
 export const updateUser = async (req, res) => {
     const { id } = req.params;
