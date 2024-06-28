@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import PigRun from "../components/PigRun.jsx";
 import "../styles/HomePage.css";
 import { TypeAnimation } from 'react-type-animation';
@@ -42,6 +42,7 @@ function Home() {
                 if (response.ok) {
                     const data = await response.json();
                     setIsAuthenticated(data.authenticated);
+                    setUser(data.user);
                 }
             } catch (error) {
                 console.error('Error checking authentication:', error);
