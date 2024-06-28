@@ -1,22 +1,28 @@
 #root {
   padding: 2rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .appBody{
   display: flex;
+  justify-content: center;
   flex-direction: column;
+  align-items: center;
+  width: 100vw;
   min-height: 100vh;
+  font-size: clamp(0.7rem, 1vw, 2rem);
 }
 
 @font-face {
   font-family: pixelFont;
-  src: url('Frontend/static-node-app/public/font/pixelFont.ttf')format('truetype');
+  src: url('/font/pixelFont.ttf')format('truetype');
 }
 
 @font-face {
   font-family: TenorSans;
-  src: url('Frontend/static-node-app/public/font/TenorSans-Regular.ttf') format('truetype');
+  src: url('/font/TenorSans-Regular.ttf') format('truetype');
 }
 
 .myFont {

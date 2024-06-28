@@ -1,7 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, useDisclosure } from "@nextui-org/react";
+import { useState, useEffect } from 'react';
+import {
+    Button,
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Input,
+    useDisclosure,
+    Spacer
+} from "@nextui-org/react";
 import HabitList from '../components/HabitList';
-import dayjs from 'dayjs'; 
+import dayjs from 'dayjs';
+import '../styles/Habit.css';
 
 const HabitPage = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -112,15 +123,15 @@ const HabitPage = () => {
     };
 
     return (
-        <div className="flex flex-col items-center w-full max-w-4xl mx-auto p-5">
+        <div className="flex flex-col items-center w-full max-w-4xl mx-auto p-5 habit">
             <header className="mb-5">
-                <h1 className="text-2xl font-bold">Habit Tracker</h1>
+                <h1 className="habitHeader">Habit Tracker</h1>
             </header>
             <main className="w-full">
                 <div className="flex justify-between items-center mb-5">
-                    <Button onClick={previousWeek}>&lt; Previous Week</Button>
+                    <Button onClick={previousWeek} className="habitButton">&lt; Previous Week</Button>
                     <h2>{currentWeek.format('MMM D')} - {currentWeek.endOf('week').format('MMM D')}</h2>
-                    <Button onClick={nextWeek}>Next Week &gt;</Button>
+                    <Button onClick={nextWeek} className="habitButton">Next Week &gt;</Button>
                 </div>
                 <HabitList 
                     habits={habits} 
@@ -129,13 +140,14 @@ const HabitPage = () => {
                     onCheckboxChange={handleCheckboxChange} 
                     currentWeek={currentWeek}
                 />
-                <Button onPress={onOpen} className="mt-5">Add Habit</Button>
-                <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                    <ModalContent>
+                <Spacer y={8}/>
+                <Button onPress={onOpen} className="mt-5 habitButton">Add Habit</Button>
+                <Modal isOpen={isOpen} onOpenChange={onOpenChange} >
+                    <ModalContent >
                         {(onClose) => (
                             <>
-                                <ModalHeader className="flex flex-col gap-1">{editMode ? 'Edit Habit' : 'Add Habit'}</ModalHeader>
-                                <ModalBody>
+                                <ModalHeader className="flex flex-col changeFont modal">{editMode ? 'Edit Habit' : 'Add Habit'}</ModalHeader>
+                                <ModalBody className="modal">
                                     <form id="habitForm" onSubmit={handleSubmit} className="flex flex-col items-center">
                                         <Input
                                             type="text"
@@ -144,7 +156,7 @@ const HabitPage = () => {
                                             value={habitForm.name}
                                             onChange={handleChange}
                                             required
-                                            className="mb-3 p-2 w-80 border rounded bg-white"
+                                            className="mb-3 p-2 w-80  rounded "
                                         />
                                         <Input
                                             type="text"
@@ -152,7 +164,7 @@ const HabitPage = () => {
                                             placeholder="Description"
                                             value={habitForm.description}
                                             onChange={handleChange}
-                                            className="mb-3 p-2 w-80 border rounded bg-white"
+                                            className="mb-3 p-2 w-80  rounded "
                                         />
                                         <Input
                                             type="date"
@@ -161,7 +173,7 @@ const HabitPage = () => {
                                             value={habitForm.startDate}
                                             onChange={handleChange}
                                             required
-                                            className="mb-3 p-2 w-80 border rounded bg-white"
+                                            className="mb-3 p-2 w-80  rounded"
                                         />
                                         <Input
                                             type="date"
@@ -170,15 +182,15 @@ const HabitPage = () => {
                                             value={habitForm.endDate}
                                             onChange={handleChange}
                                             required
-                                            className="mb-3 p-2 w-80 border rounded bg-white"
+                                            className="mb-3 p-2 w-80  rounded "
                                         />
                                     </form>
                                 </ModalBody>
-                                <ModalFooter>
-                                    <Button color="danger" variant="light" onPress={onClose}>
+                                <ModalFooter className="modal">
+                                    <Button color="danger" variant="light" onPress={onClose} className="habitButton">
                                         Close
                                     </Button>
-                                    <Button color="primary" form="habitForm" type="submit">
+                                    <Button form="habitForm" type="submit" className="habitButton">
                                         {editMode ? 'Update Habit' : 'Create Habit'}
                                     </Button>
                                 </ModalFooter>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Checkbox, Button, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import { useEffect, useState } from 'react';
+import {Checkbox, Button, Popover, PopoverTrigger, PopoverContent} from "@nextui-org/react";
 import dayjs from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
@@ -33,7 +33,7 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange, curre
     return (
         <div className="habit-list w-full">
             <table className="w-full border-collapse">
-                <thead>
+                <thead className="tabellenHeader">
                     <tr>
                         <th className="border p-2 bg-gray-200">Habit / Date</th>
                         {dates.map((date, index) => (
@@ -65,31 +65,38 @@ const HabitList = ({ habits, onEditHabit, onDeleteHabit, onCheckboxChange, curre
                                 const isDisabled = !isDateInRange(date, habit.startDate, habit.endDate);
                                 return (
                                     <td key={index} className="border p-2 bg-white">
-                                        <Checkbox
-                                            isSelected={isChecked}
-                                            isDisabled={isDisabled}
-                                            onChange={(e) => handleCheckboxChange(habit._id, date, e.target.checked)}
-                                        />
+                                        {!isDisabled ? (
+                                            <Checkbox
+                                                isSelected={isChecked}
+                                                onChange={(e) => handleCheckboxChange(habit._id, date, e.target.checked)}
+                                            />
+                                        ) :null}
                                     </td>
                                 );
                             })}
                             <td className="border p-2 bg-white">
-                                <Button color="default" onPress={() => onEditHabit(habit)}>Edit</Button>
-                                <Popover placement="top">
-                                    <PopoverTrigger>
-                                        <Button color="default">Delete</Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent>
-                                        <div className="p-2">
-                                            <p>Are you sure you want to delete this habit?</p>
-                                            <Button 
-                                                style={{ backgroundColor: '#d9534f', color: '#fff' }} 
-                                                onPress={() => onDeleteHabit(habit._id)}>
-                                                Confirm
-                                            </Button>
-                                        </div>
-                                    </PopoverContent>
-                                </Popover>
+                                <div className="actionSpalte">
+                                    <Button color="default" onPress={() => onEditHabit(habit)}
+                                            className="habitButton">
+                                        Edit</Button>
+
+                                    <Popover placement="top">
+                                        <PopoverTrigger>
+                                            <Button className="habitButton">Delete</Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent>
+                                            <div className="p-2">
+                                                <p>Are you sure you want to delete this habit?</p>
+                                                <Button
+                                                    style={{ backgroundColor: '#d9534f', color: '#fff' }}
+                                                    onPress={() => onDeleteHabit(habit._id)}
+                                                    className="habitButton">
+                                                    Confirm
+                                                </Button>
+                                            </div>
+                                        </PopoverContent>
+                                    </Popover>
+                                </div>
                             </td>
                         </tr>
                     ))}
