@@ -45,6 +45,7 @@ function Home() {
                     if (data.authenticated && data.user && data.user._id) {
                         fetchUserName(data.user._id);
                     }
+                    setUser(data.user); // Store user details in state
                 }
             } catch (error) {
                 console.error('Error checking authentication:', error);
