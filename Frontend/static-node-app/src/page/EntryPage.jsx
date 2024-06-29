@@ -119,6 +119,11 @@ function EntryPage() {
         setEntryToDelete(null);
     };
 
+    function getDaysInMonth(year, month) {
+        // month is 0-indexed (0 = January, 11 = December)
+        return new Date(year, month + 1, 0).getDate();
+    }
+
     const findEntryByDate = (newDate) => {
 
         setSelectedDate(() => {
@@ -141,16 +146,30 @@ function EntryPage() {
         console.log("current: "+currentDate);
 
         const today = new Date();
-        if(currentDate.getDate() > today.getDate()) currentDate.setDate(today.getDate());
-        if(currentDate.getDate() >= today.getDate()) {
-            setBackgroundNextArrow("#585a58b0");
-            setForegroundNextArrow("#353830c9");
+
+        const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+
+        if(currentDate.getMonth() == today.getMonth() && currentDate.getFullYear() == today.getFullYear()) {
+
+            if(currentDate.getDate() > today.getDate()) currentDate.setDate(today.getDate());
+            if(currentDate.getDate() >= today.getDate()) {
+                setBackgroundNextArrow("#585a58b0");
+                setForegroundNextArrow("#353830c9");
+            }else{
+                setBackgroundNextArrow("#5faf4fb0");
+                setForegroundNextArrow("#424b35c9");
+            }
         }else{
-            setBackgroundNextArrow("#5faf4fb0");
-            setForegroundNextArrow("#424b35c9");
+            if(currentDate.getDate() >= daysInMonth) {
+                setBackgroundNextArrow("#585a58b0");
+                setForegroundNextArrow("#353830c9");
+            }else{
+                setBackgroundNextArrow("#5faf4fb0");
+                setForegroundNextArrow("#424b35c9");
+            }
+
         }
 
-        if(currentDate.getDate() == 31) currentDate.setDate(1);
         if(currentDate.getDate() == 1) {
             setBackgroundPreviousArrow("#585a58b0");
             setForegroundPreviousArrow("#424b35c9");
@@ -162,7 +181,12 @@ function EntryPage() {
 
     const changeToNextDay = () => {
         const currentDate = new Date(selectedDate);
-        currentDate.setDate(currentDate.getDate() + 1);
+
+        const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+
+        if(currentDate.getDate() != daysInMonth){
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
 
         // checking date to ensure no entries are added for dates ahead of the current date
         const today = new Date();
@@ -176,7 +200,7 @@ function EntryPage() {
             }
 
         }else{
-            if(currentDate.getDate() >= today.getDate()) {
+            if(currentDate.getDate() >= daysInMonth) {
                 setBackgroundNextArrow("#585a58b0");
                 setForegroundNextArrow("#353830c9");
             }
@@ -205,14 +229,15 @@ function EntryPage() {
 
     const changeToPreviousDay = () => {
         const currentDate = new Date(selectedDate);
-        currentDate.setDate(currentDate.getDate() - 1);
 
-        if(currentDate.getDate() == 31) currentDate.setDate(1);
+        if(currentDate.getDate() != 1){
+            currentDate.setDate(currentDate.getDate() - 1);
+        }
+
         if(currentDate.getDate() == 1) {
             setBackgroundPreviousArrow("#585a58b0");
             setForegroundPreviousArrow("#424b35c9");
         }
-        
 
         const selectedYear = selectedDate.year;
         const selectedMonth = selectedDate.month;
