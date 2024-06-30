@@ -75,7 +75,7 @@ function Home() {
                         </div>
                         <div className="blockHome box-2">
                             <PreviewEntry entries={entries} />
-                            <Button as={Link} color="primary" href="/entries" variant="flat" className="buttonRound">
+                            <Button as={Link} color="primary" href="/entries" variant="flat" className="homeButton">
                                 click here
                             </Button>
                         </div>
@@ -104,8 +104,10 @@ function Home() {
                         <div className="starTranslate">
                             <div className="star"/>
                         </div>
-                        Hast du jemals den Wunsch verspürt, deine Gedanken, Erlebnisse und Träume an einem sicheren Ort festzuhalten? <br/>
-                        Mit [App-Name] hast dein persönlichen Tagebuch immer bei dir.
+
+                        Have you ever felt the desire to record your thoughts, experiences, and dreams in a safe place?
+                        <br/>
+                        With BIG-BACK you always have your personal diary with you.
                     </div>
                     <div className="outerContainer">
                         <FeatureDiscription />

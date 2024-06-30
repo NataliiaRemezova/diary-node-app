@@ -1,5 +1,21 @@
 .streakContainer{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.streakDisplay {
     display: flex;
-   justify-content: center;
-    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 15px;
+}
+
+.streakImg{
+    justify-content: center;
+    width: 100%;
 }
