@@ -93,6 +93,7 @@ function EntryPage() {
                     }
                     return entry;
                 }));
+                setEntryToDelete(null);
             })
             .catch(error => console.error('Error updating entry:', error));
     };
@@ -118,30 +119,91 @@ function EntryPage() {
         setEntryToDelete(null);
     };
 
+    function getDaysInMonth(year, month) {
+        // month is 0-indexed (0 = January, 11 = December)
+        return new Date(year, month + 1, 0).getDate();
+    }
+
     const findEntryByDate = (newDate) => {
+
         setSelectedDate(() => {
             const thisDate = new Date(newDate).toISOString();
             for (const entry of entries) {
                 if (entry.date === thisDate) {
                     setupEditEntry(entry._id, entry.text);
+                    setEntryToDelete(null);
                     return newDate;
                 }
             }
             setupNewEntry();
+            setEntryToDelete(null);
+
             return newDate;
         });
+
+        const currentDate = new Date(newDate);
+
+        console.log("current: "+currentDate);
+
+        const today = new Date();
+
+        const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+
+        if(currentDate.getMonth() == today.getMonth() && currentDate.getFullYear() == today.getFullYear()) {
+
+            if(currentDate.getDate() > today.getDate()) currentDate.setDate(today.getDate());
+            if(currentDate.getDate() >= today.getDate()) {
+                setBackgroundNextArrow("#585a58b0");
+                setForegroundNextArrow("#353830c9");
+            }else{
+                setBackgroundNextArrow("#5faf4fb0");
+                setForegroundNextArrow("#424b35c9");
+            }
+        }else{
+            if(currentDate.getDate() >= daysInMonth) {
+                setBackgroundNextArrow("#585a58b0");
+                setForegroundNextArrow("#353830c9");
+            }else{
+                setBackgroundNextArrow("#5faf4fb0");
+                setForegroundNextArrow("#424b35c9");
+            }
+
+        }
+
+        if(currentDate.getDate() == 1) {
+            setBackgroundPreviousArrow("#585a58b0");
+            setForegroundPreviousArrow("#424b35c9");
+        }else{
+            setBackgroundPreviousArrow("#5faf4fb0");
+            setForegroundPreviousArrow("#424b35c9");
+        }
     };
 
     const changeToNextDay = () => {
         const currentDate = new Date(selectedDate);
-        currentDate.setDate(currentDate.getDate() + 1);
+
+        const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+
+        if(currentDate.getDate() != daysInMonth){
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
 
         // checking date to ensure no entries are added for dates ahead of the current date
         const today = new Date();
-        if(currentDate.getDate() > today.getDate()) currentDate.setDate(today.getDate());
-        if(currentDate.getDate() >= today.getDate()) {
-            setBackgroundNextArrow("#585a58b0");
-            setForegroundNextArrow("#353830c9");
+
+        if(currentDate.getMonth() == today.getMonth() && currentDate.getFullYear() == today.getFullYear()) {
+
+            if(currentDate.getDate() > today.getDate()) currentDate.setDate(today.getDate());
+            if(currentDate.getDate() >= today.getDate()) {
+                setBackgroundNextArrow("#585a58b0");
+                setForegroundNextArrow("#353830c9");
+            }
+
+        }else{
+            if(currentDate.getDate() >= daysInMonth) {
+                setBackgroundNextArrow("#585a58b0");
+                setForegroundNextArrow("#353830c9");
+            }
         }
 
         const selectedYear = selectedDate.year;
@@ -160,19 +222,22 @@ function EntryPage() {
 
         setBackgroundPreviousArrow("#5faf4fb0");
         setForegroundPreviousArrow("#424b35c9");
+
+        setEntryToDelete(null);
     }
 
 
     const changeToPreviousDay = () => {
         const currentDate = new Date(selectedDate);
-        currentDate.setDate(currentDate.getDate() - 1);
 
-        if(currentDate.getDate() == 31) currentDate.setDate(1);
+        if(currentDate.getDate() != 1){
+            currentDate.setDate(currentDate.getDate() - 1);
+        }
+
         if(currentDate.getDate() == 1) {
             setBackgroundPreviousArrow("#585a58b0");
             setForegroundPreviousArrow("#424b35c9");
         }
-        
 
         const selectedYear = selectedDate.year;
         const selectedMonth = selectedDate.month;
@@ -189,6 +254,8 @@ function EntryPage() {
 
         setBackgroundNextArrow("#5faf4fb0");
         setForegroundNextArrow("#424b35c9");
+
+        setEntryToDelete(null);
     }
 
     return (
@@ -206,12 +273,14 @@ function EntryPage() {
 
                     <Entry addEntry={addEntry} entryTextfield={entryTextfield} setEntryTextfield={setEntryTextfield} selectedDate={selectedDate} entryToEdit={entryToEdit} editEntry={editEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete}/>
                     {/*<ListOfEntries entries={entries} setupEditEntry={setupEditEntry} deleteEntry={deleteEntry} confirmDelete={confirmDelete} cancelDelete={cancelDelete} entryToDelete={entryToDelete} />*/}
-                    <Button isIconOnly aria-label="Previous" className="arrowButton" onClick={changeToPreviousDay} style={{backgroundColor: backgroundPreviousArrow, color: foregroundPreviousArrow}}>
-                        <RiArrowLeftSFill />
-                    </Button>    
-                    <Button isIconOnly aria-label="Next" className="arrowButton" onClick={changeToNextDay} style={{backgroundColor: backgroundNextArrow, color: foregroundNextArrow}}>
-                        <RiArrowRightSFill />
-                    </Button>
+                    <div class="buttonBar">
+                        <Button isIconOnly aria-label="Previous" className="arrowButton" onClick={changeToPreviousDay} style={{backgroundColor: backgroundPreviousArrow, color: foregroundPreviousArrow}}>
+                            <RiArrowLeftSFill />
+                        </Button>    
+                        <Button isIconOnly aria-label="Next" className="arrowButton" onClick={changeToNextDay} style={{backgroundColor: backgroundNextArrow, color: foregroundNextArrow}}>
+                            <RiArrowRightSFill />
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

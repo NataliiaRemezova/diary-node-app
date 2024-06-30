@@ -18,7 +18,7 @@ function App() {
   const navigate = useNavigate();
 
   return (
-    <NextUIProvider navigate={navigate} style={{display:"flex", justifyContent:"center"}}>
+    <NextUIProvider navigate={navigate}>
      <div className="appBody">
       {isMobile ? ( <NavbarMobile/> ) : ( <NavbarWeb/> )}
       <Routes>

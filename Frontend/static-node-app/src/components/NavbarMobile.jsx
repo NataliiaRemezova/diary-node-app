@@ -3,13 +3,44 @@ import {Navbar, NavbarContent, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Lin
 
 const NavbarMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const [isClickedHome, setIsClickedHome] = useState(false);
+  const [isClickedEntries, setIsClickedEntries] = useState(false);
+  const [isClickedHabits, setIsClickedHabits] = useState(false);
+  const [isClickedLogin, setIsClickedLogin] = useState(true);
+
+  const toggleHome = () => {
+    setIsClickedHome(true);
+    setIsClickedEntries(false);
+    setIsClickedHabits(false);
+    setIsClickedLogin(true);
+  }
+  const toggleEntries = () => {
+    setIsClickedEntries(true);
+    setIsClickedHome(false);
+    setIsClickedHabits(false);
+    setIsClickedLogin(true);
+  }
+  const toggleHabits = () => {
+    setIsClickedHabits(true);
+    setIsClickedHome(false);
+    setIsClickedEntries(false);
+    setIsClickedLogin(true);
+  }
+  const toggleLogin = () => {
+    setIsClickedHome(false);
+    setIsClickedEntries(false);
+    setIsClickedHabits(false);
+    setIsClickedLogin(!isClickedLogin);
+  }
 
   const menuItems = [
+    "",
     "Home",
     "Diary Entries",
     "Habit Tracker",
-    "LogOut",
+    isAuthenticated ? "Logout" : "Login"
   ];
 
     useEffect(() => {
@@ -51,20 +82,57 @@ const NavbarMobile = () => {
         <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" size="lg"/>
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => ( // maps over the menuItems to render each one as a link
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === menuItems.length - 1 ? "danger" : "foreground"
-              }
-              className="w-full"
-              href={index === 0 ? "/" :  index === 1 ? "/entries" : index === 2 ? "/habits" : index === 3 ? "/login" : "/error"}
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        <NavbarMenuItem key={menuItems[0]}>
+          <Link></Link>
+        </NavbarMenuItem>
+          
+        <NavbarMenuItem key={menuItems[1]} >
+          <Link 
+            color={"primary"}
+            className={`${isClickedHome ? "w-full underline" : "w-full"}`}
+            href="/"
+            size="lg"
+            onClick={toggleHome}
+          >
+            Home
+          </Link>
+        </NavbarMenuItem>
+
+        <NavbarMenuItem key={menuItems[2]} >
+          <Link 
+            color={"primary"}
+            className={`${isClickedEntries ? "w-full underline" : "w-full"}`}
+            href="/entries"
+            size="lg"
+            onClick={toggleEntries}
+          >
+            Entries
+          </Link>
+        </NavbarMenuItem>
+
+        <NavbarMenuItem key={menuItems[3]}>
+          <Link 
+            color={"primary"}
+            className={`${isClickedHabits ? "w-full underline" : "w-full"}`}
+            href="/habits"
+            size="lg"
+            onClick={toggleHabits}
+          >
+            Habit Tracker
+          </Link>
+        </NavbarMenuItem>
+
+        <NavbarMenuItem key={menuItems[4]}>
+          <Link 
+            color={"danger"}
+            className="w-full"
+            href="/login"
+            size="lg"
+            onClick={`${isAuthenticated ? handleLogout : toggleLogin}`}
+          >
+            {`${isAuthenticated ? "Logout" : "Login"}`}
+          </Link>
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );
