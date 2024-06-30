@@ -28,7 +28,7 @@ const Streak = () => {
     return (
         <div className="streakContainer">
             <div className="streakDisplay">
-                <Image src={kingImage} alt="King Icon" />
+                <Image src={kingImage} alt="King Icon" className="streakImg"/>
                 <div className="streakCount">
                     {streak > 0
                         ? `You have a streak of ${streak} day(s)! Great!`

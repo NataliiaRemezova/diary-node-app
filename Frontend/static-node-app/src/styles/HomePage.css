@@ -1,7 +1,7 @@
 .headerDiv {
     display: flex;
     justify-content: center;
-    align-items: center; /* Aligns items vertically */
+    align-items: center;
     background-color: rgba(1, 1, 1, 0.05);
     height: 100px;
     width: 80vw;
@@ -23,7 +23,6 @@
 }
 
 .blockHome{
-    width: 38vw;
     min-height: 230px;
     background-color: rgb(1,1,1,0.05);
     box-shadow: 10px 5px 5px #bbc591;
@@ -33,6 +32,7 @@
 
 .innerContainer{
     display: block;
+    justify-content: center;
 }
 .outerContainer{
     display: flex;

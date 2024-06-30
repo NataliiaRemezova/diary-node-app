@@ -66,14 +66,19 @@ function Home() {
 
                     <div className="outerContainer">
                         <div className="innerContainer">
-                            <div className="blockHome box-1">
+                            <div className="blockHome ">
                                 <DateTime />
                             </div>
-                            <div className="blockHome box-3">
-                                <Streak />
+                            <div style={{display:"flex"}}>
+                                <div className="blockHome" style={{width:"20vw", alignContent:"center"}}>
+                                    <Streak />
+                                </div>
+                                <div className="blockHome" style={{width:"20vw"}}>
+                                    hello
+                                </div>
                             </div>
                         </div>
-                        <div className="blockHome box-2">
+                        <div className="blockHome" style={{width:"35vw"}}>
                             <PreviewEntry entries={entries} />
                             <Button as={Link} color="primary" href="/entries" variant="flat" className="buttonRound">
                                 click here
