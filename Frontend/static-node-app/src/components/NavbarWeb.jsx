@@ -98,6 +98,13 @@ const NavbarWeb = () => {
               ) : ( null)}
       </NavbarContent>
       <NavbarContent justify="end">
+            {isAuthenticated && (
+                <NavbarItem>
+                    <Link style={{color: "#2cb14de1"}} href="/profile" className={`${isClickedHome ? "font-bold underline" : "foreground"}`} >
+                        Profile
+                    </Link>
+                </NavbarItem>
+            )}
         <NavbarItem>
             {isAuthenticated ? (
                 <Button style={{ backgroundColor: "#cfe7a7c9", color: "#2cb14de1" }} onClick={handleLogout} color="primary" variant="flat">
