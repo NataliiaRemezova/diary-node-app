@@ -6,6 +6,7 @@ const NavbarWeb = () => {
    const [isClickedHome, setIsClickedHome] = useState(false);
     const [isClickedEntries, setIsClickedEntries] = useState(false);
     const [isClickedHabits, setIsClickedHabits] = useState(false);
+    const [isClickedToDoList, setIsClickedToDoList] = useState(false);
     
     //sprint_07_matthis
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -16,24 +17,35 @@ const NavbarWeb = () => {
         setIsClickedHome(true);
         setIsClickedEntries(false);
         setIsClickedHabits(false);
+        setIsClickedToDoList(false);
         setIsClickedLogin(true);
     }
     const toggleEntries = () => {
-        setIsClickedEntries(true);
         setIsClickedHome(false);
+        setIsClickedEntries(true);
         setIsClickedHabits(false);
+        setIsClickedToDoList(false);
         setIsClickedLogin(true);
     }
     const toggleHabits = () => {
-        setIsClickedHabits(true);
         setIsClickedHome(false);
         setIsClickedEntries(false);
+        setIsClickedHabits(true);
+        setIsClickedToDoList(false);
+        setIsClickedLogin(true);
+    }
+    const toggleToDoList = () => {
+        setIsClickedHome(false);
+        setIsClickedEntries(false);
+        setIsClickedHabits(false);
+        setIsClickedToDoList(true);
         setIsClickedLogin(true);
     }
     const toggleLogin = () => {
       setIsClickedHome(false);
       setIsClickedEntries(false);
       setIsClickedHabits(false);
+      setIsClickedToDoList(false);
       setIsClickedLogin(!isClickedLogin);
       console.log("testttt");
   }
@@ -92,6 +104,11 @@ const NavbarWeb = () => {
                   <NavbarItem>
                       <Link style={{color: "#2cb14de1"}} className={`${isClickedHabits ? "font-bold underline" : "foreground"}`} onClick={ toggleHabits } href="/habits">
                           Habit Tracker
+                      </Link>
+                  </NavbarItem>
+                  <NavbarItem>
+                      <Link style={{color: "#2cb14de1"}} className={`${isClickedToDoList ? "font-bold underline" : "foreground"}`} onClick={ toggleToDoList } href="/todolist">
+                          To-Do List
                       </Link>
                   </NavbarItem>
               </NavbarContent>

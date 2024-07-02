@@ -1,6 +1,7 @@
 import User from '../data/model/userModel.js';
 import Entry from '../data/model/entryModel.js';
 import Habit from '../data/model/habitModel.js';
+import Todo from '../data/model/todoModel.js';
 
 export const createUser = async (req, res) => {
     const { name, email } = req.body;
@@ -15,7 +16,7 @@ export const createUser = async (req, res) => {
 
 export const getUsers = async (req, res) => {
     try {
-        const users = await User.find().populate('entries').populate('habits');
+        const users = await User.find().populate('entries').populate('habits').populate('todos');
         res.status(200).json(users);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -25,7 +26,7 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
     try {
         console.log('Fetching user with ID:', req.params.id);
-        const user = await User.findById(req.params.id).populate('entries').populate('habits');
+        const user = await User.findById(req.params.id).populate('entries').populate('habits').populate('todos');
         console.log('User found:', user);
         if (!user) {
             return res.status(404).send('User not found');
@@ -46,7 +47,7 @@ export const updateUser = async (req, res) => {
             id,
             { name, email, entries, habits },
             { new: true }
-        ).populate('entries').populate('habits');
+        ).populate('entries').populate('habits').populate('todos');
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
   entries: [{type: mongoose.Schema.Types.ObjectId, ref: "Entry"}],
-  habits: [{type: mongoose.Schema.Types.ObjectId, ref: "Habit"}]
+  habits: [{type: mongoose.Schema.Types.ObjectId, ref: "Habit"}],
+  todos: [{type: mongoose.Schema.Types.ObjectId, ref: "Todo"}]
 });
 
 UserSchema.methods.getInfo = function() {

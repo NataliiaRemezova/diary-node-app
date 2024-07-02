@@ -9,6 +9,7 @@ import LoginPage from "./page/LoginPage.jsx";
 import Home from "./page/HomePage.jsx";
 import EntryPage from "./page/EntryPage.jsx";
 import HabitPage from "./page/HabitPage.jsx";
+import ToDoListPage from "./page/ToDoListPage.jsx";
 import RegistrationPage from "./page/RegisterPage.jsx";
 import UserTable from "./page/UserTablePage.jsx";
 import PrivateRoute from './components/PrivateRoute';
@@ -31,6 +32,10 @@ function App() {
         <Route path="/habits" element={
             <PrivateRoute>
                 <HabitPage/>
+            </PrivateRoute>} />
+        <Route path="/todolist" element={
+            <PrivateRoute>
+                <ToDoListPage/>
             </PrivateRoute>} />
         <Route path="/login" element={<LoginPage/>} />
           <Route path="/registration" element={<RegistrationPage/>} />
