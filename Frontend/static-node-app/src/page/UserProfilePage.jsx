@@ -1,6 +1,6 @@
 // UserProfilePage.jsx
 import { useEffect, useState } from "react";
-import { Button, Input } from "@nextui-org/react";
+import {Button, Input, Spacer} from "@nextui-org/react";
 import "../styles/UserProfilePage.css";
 
 function UserProfilePage() {
@@ -68,8 +68,9 @@ function UserProfilePage() {
 
     return (
         <div className="profilePage">
-            <h2>Profile</h2>
-            <div className="profileForm">
+            <h1 className="fontProfil">Profile</h1>
+            <Spacer y={4}/>
+            <div>
                 <Input
                     label="Email"
                     value={user.email || ""}
@@ -92,10 +93,10 @@ function UserProfilePage() {
                             fullWidth
                         />
                         <div className="buttonGroup">
-                            <Button onClick={handleUpdateProfile} color="primary" className="buttonRound">
+                            <Button onClick={handleUpdateProfile} color="primary" className="profilButton">
                                 Update Username
                             </Button>
-                            <Button onClick={handleCancelEdit} color="secondary" className="buttonRound">
+                            <Button onClick={handleCancelEdit} color="secondary" className="profilButton">
                                 Cancel
                             </Button>
                         </div>
@@ -103,7 +104,8 @@ function UserProfilePage() {
                 ) : (
                     <div className="displaySection">
                         <p>Username: {user.username || "N/A"}</p>
-                        <Button onClick={() => setEditUsername(true)} color="primary" className="buttonRound">
+                        <Spacer x={5}/>
+                        <Button onClick={() => setEditUsername(true)} color="primary" className="profilButton">
                             Edit Username
                         </Button>
                     </div>
@@ -125,10 +127,10 @@ function UserProfilePage() {
                             fullWidth
                         />
                         <div className="buttonGroup">
-                            <Button onClick={handleUpdateProfile} color="primary" className="buttonRound">
+                            <Button onClick={handleUpdateProfile}  className="profilButton">
                                 Update Password
                             </Button>
-                            <Button onClick={handleCancelEdit} color="secondary" className="buttonRound">
+                            <Button onClick={handleCancelEdit}  className="profilButton">
                                 Cancel
                             </Button>
                         </div>
@@ -136,7 +138,7 @@ function UserProfilePage() {
                 ) : (
                     <div className="displaySection">
                         <p>Password: *******</p>
-                        <Button onClick={() => setEditPassword(true)} color="primary" className="buttonRound">
+                        <Button onClick={() => setEditPassword(true)} className="profilButton">
                             Edit Password
                         </Button>
                     </div>
