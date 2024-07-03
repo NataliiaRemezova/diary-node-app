@@ -15,7 +15,14 @@
     padding: 15px;
 }
 
-.streakImg{
-    justify-content: center;
-    width: 100%;
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.streakImg {
+    width: 100px; /* oder eine andere feste Größe */
+    height: auto;
+    margin-bottom: 10px; /* Abstand zwischen Bild und Text */
 }
