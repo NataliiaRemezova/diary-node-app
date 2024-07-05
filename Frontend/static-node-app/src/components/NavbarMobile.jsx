@@ -8,38 +8,52 @@ const NavbarMobile = () => {
   const [isClickedHome, setIsClickedHome] = useState(false);
   const [isClickedEntries, setIsClickedEntries] = useState(false);
   const [isClickedHabits, setIsClickedHabits] = useState(false);
+  const [isClickedToDoList, setIsClickedToDoList] = useState(false);
   const [isClickedLogin, setIsClickedLogin] = useState(true);
 
   const toggleHome = () => {
     setIsClickedHome(true);
     setIsClickedEntries(false);
     setIsClickedHabits(false);
+    setIsClickedToDoList(false);
     setIsClickedLogin(true);
-  }
-  const toggleEntries = () => {
+}
+const toggleEntries = () => {
+    setIsClickedHome(false);
     setIsClickedEntries(true);
-    setIsClickedHome(false);
     setIsClickedHabits(false);
+    setIsClickedToDoList(false);
     setIsClickedLogin(true);
-  }
-  const toggleHabits = () => {
+}
+const toggleHabits = () => {
+    setIsClickedHome(false);
+    setIsClickedEntries(false);
     setIsClickedHabits(true);
-    setIsClickedHome(false);
-    setIsClickedEntries(false);
+    setIsClickedToDoList(false);
     setIsClickedLogin(true);
-  }
-  const toggleLogin = () => {
+}
+const toggleToDoList = () => {
     setIsClickedHome(false);
     setIsClickedEntries(false);
     setIsClickedHabits(false);
-    setIsClickedLogin(!isClickedLogin);
-  }
+    setIsClickedToDoList(true);
+    setIsClickedLogin(true);
+}
+const toggleLogin = () => {
+  setIsClickedHome(false);
+  setIsClickedEntries(false);
+  setIsClickedHabits(false);
+  setIsClickedToDoList(false);
+  setIsClickedLogin(!isClickedLogin);
+  console.log("testttt");
+}
 
   const menuItems = [
     "",
     "Home",
     "Diary Entries",
     "Habit Tracker",
+    "To-Do List",
     isAuthenticated ? "Logout" : "Login"
   ];
 
@@ -136,6 +150,18 @@ const NavbarMobile = () => {
         </NavbarMenuItem>
 
         <NavbarMenuItem key={menuItems[4]}>
+          <Link 
+            color={"primary"}
+            className={`${isClickedToDoList ? "w-full underline" : "w-full"}`}
+            href="/todolist"
+            size="lg"
+            onClick={toggleToDoList}
+          >
+            To-Do List
+          </Link>
+        </NavbarMenuItem>
+
+        <NavbarMenuItem key={menuItems[5]}>
           <Link 
             color={"danger"}
             className="w-full"
