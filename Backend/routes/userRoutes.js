@@ -1,12 +1,14 @@
 import express from 'express';
-import { createUser, getUsers, getUserById, updateUser, deleteUser } from '../controllers/userController.js';
+import { createUser, getUsers, getUserById, updateUser, deleteUser, getUserProfile } from '../controllers/userController.js';
+import authenticateJWT from '../middleware/authenticateJWT.js';
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.post('/create-user', createUser);
-router.get('/get-users', getUsers);
-router.get('/get-user/:id', getUserById);
-router.put('/update-user/:id', updateUser);
-router.delete('/delete-user/:id', deleteUser);
+userRouter.post('/create-user', createUser);
+userRouter.get('/get-users', getUsers);
+userRouter.get('/get-user/:id', getUserById);
+userRouter.put('/update-user/:id', authenticateJWT, updateUser);
+userRouter.delete('/delete-user/:id', deleteUser);
+userRouter.get('/profile', authenticateJWT, getUserProfile);
 
-export default router;
+export default userRouter;

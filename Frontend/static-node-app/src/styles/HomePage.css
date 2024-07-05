@@ -34,6 +34,7 @@
 .innerContainer{
     display: block;
 }
+
 .outerContainer{
     display: flex;
     justify-content: center;
@@ -87,6 +88,7 @@
     border-left: 100px solid transparent;
     transform: rotate(35deg);
 }
+
 .star:before {
     border-bottom: 80px solid rgb(118, 145, 226);
     border-left: 30px solid transparent;
@@ -100,6 +102,7 @@
     content: '';
     transform: rotate(-35deg);
 }
+
 .star:after {
     position: absolute;
     display: block;
@@ -123,4 +126,11 @@
     height: 130%;
     scale: 0.2;
     transform: rotateZ(10deg);
+}
+
+.homeButton{
+    background-color: #7691E2 !important;
+    color: #D7E5D6 !important;
+    margin: 5px;
+    font-size: clamp(12px, 2vw, 18px);
 }

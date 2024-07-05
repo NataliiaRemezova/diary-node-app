@@ -13,6 +13,7 @@ import ToDoListPage from "./page/ToDoListPage.jsx";
 import RegistrationPage from "./page/RegisterPage.jsx";
 import UserTable from "./page/UserTablePage.jsx";
 import PrivateRoute from './components/PrivateRoute';
+import UserProfilePage from "./page/UserProfilePage.jsx";
 
 function App() {
   const isMobile = useMediaQuery({ maxWidth: '1100px' });
@@ -37,6 +38,10 @@ function App() {
             <PrivateRoute>
                 <ToDoListPage/>
             </PrivateRoute>} />
+        <Route path="/profile" element={
+            <PrivateRoute>
+              <UserProfilePage />
+             </PrivateRoute>} />
         <Route path="/login" element={<LoginPage/>} />
           <Route path="/registration" element={<RegistrationPage/>} />
       </Routes>

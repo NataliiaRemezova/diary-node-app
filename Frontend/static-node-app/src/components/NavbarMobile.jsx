@@ -136,6 +136,19 @@ const toggleLogin = () => {
           </Link>
         </NavbarMenuItem>
 
+        <NavbarMenuItem key={menuItems[5]}>
+            {isAuthenticated && (
+                <Link 
+                    color={"primary"}
+                    className="w-full"
+                    href="/profile"
+                    size="lg"
+                >
+                    Profile
+                </Link>
+            )}
+        </NavbarMenuItem>
+
         <NavbarMenuItem key={menuItems[4]}>
           <Link 
             color={"primary"}

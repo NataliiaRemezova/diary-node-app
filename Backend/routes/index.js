@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import userRoutes from "./userRoutes.js"
+import userRouter from "./userRoutes.js"
 import entryRoutes from "./entryRoutes.js"
 import habitRoutes from "./habitRoutes.js"
 import todolistRoutes from "./todolistRoutes.js"
@@ -7,7 +7,7 @@ import streakRouter from './streakRoutes.js';
 
 const router = Router()
 
-router.use('/user', userRoutes);
+router.use('/user', userRouter);
 router.use('/habit', habitRoutes);
 router.use('/todolist', todolistRoutes);
 router.use('/entry', entryRoutes);
