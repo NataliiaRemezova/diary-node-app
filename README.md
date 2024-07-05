@@ -1,4 +1,4 @@
-# Diary App
+# Piggy-Backlog Diary App
 
 ## Description
 
@@ -80,10 +80,10 @@ docker compose up
 
 The features of Piggy-Backlog are:
 
-**User Authentication**: Secure your diary with user authentication.
-**Diary Entries**: Create a new diary entry for each day. You can switch between them via a calendar.
-**Habit Tracker**: Track your daily habits, mark them as completed, and view your progress over time.
-**To-Do List**: Keep track of all the tasks you need to do.
+- **User Authentication**: Secure your diary with user authentication.
+- **Diary Entries**: Create a new diary entry for each day. You can switch between them via a calendar.
+- **Habit Tracker**: Track your daily habits, mark them as completed, and view your progress over time.
+- **To-Do List**: Keep track of all the tasks you need to do.
 
 - all these features support CRUD operations
 
