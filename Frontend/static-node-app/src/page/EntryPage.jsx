@@ -260,6 +260,7 @@ function EntryPage() {
 
     return (
         <div>
+            <h1 className="entryPageHeader">Diary Entries</h1>
             <div className="flexContainer">
                 <div>
                     <Calendar

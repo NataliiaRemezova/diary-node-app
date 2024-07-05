@@ -23,3 +23,9 @@
     transform: translate(-50%, 0); /* Center horizontally */
     margin-left: -50px; /* Shift 200px to the left */
 }
+
+.entryPageHeader{
+    font-family: pixelFont;
+    font-size: 26px;
+    color: #13361E;
+}

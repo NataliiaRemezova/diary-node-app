@@ -86,7 +86,7 @@ function Home() {
                     <div className="headerDiv">
                         <TypeAnimation
                             sequence={[
-                                "Welcome to PIG BAG",
+                                "Welcome to Piggy-Backlog",
                                 1000,
                                 "Welcome to your journal",
                                 1000,
@@ -107,7 +107,7 @@ function Home() {
 
                         Have you ever felt the desire to record your thoughts, experiences, and dreams in a safe place?
                         <br/>
-                        With PIG-BACK you always have your personal diary with you.
+                        With Piggy-Backlog you always have your personal diary with you.
                     </div>
                     <div className="outerContainer">
                         <FeatureDiscription />
