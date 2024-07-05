@@ -29,3 +29,29 @@
     font-size: 26px;
     color: #13361E;
 }
+
+.entries {
+    background-color: #92D48C;
+}
+
+.calendarStyle {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.nonselectabledates {
+    position: relative;
+    color:#546153;
+}
+
+.selected {
+    background-color: #92D48C;
+    border-color: #0d0e0de0;
+    border-radius: 15px;
+}

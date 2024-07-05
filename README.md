@@ -76,6 +76,11 @@ cd diary-node-app
 docker compose up
 ```
 
+To run the docker container with hot module reloading enabled for development purposes, use:
+```bash
+docker compose up watch
+```
+
 ## Features
 
 The features of Piggy-Backlog are:
