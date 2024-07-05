@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Image } from '@nextui-org/react';
 import kingImage from '../assets/king.png';
+import sleepImage from '../assets/pigSleep.png';
 import '../styles/Streak.css';
 
 const Streak = () => {
@@ -28,11 +29,17 @@ const Streak = () => {
     return (
         <div className="streakContainer">
             <div className="streakDisplay">
-                <Image src={kingImage} alt="King Icon" />
                 <div className="streakCount">
-                    {streak > 0
-                        ? `You have a streak of ${streak} day(s)! Great!`
-                        : 'No streak yet. Start writing your diary!'}
+                    {streak > 0 ?
+                        ( <div className="contentWrapper">
+                                <Image src={kingImage} alt="Sleep" className="streakImg"/>
+                                <p> You have a streak of {streak} day(s)! Great! </p>
+                        </div>
+                        ):(
+                            <div className="contentWrapper">
+                                <Image src={sleepImage} alt="King Icon"  className="streakImg"/>
+                                <p>No streak yet. Start writing your diary!</p>
+                            </div>)}
                 </div>
             </div>
         </div>

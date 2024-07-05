@@ -142,13 +142,13 @@ const HabitPage = () => {
                 />
                 <Spacer y={8}/>
                 <Button onPress={onOpen} className="mt-5 habitButton">Add Habit</Button>
-                <Modal isOpen={isOpen} onOpenChange={onOpenChange} >
+                <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="modal" >
                     <ModalContent >
                         {(onClose) => (
                             <>
                                 <ModalHeader className="flex flex-col changeFont modal">{editMode ? 'Edit Habit' : 'Add Habit'}</ModalHeader>
                                 <ModalBody className="modal">
-                                    <form id="habitForm" onSubmit={handleSubmit} className="flex flex-col items-center">
+                                    <form id="habitForm" onSubmit={handleSubmit} className="flex flex-col items-center modal">
                                         <Input
                                             type="text"
                                             name="name"
@@ -156,7 +156,7 @@ const HabitPage = () => {
                                             value={habitForm.name}
                                             onChange={handleChange}
                                             required
-                                            className="mb-3 p-2 w-80  rounded "
+                                            className="input"
                                         />
                                         <Input
                                             type="text"
@@ -164,7 +164,7 @@ const HabitPage = () => {
                                             placeholder="Description"
                                             value={habitForm.description}
                                             onChange={handleChange}
-                                            className="mb-3 p-2 w-80  rounded "
+                                            className="input"
                                         />
                                         <Input
                                             type="date"
@@ -173,7 +173,7 @@ const HabitPage = () => {
                                             value={habitForm.startDate}
                                             onChange={handleChange}
                                             required
-                                            className="mb-3 p-2 w-80  rounded"
+                                            className="input"
                                         />
                                         <Input
                                             type="date"
@@ -182,7 +182,7 @@ const HabitPage = () => {
                                             value={habitForm.endDate}
                                             onChange={handleChange}
                                             required
-                                            className="mb-3 p-2 w-80  rounded "
+                                            className="input"
                                         />
                                     </form>
                                 </ModalBody>
