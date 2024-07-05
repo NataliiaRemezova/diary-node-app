@@ -5,7 +5,7 @@ dotenv.config();
 
 const connectToDb = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/diary-node-app', {
+    await mongoose.connect(process.env.MONGO_URL || 'mongodb://diary_app_mongo:27017/diary-node-app', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
