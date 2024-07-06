@@ -31,5 +31,10 @@
 }
 
 .modal{
-    background-color: #D7E5D6;
+    background-color: #D7E5D6 !important;
+}
+
+.input{
+    padding: 5px;
+    width: 100%;
 }

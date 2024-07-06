@@ -1,0 +1,59 @@
+.profilePage {
+    display: block;
+    justify-content: center;
+    align-self: center;
+    max-width: 600px;
+    min-width: 350px;
+    margin: auto;
+    padding: 50px;
+    background-color: #D7E5D6 ;
+    border-radius: 15px;
+    box-shadow: 10px 5px 5px #bbc591;
+}
+
+.profileForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profileForm p {
+    font-size: 1.2em;
+}
+
+.editSection, .displaySection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 10px;
+}
+
+.input-spacing {
+    margin-bottom: 1rem;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.fontProfil{
+    font-family: pixelFont;
+    color: #7691E2;
+    font-size: 32px;
+}
+
+.profilButton{
+    background-color: #7691E2 !important;
+    color: #D7E5D6 !important;
+    margin: 5px;
+    font-size: clamp(12px, 2vw, 18px);
+}

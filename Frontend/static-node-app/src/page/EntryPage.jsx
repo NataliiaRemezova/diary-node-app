@@ -1,9 +1,10 @@
 import Entry from "../components/Entry.jsx";
-import { Calendar } from "@nextui-org/calendar";
+
 import { useState, useEffect } from 'react';
-import { parseDate, today, getLocalTimeZone } from "@internationalized/date";
+import { parseDate } from "@internationalized/date";
 import { Button } from "@nextui-org/react";
 import { RiArrowRightSFill, RiArrowLeftSFill } from "react-icons/ri";
+import { DayPicker } from "react-day-picker";
 import "../styles/EntryPage.css";
 
 function EntryPage() {
@@ -27,27 +28,48 @@ function EntryPage() {
     const [foregroundNextArrow, setForegroundNextArrow] = useState("#353830c9");
     const [backgroundPreviousArrow, setBackgroundPreviousArrow] = useState("#5faf4fb0");
     const [foregroundPreviousArrow, setForegroundPreviousArrow] = useState("#424b35c9");
+    const [selected, setSelected] = useState(new Date());
+    const [allEntriesAsDate, setAllEntriesAsDate] = useState([]);
+
+    const fillEntryForCalendar = () => {
+        const dateObjects = entries.map((entry) => {
+            return new Date(entry.date)
+          });
+          setAllEntriesAsDate(dateObjects);
+        for(const dateEntries of allEntriesAsDate) {
+            console.log("these are the entries with dates" + dateEntries);
+        }
+    }
+
+    const fetchEntries = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/entry/get-entries', {
+                method: 'GET',
+                credentials: 'include',
+            });
+            if (!response.ok) {
+                throw new Error('Error fetching entries');
+            }
+            const data = await response.json();
+            setEntries(data);
+        } catch (error) {
+            console.error('Error fetching entries', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchEntries = async () => {
-            try {
-                const response = await fetch('http://localhost:5000/api/entry/get-entries', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                if (!response.ok) {
-                    throw new Error('Fehler beim Abrufen der Einträge');
-                }
-                const data = await response.json();
-                setEntries(data);
-            } catch (error) {
-                console.error('Fehler beim Abrufen der Einträge:', error);
-            }
+        const fetchSetup = async () => {
+          await fetchEntries();
         };
-
-        fetchEntries();
-        console.log('Entry successfully');
+        fetchSetup();
+        console.log('Entries successfully fetched');
     }, []);
+
+    useEffect(() => {
+        if (entries.length > 0) {
+          fillEntryForCalendar();
+        }
+    }, [entries]);
 
     const addEntry = (newEntryText) => {
         fetch('http://localhost:5000/api/entry/create-entry', {
@@ -55,7 +77,7 @@ function EntryPage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ text: newEntryText, date: new Date(selectedDate).toISOString() }),
+            body: JSON.stringify({ text: newEntryText, date: new Date(selectedDate).toString() }),
             credentials: 'include', // Wichtig für das Senden von Cookies
         })
             .then(response => response.json())
@@ -82,14 +104,14 @@ function EntryPage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ text: newEntryText, date: new Date(selectedDate).toISOString() }),
+            body: JSON.stringify({ text: newEntryText, date: new Date(selectedDate).toString() }),
             credentials: 'include',
         })
             .then(response => response.json())
             .then(data => {
                 setEntries(entries.map(entry => {
                     if (entry._id === entryToEdit) {
-                        return { ...entry, text: newEntryText, date: new Date(selectedDate).toISOString() };
+                        return { ...entry, text: newEntryText, date: new Date(selectedDate).toString() };
                     }
                     return entry;
                 }));
@@ -127,9 +149,11 @@ function EntryPage() {
     const findEntryByDate = (newDate) => {
 
         setSelectedDate(() => {
-            const thisDate = new Date(newDate).toISOString();
+            const thisDate = new Date(newDate).toString();
             for (const entry of entries) {
-                if (entry.date === thisDate) {
+                let entrySubstring = entry.date;
+                let entryDate = entrySubstring.substring(0, 15);
+                if (entryDate === thisDate.substring(0, 15)) {
                     setupEditEntry(entry._id, entry.text);
                     setEntryToDelete(null);
                     return newDate;
@@ -140,6 +164,8 @@ function EntryPage() {
 
             return newDate;
         });
+
+        setSelected(new Date(newDate));
 
         const currentDate = new Date(newDate);
 
@@ -200,25 +226,26 @@ function EntryPage() {
             }
 
         }else{
+            if(currentDate.getDate() > daysInMonth) currentDate.setDate(today.getDate());
             if(currentDate.getDate() >= daysInMonth) {
                 setBackgroundNextArrow("#585a58b0");
                 setForegroundNextArrow("#353830c9");
             }
         }
 
-        const selectedYear = selectedDate.year;
-        const selectedMonth = selectedDate.month;
-        const selectedDay = currentDate.getDate();
+        const newYear = currentDate.getFullYear();
+        const newMonth = (currentDate.getMonth()) + 1;
+        const newDay = currentDate.getDate();
 
-        const currentMonth = String(selectedMonth).padStart(2, '0');
-        const nextDay = String(selectedDay).padStart(2, '0');
+        const currentMonth = String(newMonth).padStart(2, '0');
+        const nextDay = String(newDay).padStart(2, '0');
 
-        const newSelectedDate = `${selectedYear}-${currentMonth}-${nextDay}`;
+        const newSelectedDate = `${newYear}-${currentMonth}-${nextDay}`;
+        const selectedDateAsDateObject = new Date(newYear, currentDate.getMonth(), newDay);
+        
 
         findEntryByDate(newSelectedDate);
-
-
-        setSelectedDate(parseDate(newSelectedDate));
+        setSelectedDate(selectedDateAsDateObject);
 
         setBackgroundPreviousArrow("#5faf4fb0");
         setForegroundPreviousArrow("#424b35c9");
@@ -234,23 +261,24 @@ function EntryPage() {
             currentDate.setDate(currentDate.getDate() - 1);
         }
 
+        if(currentDate.getDate() == 31) currentDate.setDate(1);
         if(currentDate.getDate() == 1) {
             setBackgroundPreviousArrow("#585a58b0");
             setForegroundPreviousArrow("#424b35c9");
         }
 
-        const selectedYear = selectedDate.year;
-        const selectedMonth = selectedDate.month;
-        const selectedDay = currentDate.getDate();
+        const newYear = currentDate.getFullYear();
+        const newMonth = (currentDate.getMonth()) + 1;
+        const newDay = currentDate.getDate();
 
-        const currentMonth = String(selectedMonth).padStart(2, '0');
-        const previousDay = String(selectedDay).padStart(2, '0');
+        const currentMonth = String(newMonth).padStart(2, '0');
+        const nextDay = String(newDay).padStart(2, '0');
 
-        const newSelectedDate = `${selectedYear}-${currentMonth}-${previousDay}`;
-
+        const newSelectedDate = `${newYear}-${currentMonth}-${nextDay}`;
+        const selectedDateAsDateObject = new Date(newYear, currentDate.getMonth(), newDay);
+        
         findEntryByDate(newSelectedDate);
-
-        setSelectedDate(parseDate(newSelectedDate));
+        setSelectedDate(selectedDateAsDateObject);
 
         setBackgroundNextArrow("#5faf4fb0");
         setForegroundNextArrow("#424b35c9");
@@ -260,13 +288,16 @@ function EntryPage() {
 
     return (
         <div>
+            <h1 className="entryPageHeader">Diary Entries</h1>
             <div className="flexContainer">
                 <div>
-                    <Calendar
-                        aria-label="Date (Controlled)"
-                        value={selectedDate}
-                        onChange={findEntryByDate}
-                        maxValue={today(getLocalTimeZone())}
+                <DayPicker className="calendarStyle"
+                    defaultMonth={new Date()}
+                    modifiers={{ entries: allEntriesAsDate }}
+                    disabled={{after: new Date()}}
+                    modifiersClassNames={{ entries: "entries" , disabled: "nonselectabledates", selected: "selected"}}
+                    onDayClick={findEntryByDate}
+                    selected={selected}
                     />
                 </div>
                 <div className="entry">

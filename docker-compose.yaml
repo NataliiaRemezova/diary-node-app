@@ -7,7 +7,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/diary-node-app
+      - MONGO_URL=mongodb://mongo:27017/diary-node-app
     depends_on:
       - mongo
 
@@ -20,6 +20,13 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./frontend/static-node-app
+          target: ./frontend/static-node-app
+          ignore:
+            - node_modules
 
   mongo:
     image: mongo:latest
