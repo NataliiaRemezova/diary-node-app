@@ -22,7 +22,7 @@ services:
       - backend
     develop:
       watch:
-        - action: sync+restart
+        - action: sync
           path: ./frontend/static-node-app
           target: ./frontend/static-node-app
           ignore:
